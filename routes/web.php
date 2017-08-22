@@ -11,8 +11,16 @@
 |
 */
 
+use Illuminate\Support\Facades\Gate;
+
 Route::get('/', function () {
-    return view('welcome');
+
+	if( Gate::allows('access-admin') ){
+		require 'admin';
+	}else{
+		return 'cliente';
+	}
+    //return view('welcome');
 });
 
 Auth::routes();
