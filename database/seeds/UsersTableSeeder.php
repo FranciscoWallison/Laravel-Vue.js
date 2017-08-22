@@ -17,6 +17,12 @@ class UsersTableSeeder extends Seeder
         	->create([
         		'name' => 'Francisco Wallison',
         		'email' => 'admin@user.com'
-        	]);
+        ]);
+
+        factory(\CodeFin\User::class, 1)
+            ->create([
+                'name' => 'Francisco Test',
+                'email' => 'test@user.com'
+        ]);
     }
 }
