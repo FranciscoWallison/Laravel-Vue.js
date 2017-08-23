@@ -13,16 +13,24 @@
 
 use Illuminate\Support\Facades\Gate;
 
-Route::get('/', function () {
+Route::get('/test', function (){
+	Illuminate\Support\Facades\Auth::loginUsingId(2);
+});
 
-	if( Gate::allows('access-admin') ){
-		require 'admin';
-	}else{
-		return 'cliente';
-	}
-    //return view('welcome');
+Route::get('/', function () {
+    return view('welcome');
 });
 
 Auth::routes();
 
-Route::get('/home', 'HomeController@index');
+Route::get('/home', function(){
+	return back()->withInput();
+});
+
+Route::group([
+	'prefix' => 'admin', 
+	'middleware' => 'can:access-admin', 
+	'as' => 'admin.' 
+], function () {
+	Route::get('home', 'HomeController@index')->name('home');
+});
