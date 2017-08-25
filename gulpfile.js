@@ -1,4 +1,7 @@
+const gulp = require('gulp');
 const elixir = require('laravel-elixir');
+const webpack = require('webpack');
+const WebpackDevServer = require('webpack-dev-server');
 const webpackConfig = require('./webpack.config');
 const webpackDevConfig = require('./webpack.dev.config');
 
@@ -23,13 +26,29 @@ Elixir.webpack.mergeConfig(webpackDevConfig);
  |
  */
 
-// elixir((mix) => {
-//     mix.sass('./resources/assets/admin/sass/admin.scss')
-//     	.copy('./node_modules/materialize-css/fonts/roboto','./public/fonts/roboto');
-//        //.webpack('app.js');
-//     //ficar onhado os aquivos blade e publica
-//     mix.browserSync({
-//     	host: '0.0.0.0',
-//     	proxy: 'http://192.168.1.2:8000'
-//     });
-// });
+gulp.task('webpack-dev-server', () => {
+	let config = Elixir.webpack.config;
+	new WebpackDevServer(webpack(config), {
+		watchOptions: {
+			poll: true,
+			aggregateTimeout: 300
+		},
+		publicPath: config.output.publicPath,
+		notInfo: true, // não vai mostra o success
+		stats: { colors: true}
+
+	}).listen(8080, "0.0.0.0", function() {
+		console.log("Bundling project...");
+	})
+});
+
+elixir((mix) => {
+    mix.sass('./resources/assets/admin/sass/admin.scss')
+    	.copy('./node_modules/materialize-css/fonts/roboto','./public/fonts/roboto');
+       //.webpack('app.js');
+    //ficar onhado os aquivos blade e publica
+    mix.browserSync({
+    	host: '0.0.0.0',
+    	proxy: 'http://192.168.1.2:8000'
+    });
+});
