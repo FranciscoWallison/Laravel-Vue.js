@@ -22,34 +22,46 @@
 </head>
 <body>
     <div id="app">
+        <header>
+            @if (Auth::check())
 
-        @if (Auth::check())
-
-            @php
-                $menuConfig = [
-                    'name' => Auth::user()->name,
-                    'menus'=> [
-                        ['name' => 'Contas a pagar', 'url' => '/test', 'dropdownId' => 'test'],
-                        ['name' => 'Contas a receber', 'url' => '/test2'],
-                    ],
-                    'menusDropdown' => [
-                        [
-                            'id' => 'test',
-                            'items' => [
-                                ['name' => 'Listar contas', 'url' => '/listar'],
-                                ['name' => 'Criar contas', 'url' => '/criar'],
+                @php
+                    $menuConfig = [
+                        'name' => Auth::user()->name,
+                        'menus'=> [
+                            ['name' => 'Contas a pagar', 'url' => '/test', 'dropdownId' => 'test'],
+                            ['name' => 'Contas a receber', 'url' => '/test2'],
+                        ],
+                        'menusDropdown' => [
+                            [
+                                'id' => 'test',
+                                'items' => [
+                                    ['name' => 'Listar contas', 'url' => '/listar'],
+                                    ['name' => 'Criar contas', 'url' => '/criar'],
+                                ]
                             ]
-                        ]
-                    ],
-                    'urlLogout' => env('URL_ADMIN_LOGOUT'),
-                    'csrfToken' => csrf_token()
-                ]
-            @endphp
+                        ],
+                        'urlLogout' => env('URL_ADMIN_LOGOUT'),
+                        'csrfToken' => csrf_token()
+                    ]
+                @endphp
 
-            <admin-menu :config="{{ json_encode($menuConfig) }}"></admin-menu>
-        @endif
+                <admin-menu :config="{{ json_encode($menuConfig) }}"></admin-menu>
+            @endif
+        </header>
+        
+        <main>
+            @yield('content')
+        </main>
 
-        @yield('content')
+        <footer class="page-footer">
+            <div class="footer-copyright">
+                <div class="container">
+                    {{ date('Y') }} - <a class="grey-text text-lighten-4" href="wallison">Francisco Wallison</a>
+                </div>
+            </div>
+        </footer>
+       
     </div>
 
     <!-- Scripts -->
