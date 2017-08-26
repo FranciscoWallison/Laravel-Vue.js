@@ -22,24 +22,33 @@
 </head>
 <body>
     <div id="app">
-    <example></example>    
+
+        @if (Auth::check())
+
+            @php
+                $menuConfig = [
+                    'name' => Auth::user()->name,
+                    'menus'=> [
+                        ['name' => 'Contas a pagar', 'url' => '/test', 'dropdownId' => 'test'],
+                        ['name' => 'Contas a receber', 'url' => '/test2'],
+                    ],
+                    'menusDropdown' => [
+                        [
+                            'id' => 'test',
+                            'items' => [
+                                ['name' => 'Listar contas', 'url' => '/listar'],
+                                ['name' => 'Criar contas', 'url' => '/criar'],
+                            ]
+                        ]
+                    ]
+                ]
+            @endphp
+
+            <admin-menu :config="{{ json_encode($menuConfig) }}"></admin-menu>
+        @endif
+
         <nav class="navbar navbar-default navbar-static-top">
             <div class="container">
-                <div class="navbar-header">
-
-                    <!-- Collapsed Hamburger -->
-                    <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#app-navbar-collapse">
-                        <span class="sr-only">Toggle Navigation</span>
-                        <span class="icon-bar"></span>
-                        <span class="icon-bar"></span>
-                        <span class="icon-bar"></span>
-                    </button>
-
-                    <!-- Branding Image -->
-                    <a class="navbar-brand" href="{{ url('/') }}">
-                        {{ config('app.name', 'Laravel') }}
-                    </a>
-                </div>
 
                 <div class="collapse navbar-collapse" id="app-navbar-collapse">
                     <!-- Left Side Of Navbar -->
