@@ -14,7 +14,9 @@
 use Illuminate\Support\Facades\Gate;
 
 Route::get('/test', function (){
-	Illuminate\Support\Facades\Auth::loginUsingId(2);
+	//Illuminate\Support\Facades\Auth::loginUsingId(1);
+
+	dd('test');
 });
 
 Route::get('/', function () {
