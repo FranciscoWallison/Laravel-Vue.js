@@ -32,7 +32,7 @@ Elixir.webpack.mergeConfig(webpackDevConfig);
 gulp.task('webpack-dev-server', () => {
 
 	let config = mergeWebpack(webpackConfig, webpackDevConfig);
-console.log(config);
+//console.log(config);
 	let inlineHot = [
         'webpack/hot/dev-server',
         `webpack-dev-server/client?http://${HOST}:8080`
