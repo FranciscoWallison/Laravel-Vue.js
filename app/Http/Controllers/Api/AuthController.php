@@ -6,6 +6,7 @@ use CodeFin\Http\Controllers\Controller;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Lang;
 
 class AuthController extends Controller
 {
@@ -23,6 +24,15 @@ class AuthController extends Controller
     {
     	$this->validateLogin($request);
 
+    	// If the class is using the ThrottlesLogins trait, we can automatically throttle
+        // the login attempts for this application. We'll key this by the username and
+        // the IP address of the client making these requests into this application.
+        if ($this->hasTooManyLoginAttempts($request)) {
+            $this->fireLockoutEvent($request);
+
+            return $this->sendLockoutResponse($request);
+        }
+
     	$credentials = $this->credentials($request);
 
     	if($token = Auth::guard('api')->attempt($credentials))
@@ -31,16 +41,45 @@ class AuthController extends Controller
     		return $this->sendLoginResponse($request, $token);
 
     	}
+
+    	//Quando acabar as tentativas
+    	$this->incrementLoginAttempts($request);
+
+    	return $this->sendFailedLoginResponse($request);
     }
 
 
     protected function sendLoginResponse(Request $request, $token)
     {
+    	//limpar a sessão
+    	$this->clearLoginAttempts($request);
+
     	return response()->json([
     		'token' => $token
     	]);
     }
 
+    protected function sendLockoutResponse(Request $request)
+    {
+        $seconds = $this->limiter()->availableIn(
+            $this->throttleKey($request)
+        );
+
+        $message = Lang::get('auth.throttle', ['seconds' => $seconds]);
+
+        return response()->json([
+        		'message' => $message
+        	], 403);
+    }
+
+    protected function sendFailedLoginResponse(Request $request)
+    {
+    	$message = Lang::get('auth.failed');
+
+        return response()->json([
+        		'message' => $message
+        	], 401);
+    }
 
     /**
      * Overwrite Illuminate\Foundation\Auth\AuthenticatesUsers
