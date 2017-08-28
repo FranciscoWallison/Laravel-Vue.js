@@ -18,6 +18,4 @@ Route::get('/user', function (Request $request) {
 })->middleware('auth:api');
 
 
-Route::get('/hello-world', function(){
-	return 'Hello Word';
-});
+Route::post('/access_token', 'Api\AuthController@accessToken');

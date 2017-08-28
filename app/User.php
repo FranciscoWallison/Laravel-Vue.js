@@ -38,8 +38,7 @@ class User extends Authenticatable implements JWTSubject
     public function getJWTIdentifier()
     {
         return $this->id;
-
-    };
+    }
 
     /**
      * Return a key value array, containing any custom claims to be added to the JWT.
@@ -55,5 +54,5 @@ class User extends Authenticatable implements JWTSubject
                 'email' => $this->email 
             ]
         ];
-    };
+    }
 }

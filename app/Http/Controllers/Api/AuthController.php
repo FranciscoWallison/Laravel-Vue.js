@@ -5,6 +5,7 @@ namespace CodeFin\Http\Controllers\Api;
 use CodeFin\Http\Controllers\Controller;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class AuthController extends Controller
 {
@@ -20,7 +21,7 @@ class AuthController extends Controller
 
     public function accessToken(Request $request)
     {
-    	$this->validateLogi($request);
+    	$this->validateLogin($request);
 
     	$credentials = $this->credentials($request);
 
@@ -35,7 +36,9 @@ class AuthController extends Controller
 
     protected function sendLoginResponse(Request $request, $token)
     {
-    	
+    	return response()->json([
+    		'token' => $token
+    	]);
     }
 
 
