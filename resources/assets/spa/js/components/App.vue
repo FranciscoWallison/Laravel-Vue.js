@@ -5,7 +5,7 @@
         </header>
         
         <main>
-           
+           <router-view></router-view>  
         </main>
 
         <footer class="page-footer">
