@@ -27,6 +27,11 @@ Route::get('/home', function(){
 	return redirect()->action('HomeController@index');
 });
 
+
+Route::get('/app', function () {
+    return view('layouts.spa');
+});
+
 Route::group([
 	'prefix' => 'admin',
 	'as' => 'admin.'
