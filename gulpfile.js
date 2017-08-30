@@ -6,6 +6,14 @@ const webpackConfig = require('./webpack.config');
 const webpackDevConfig = require('./webpack.dev.config');
 const HOST = "localhost"; // contant alterar host de forma global,
 const mergeWebpack = require('webpack-merge');
+const env = require('gulp-env');
+
+env({
+	file: '.env',
+	type: 'ini'
+});
+
+console.log(process.env.API_URL );
 
 
 /*
