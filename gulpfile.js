@@ -80,8 +80,9 @@ elixir((mix) => {
     	.sass('./resources/assets/spa/sass/spa.scss')
     	.copy('./node_modules/materialize-css/fonts/roboto','./public/fonts/roboto');
        //.webpack('app.js');
+
     //ficar onhado os aquivos blade e publica
-    gulp.start('webpack-dev-server');
+    gulp.start('spa-config','webpack-dev-server');
 
     mix.browserSync({
     	host: HOST,
