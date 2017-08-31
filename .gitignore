@@ -7,3 +7,4 @@ Homestead.json
 Homestead.yaml
 .env
 resources/assets/spa/js/config.js
+/resources/assets/spa/js/config.js

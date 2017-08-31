@@ -20,8 +20,7 @@ export default {
 	},
 	logout(){
 		let afterLogout = () => {
-			LocalStorage.remove(TOKEN);
-			LocalStorage.remove(USER);
+			this.clearAuth();
 		}
 
 		return Jwt.logout()
@@ -42,5 +41,9 @@ export default {
 	},
 	check(){
 		return LocalStorage.get(TOKEN) ? true : false;
+	},
+	clearAuth(){
+		LocalStorage.remove(TOKEN);
+		LocalStorage.remove(USER);
 	}
 }
