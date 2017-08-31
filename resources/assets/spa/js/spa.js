@@ -10,7 +10,7 @@ Vue.http.options.root = appConfig.api_url;
 
 require('./services/interceptors');
 require('./router');
-
+console.log( appConfig.login_url );
 
 /*
 	LocalStorage.set('name', 'Francisco Wallison');
