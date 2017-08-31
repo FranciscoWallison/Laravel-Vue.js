@@ -5,10 +5,11 @@
 
 import Auth from './auth';
 import appConfig from './appConfig';
+import JwtToken from './jwt-token';
 
 
 Vue.http.interceptors.push((request, next) =>{
-	request.headers.set('Authorization', Auth.getAuthorizationHeader())
+	request.headers.set('Authorization', JwtToken.getAuthorizationHeader())
 	next();
 });
 
@@ -16,7 +17,7 @@ Vue.http.interceptors.push((request, next) =>{
 Vue.http.interceptors.push((request, next) => {
 	next((request) => {
 		if(request.status === 401){ // token expirado
-			return Auth.refreshToken()
+			return JwtToken.refreshToken()
 			.then(() => {
 				return Vue.http(request);
 			})
