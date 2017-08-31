@@ -15,10 +15,10 @@
 </template>
 
 <script>
-    import {User} from '../services/resources'
+    import Auth from '../services/auth'
     export default {
         ready(){
-            User.get();
+            console.log( Auth.user() );
         }
     }
 </script>
