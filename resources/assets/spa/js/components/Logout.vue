@@ -24,7 +24,7 @@
         },
 		methods: {
 			logout(){
-                let goToLogin = () => this.$router.go({name: 'authe.login'});
+                let goToLogin = () => this.$router.go({name: 'auth.login'});
                 Auth.logout()
                     .then( goToLogin() )
 				    .catch( goToLogin() );
