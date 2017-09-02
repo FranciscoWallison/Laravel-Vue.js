@@ -5,6 +5,7 @@ namespace CodeFin\Http\Controllers\Auth;
 use CodeFin\Http\Controllers\Controller;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
 use Illuminate\Http\Request;
+use CodeFin\Models\User;
 
 class LoginController extends Controller
 {
@@ -48,7 +49,7 @@ class LoginController extends Controller
     protected function credentials(Request $request)
     {
        $data = $request->only($this->username() , 'password');
-       $data['role'] = \CodeFin\User::ROLE_ADMIN;
+       $data['role'] = User::ROLE_ADMIN;
        return $data;
     }
 

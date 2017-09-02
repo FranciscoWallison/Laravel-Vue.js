@@ -168,7 +168,8 @@ return [
          */
         Tymon\JWTAuth\Providers\LaravelServiceProvider::class,
         Barryvdh\Cors\ServiceProvider::class,
-
+        Prettus\Repository\Providers\RepositoryServiceProvider::class,
+        Collective\Html\HtmlServiceProvider::class,
 
         //
 
@@ -180,6 +181,7 @@ return [
         // CodeFin\Providers\BroadcastServiceProvider::class,
         CodeFin\Providers\EventServiceProvider::class,
         CodeFin\Providers\RouteServiceProvider::class,
+        CodeFin\Providers\RepositoryServiceProvider::class,
 
     ],
 
@@ -228,6 +230,9 @@ return [
         'URL' => Illuminate\Support\Facades\URL::class,
         'Validator' => Illuminate\Support\Facades\Validator::class,
         'View' => Illuminate\Support\Facades\View::class,
+        //Custons
+        'Form' => Collective\Html\FormFacade::class,
+        'Html' => Collective\Html\HtmlFacade::class,
 
     ],
 
