@@ -34,17 +34,16 @@ class BanksController extends Controller
      */
     public function index()
     {
-        $this->repository->pushCriteria(app('Prettus\Repository\Criteria\RequestCriteria'));
-        $banks = $this->repository->all();
+        $banks = $this->repository->paginate();
 
-        if (request()->wantsJson()) {
+        // if (request()->wantsJson()) {
 
-            return response()->json([
-                'data' => $banks,
-            ]);
-        }
+        //     return response()->json([
+        //         'data' => $banks,
+        //     ]);
+        // }
 
-        return view('banks.index', compact('banks'));
+        return view('admin.banks.index', compact('banks'));
     }
 
     public function create($value='')
