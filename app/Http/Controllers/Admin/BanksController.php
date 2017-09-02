@@ -46,9 +46,9 @@ class BanksController extends Controller
         return view('admin.banks.index', compact('banks'));
     }
 
-    public function create($value='')
+    public function create()
     {
-        # code...
+        return view('admin.banks.create');
     }
 
     /**
