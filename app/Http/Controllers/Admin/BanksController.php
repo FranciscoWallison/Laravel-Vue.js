@@ -60,34 +60,24 @@ class BanksController extends Controller
      */
     public function store(BankCreateRequest $request)
     {
+        $data           = $request->all();
+        $data['logo']   = md5(time()).'.jpeg';
 
-        try {
+        $bank = $this->repository->create($data);
 
-            $this->validator->with($request->all())->passesOrFail(ValidatorInterface::RULE_CREATE);
+        // if ($request->wantsJson())
+        // {
 
-            $bank = $this->repository->create($request->all());
+        //     $response = [
+        //         'message' => 'Bank created.',
+        //         'data'    => $bank->toArray(),
+        //     ];
 
-            $response = [
-                'message' => 'Bank created.',
-                'data'    => $bank->toArray(),
-            ];
+        //     return response()->json($response);
+        // }
 
-            if ($request->wantsJson()) {
+        return redirect()->route('admin.banks.index');
 
-                return response()->json($response);
-            }
-
-            return redirect()->back()->with('message', $response['message']);
-        } catch (ValidatorException $e) {
-            if ($request->wantsJson()) {
-                return response()->json([
-                    'error'   => true,
-                    'message' => $e->getMessageBag()
-                ]);
-            }
-
-            return redirect()->back()->withErrors($e->getMessageBag())->withInput();
-        }
     }
 
 
