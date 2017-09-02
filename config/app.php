@@ -181,6 +181,7 @@ return [
         // CodeFin\Providers\BroadcastServiceProvider::class,
         CodeFin\Providers\EventServiceProvider::class,
         CodeFin\Providers\RouteServiceProvider::class,
+        CodeFin\Providers\RepositoryServiceProvider::class,
 
     ],
 
