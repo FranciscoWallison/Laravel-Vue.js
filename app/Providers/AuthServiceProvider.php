@@ -4,6 +4,7 @@ namespace CodeFin\Providers;
 
 use Illuminate\Support\Facades\Gate;
 use Illuminate\Foundation\Support\Providers\AuthServiceProvider as ServiceProvider;
+use CodeFin\Models\User;
 
 class AuthServiceProvider extends ServiceProvider
 {
@@ -27,7 +28,7 @@ class AuthServiceProvider extends ServiceProvider
 
         //
         Gate::define('access-admin', function( $user ){
-            return $user->role ==  \CodeFin\User::ROLE_ADMIN;
+            return $user->role ==  User::ROLE_ADMIN;
         });
     }
 }

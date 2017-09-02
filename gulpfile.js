@@ -4,11 +4,12 @@ const webpack = require('webpack');
 const WebpackDevServer = require('webpack-dev-server');
 const webpackConfig = require('./webpack.config');
 const webpackDevConfig = require('./webpack.dev.config');
-const HOST = "localhost"; // contant alterar host de forma global,
 const mergeWebpack = require('webpack-merge');
 const env = require('gulp-env');
 const stringifyObject = require('stringify-object');
 const file = require('gulp-file');
+
+const HOST = "localhost"; // contant alterar host de forma global
 
 
 /*
