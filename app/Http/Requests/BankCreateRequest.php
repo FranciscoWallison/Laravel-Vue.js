@@ -25,8 +25,7 @@ class BankCreateRequest extends FormRequest
     {
         return [
             //
-            'name' => 'required',
-            'logo' => 'required'
+            'name' => 'required|max:255',
         ];
     }
 }
