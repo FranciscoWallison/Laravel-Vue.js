@@ -23,9 +23,9 @@
 	                    </td>
 	                    <td>
 	                        <div class="row valign-wrapper">
-	                            {{-- <div class="col s2">
-	                                <img src="{{asset("storage/banks/images/{$bank->logo}")}}" class="bank-logo"/>
-	                            </div> --}}
+	                            <div class="col s2">
+	                                <img src="{{asset("storage/banks/imagens/{$bank->logo}")}}" class="bank-logo"/>
+	                            </div>
 	                            <div class="col s10">
 	                                <span class="left">{{$bank->name}}</span>
 	                            </div>
