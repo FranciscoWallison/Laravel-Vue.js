@@ -46,10 +46,6 @@ class BanksController extends Controller
         //     ]);
         // }
 
-        $bank = new Bank();
-        $bank->name = 'Itau';
-        
-        event(new BankCreatedEvent($bank));
 
         return view('admin.banks.index', compact('banks'));
     }
@@ -68,9 +64,7 @@ class BanksController extends Controller
      */
     public function store(BankCreateRequest $request)
     {
-        $data           = $request->all();
-        $data['logo']   = md5(time()).'.jpeg';
-
+        $data = $request->all();      
         $bank = $this->repository->create($data);
 
         // if ($request->wantsJson())
