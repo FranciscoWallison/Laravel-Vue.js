@@ -11,6 +11,9 @@ use Prettus\Validator\Exceptions\ValidatorException;
 use CodeFin\Http\Requests\BankCreateRequest;
 use CodeFin\Http\Requests\BankUpdateRequest;
 use CodeFin\Repositories\BankRepository;
+use CodeFin\Events\BankCreatedEvent;
+use CodeFin\Models\Bank;
+
 
 
 class BanksController extends Controller
@@ -42,6 +45,11 @@ class BanksController extends Controller
         //         'data' => $banks,
         //     ]);
         // }
+
+        $bank = new Bank();
+        $bank->name = 'Itau';
+        
+        event(new BankCreatedEvent($bank));
 
         return view('admin.banks.index', compact('banks'));
     }
