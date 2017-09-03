@@ -25,6 +25,8 @@ class BankUpdateRequest extends FormRequest
     {
         return [
             //
+            'name' => 'required|max:255',
+            'logo' => 'image'
         ];
     }
 }

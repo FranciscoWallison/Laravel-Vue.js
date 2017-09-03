@@ -30,20 +30,26 @@ class BankLogoUploadListener
     public function handle(BankStoredEvent $event)
     {
         //upload do logo
-        $bank = $event->getBank();
+        $bank = $event->getBank(); 
         $logo = $event->getLogo();
 
+            if($logo)
+            { 
+               $name = $bank->created_at != $bank->updated_at ? $bank->logo : md5(time()).'.'.$logo->guessExtension();
+   
+               $destFile = Bank::logosDir();
+   
+               \Storage::disk('public')->putFileAs($destFile, $logo, $name);
+                
+               if ( $bank->created_at == $bank->updated_at)
+               {
+                   $this->repository->update([
+                           'logo' => $name], 
+                           $bank->id
+                           );                  
+               }
 
-        $name = md5(time()).'.'.$logo->guessExtension();
-
-        $destFile = Bank::logosDir();
-
-        \Storage::disk('public')->putFileAs($destFile, $logo, $name);
-
-        $this->repository->update([
-                'logo' => $name], 
-                $bank->id
-                );
+            }
 
     }
 }

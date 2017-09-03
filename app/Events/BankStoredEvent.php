@@ -18,7 +18,7 @@ class BankStoredEvent
      *
      * @return void
      */
-    public function __construct(Bank $bank, UploadedFile $logo)
+    public function __construct(Bank $bank, UploadedFile $logo = null)
     {
         //
         $this->bank = $bank;
