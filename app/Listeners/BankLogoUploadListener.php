@@ -2,11 +2,11 @@
 
 namespace CodeFin\Listeners;
 
-use CodeFin\Events\BankCreatedEvent;
+use CodeFin\Events\BankStoredEvent;
 use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Contracts\Queue\ShouldQueue;
 
-class BankLogoUpaloadListener
+class BankLogoUploadListener
 {
     /**
      * Create the event listener.
@@ -21,12 +21,12 @@ class BankLogoUpaloadListener
     /**
      * Handle the event.
      *
-     * @param  BankCreatedEvent  $event
+     * @param  BankStoredEvent  $event
      * @return void
      */
-    public function handle(BankCreatedEvent $event)
+    public function handle(BankStoredEvent $event)
     {
-        //
-        echo "Listener executado";
+        //upload do logo
+
     }
 }
