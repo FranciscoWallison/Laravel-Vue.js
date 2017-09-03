@@ -16,7 +16,7 @@
         <nav>
             <div class="nav-wrapper">
                 <div class="col s12">
-                    <a href="#" class="left brand-logo">Code Fin. Admin</a>
+                    <a href="/home" class="left brand-logo">Code Fin. Admin</a>
                     <a href="#" data-activates="nav-mobile" class="button-collapse">
                         <i class="material-icons">menu</i>
                     </a>
@@ -70,6 +70,7 @@
             // função para definir a class do menu se esta ativa ou não
             menuItemClass(menu){
                 let menuClass = ['active'];
+//console.log(menu.active, menu.name, menu.url , menu.dropdownId !== undefined ? 'sim' : 'não');
                 if(menu.active){
                     return menuClass;
                 }
@@ -81,13 +82,13 @@
                         return element.id == menu.dropdownId;
                     });
                 
-                if(dropdown){
-                    for(let o of dropdown.items){
-                        if(o.active){
-                            return menuClass;
+                    if(dropdown){
+                        for(let o of dropdown.items){
+                            if(o.active){
+                                return menuClass;
+                            }
                         }
                     }
-                }
 
                 }
             }
