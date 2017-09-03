@@ -31,7 +31,7 @@ class BankRepositoryEloquent extends BaseRepository implements BankRepository
 
         $logo = null;
 
-        if(isset( $attributes['logo'] ))
+        if(isset( $attributes['logo'] ) && $attributes['logo'] instanceof UploadeFile )
         {
             $logo =  $attributes['logo'];
             unset($attributes['logo']);
@@ -39,6 +39,7 @@ class BankRepositoryEloquent extends BaseRepository implements BankRepository
        
 
         $model = parent::update($attributes, $id);
+
         $event = new BankStoredEvent($model, $logo);
         event($event);
 

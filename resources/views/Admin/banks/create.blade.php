@@ -7,7 +7,7 @@
     	<div class="col s12 responsive-table z-depth-5">
     		<div class="container">
 		    	<h4 class="center">Novo Banco</h4>
-		        {!! Form::open(['route' => 'admin.banks.store', 'files' => true ] ) !!}
+		        {!! Form::open(['route' => 'admin.banks.store', 'method'=> 'POST', 'files' => true ] ) !!}
 
 					<div class="row">
        					<div class="input-field">
