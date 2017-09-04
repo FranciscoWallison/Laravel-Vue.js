@@ -8,6 +8,7 @@ use Prettus\Repository\Criteria\RequestCriteria;
 use CodeFin\Repositories\BankRepository;
 use CodeFin\Models\Bank;
 use CodeFin\Validators\BankValidator;
+use Illuminate\Http\UploadedFile;
 
 /**
  * Class BankRepositoryEloquent
@@ -17,8 +18,8 @@ class BankRepositoryEloquent extends BaseRepository implements BankRepository
 {
     public function create(array $attributes)
     {
-        $logo = $attributes['logo'];
-        $attributes['logo'] = "semImagem.jpeg";
+        $logo = isset( $attributes['logo'] ) ? $attributes['logo'] : null;
+        $attributes['logo'] = env('BANK_LOGO_DEFAULT');
         $model = parent::create($attributes);
         $event = new BankStoredEvent($model, $logo);
         event($event);
@@ -31,12 +32,11 @@ class BankRepositoryEloquent extends BaseRepository implements BankRepository
 
         $logo = null;
 
-        if(isset( $attributes['logo'] ) && $attributes['logo'] instanceof UploadeFile )
+        if(isset( $attributes['logo'] ) && $attributes['logo'] instanceof UploadedFile )
         {
             $logo =  $attributes['logo'];
             unset($attributes['logo']);
         }
-       
 
         $model = parent::update($attributes, $id);
 
