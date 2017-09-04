@@ -23,9 +23,9 @@
 	                    </td>
 	                    <td>
 	                        <div class="row valign-wrapper">
-	                            {{-- <div class="col s2">
-	                                <img src="{{asset("storage/banks/images/{$bank->logo}")}}" class="bank-logo"/>
-	                            </div> --}}
+	                            <div class="col s2">
+	                                <img src="{{asset("storage/banks/imagens/{$bank->logo}")}}" class="bank-logo"/>
+	                            </div>
 	                            <div class="col s10">
 	                                <span class="left">{{$bank->name}}</span>
 	                            </div>
@@ -38,8 +38,10 @@
 	                                <a href="{{route('admin.banks.edit', ['bank' => $bank->id])}}">Editar</a> |
 	                                <delete-action action="{{route('admin.banks.destroy', ['bank' => $bank->id])}}"
 	                                               action-element="link-delete-{{$bank->id}}" csrf-token="{{csrf_token()}}">
-	                                                   <?php $modalId = "modal-delete-$bank->id"; ?>
-	                                    <a id="link-modal-{{$bank->id}}" href="#{{ $modalId }}">Apagar</a>
+	                                                @php 
+	                                                   	$modalId = "modal-delete-$bank->id"; 
+	                                                @endphp
+	                                    <a id="link-modal-{{$bank->id}}" href="#{{ $modalId }}">Excluir</a>
 	                                    <modal :modal="{{json_encode(['id' => $modalId ])}}" style="display:none;" >
 	                                        <div slot="content">
 	                                            <h4>ATENÇÃO</h4>

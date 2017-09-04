@@ -11,6 +11,9 @@ use Prettus\Validator\Exceptions\ValidatorException;
 use CodeFin\Http\Requests\BankCreateRequest;
 use CodeFin\Http\Requests\BankUpdateRequest;
 use CodeFin\Repositories\BankRepository;
+use CodeFin\Events\BankCreatedEvent;
+use CodeFin\Models\Bank;
+
 
 
 class BanksController extends Controller
@@ -43,6 +46,7 @@ class BanksController extends Controller
         //     ]);
         // }
 
+
         return view('admin.banks.index', compact('banks'));
     }
 
@@ -60,9 +64,7 @@ class BanksController extends Controller
      */
     public function store(BankCreateRequest $request)
     {
-        $data           = $request->all();
-        $data['logo']   = md5(time()).'.jpeg';
-
+        $data = $request->all();      
         $bank = $this->repository->create($data);
 
         // if ($request->wantsJson())
