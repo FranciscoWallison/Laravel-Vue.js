@@ -4,6 +4,7 @@ namespace CodeFin\Http\Controllers\Api;
 
 use Illuminate\Http\Request;
 
+use CodeFin\Http\Controllers\Controller;
 use CodeFin\Http\Requests;
 use Prettus\Validator\Contracts\ValidatorInterface;
 use Prettus\Validator\Exceptions\ValidatorException;
@@ -23,7 +24,6 @@ class BankAccountsController extends Controller
     public function __construct(BankAccountRepository $repository)
     {
         $this->repository = $repository;
-        $this->validator  = $validator;
     }
 
 
@@ -34,17 +34,9 @@ class BankAccountsController extends Controller
      */
     public function index()
     {
-        $this->repository->pushCriteria(app('Prettus\Repository\Criteria\RequestCriteria'));
         $bankAccounts = $this->repository->all();
 
-        if (request()->wantsJson()) {
-
-            return response()->json([
-                'data' => $bankAccounts,
-            ]);
-        }
-
-        return view('bankAccounts.index', compact('bankAccounts'));
+        return  $bankAccounts;
     }
 
     /**
@@ -56,34 +48,9 @@ class BankAccountsController extends Controller
      */
     public function store(BankAccountCreateRequest $request)
     {
+        $bankAccount = $this->repository->create($request->all());
 
-        try {
-
-            $this->validator->with($request->all())->passesOrFail(ValidatorInterface::RULE_CREATE);
-
-            $bankAccount = $this->repository->create($request->all());
-
-            $response = [
-                'message' => 'BankAccount created.',
-                'data'    => $bankAccount->toArray(),
-            ];
-
-            if ($request->wantsJson()) {
-
-                return response()->json($response);
-            }
-
-            return redirect()->back()->with('message', $response['message']);
-        } catch (ValidatorException $e) {
-            if ($request->wantsJson()) {
-                return response()->json([
-                    'error'   => true,
-                    'message' => $e->getMessageBag()
-                ]);
-            }
-
-            return redirect()->back()->withErrors($e->getMessageBag())->withInput();
-        }
+        return response()->json($bankAccount->toArray(), 201);
     }
 
 
@@ -98,14 +65,9 @@ class BankAccountsController extends Controller
     {
         $bankAccount = $this->repository->find($id);
 
-        if (request()->wantsJson()) {
 
-            return response()->json([
-                'data' => $bankAccount,
-            ]);
-        }
+        return response()->json($bankAccount->toArray());
 
-        return view('bankAccounts.show', compact('bankAccount'));
     }
 
 
@@ -135,36 +97,9 @@ class BankAccountsController extends Controller
      */
     public function update(BankAccountUpdateRequest $request, $id)
     {
+        $bankAccount = $this->repository->update($request->all(), $id);
 
-        try {
-
-            $this->validator->with($request->all())->passesOrFail(ValidatorInterface::RULE_UPDATE);
-
-            $bankAccount = $this->repository->update($request->all(), $id);
-
-            $response = [
-                'message' => 'BankAccount updated.',
-                'data'    => $bankAccount->toArray(),
-            ];
-
-            if ($request->wantsJson()) {
-
-                return response()->json($response);
-            }
-
-            return redirect()->back()->with('message', $response['message']);
-        } catch (ValidatorException $e) {
-
-            if ($request->wantsJson()) {
-
-                return response()->json([
-                    'error'   => true,
-                    'message' => $e->getMessageBag()
-                ]);
-            }
-
-            return redirect()->back()->withErrors($e->getMessageBag())->withInput();
-        }
+        return response()->json($bankAccount->toArray());
     }
 
 
@@ -179,14 +114,6 @@ class BankAccountsController extends Controller
     {
         $deleted = $this->repository->delete($id);
 
-        if (request()->wantsJson()) {
-
-            return response()->json([
-                'message' => 'BankAccount deleted.',
-                'deleted' => $deleted,
-            ]);
-        }
-
-        return redirect()->back()->with('message', 'BankAccount deleted.');
+        return response()->json([],204);
     }
 }
