@@ -65,7 +65,6 @@ class BankAccountsController extends Controller
     {
         $bankAccount = $this->repository->find($id);
 
-
         return response()->json($bankAccount->toArray());
 
     }
