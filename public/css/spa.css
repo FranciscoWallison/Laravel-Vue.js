@@ -10656,4 +10656,21 @@ body {
   background-color: #E8F5E9;
 }
 
+.preloader-background {
+  display: -webkit-box;
+  display: flex;
+  -webkit-box-align: center;
+  align-items: center;
+  -webkit-box-pack: center;
+  justify-content: center;
+  background-color: #eee;
+  position: fixed;
+  z-index: 1004;
+  opacity: 0.5;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+}
+
 /*# sourceMappingURL=spa.css.map */

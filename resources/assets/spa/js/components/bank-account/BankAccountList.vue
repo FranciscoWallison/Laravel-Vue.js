@@ -31,11 +31,11 @@
     			</table>
             </div>
 
-			<!-- <div class="fixed-action-btn">
-                <a class="btn-floating btn-large" v-link="{name: 'bank-account.create'}">
+			<div class="fixed-action-btn">
+                <a class="btn-floating btn-large" >
                     <i class="large material-icons">add</i>
                 </a>
-            </div> -->
+            </div>
 
 		</div>
 	</div>
