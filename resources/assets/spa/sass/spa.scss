@@ -11,3 +11,7 @@
 // Materialize CSS
 @import "node_modules/materialize-css/sass/materialize";
 
+body{
+	background-color: color('green', 'lighten-5');
+}
+

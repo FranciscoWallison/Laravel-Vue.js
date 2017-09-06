@@ -6,28 +6,30 @@
 					<h5>Minhas contas bancárias</h5>
 				</span>
 			</div>
-			<table class="bordered striped highlight responsive-table">
-				<thead>
-					<tr>
-						<th>#</th>
-						<th>Agencia</th>
-						<th>C/C</th>
-						<th>Ações</th>
-					</tr>
-				</thead>
-				<tbody>
-					<tr v-for="(index,o) in bankAccounts">
-                        <td>&nbsp;{{ o.id }}</td>
-                        <td>{{ o.name }}</td>
-                        <td>{{ o.agency }}</td>
-                        <td>{{ o.account }}</td>
-                        <td>
-                            <a v-link="{ name: 'bank-account.update', params: {id: o.id} }">Editar</a>
-                            <a href="#" @click.prevent="openModalDelete(o)">Apagar</a>
-                        </td>
-                    </tr>
-				</tbody>			 	
-			</table>
+            <div class="card-panel z-depth-5">                
+    			<table class="bordered striped highlight responsive-table">
+    				<thead>
+    					<tr>
+    						<th>#</th>
+    						<th>Agencia</th>
+    						<th>C/C</th>
+    						<th>Ações</th>
+    					</tr>
+    				</thead>
+    				<tbody>
+    					<tr v-for="(index,o) in bankAccounts">
+                            <td>&nbsp;{{ o.id }}</td>
+                            <td>{{ o.name }}</td>
+                            <td>{{ o.agency }}</td>
+                            <td>{{ o.account }}</td>
+                            <td>
+                                <a v-link="{ name: 'bank-account.update', params: {id: o.id} }">Editar</a>
+                                <a href="#" @click.prevent="openModalDelete(o)">Apagar</a>
+                            </td>
+                        </tr>
+    				</tbody>			 	
+    			</table>
+            </div>
 
 			<!-- <div class="fixed-action-btn">
                 <a class="btn-floating btn-large" v-link="{name: 'bank-account.create'}">
