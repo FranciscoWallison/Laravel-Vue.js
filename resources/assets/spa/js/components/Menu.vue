@@ -47,7 +47,13 @@
     export default {
         data(){
             return {
-                menus:[],
+                menus:[
+                    {
+                        name: 'Conta bancária', 
+                        routeName: 'bank-account.list',
+                        url: 'bank-account.list'
+                    },
+                ],
                 menusDropdown:[],
                 user: Auth.user,
             }
