@@ -129,7 +129,9 @@
             },
             getBankAccounts(availableIncludes){
                 BankAccount.query({
-                    page: this.pagination.current_page + 1 
+                    page: this.pagination.current_page + 1,
+                    orderBy: this.order.key,
+                    sortedBy: this.order.sort 
                 }).then((response) => {
                     this.bankAccounts = response.data.data;  //data.data por causa do fractal
                     let pagination = response.data.meta.pagination;
@@ -144,6 +146,7 @@
             sortBy(key){
                 this.order.key = key;
                 this.order.sort = this.order.sort == 'desc' ? 'asc' : 'desc';
+                this.getBankAccounts();
             }
         },
         events: {
