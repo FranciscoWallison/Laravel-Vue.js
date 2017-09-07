@@ -130,7 +130,10 @@
         	destroy(){
                 BankAccount.delete({id: this.bankAccountToDelete.id}).then((response) => {
                     this.bankAccounts.$remove(this.bankAccountToDelete);
-                    this.bankAccountToDelete = null;                   
+                    this.bankAccountToDelete = null;
+                    if(this.bankAccounts.length === 0 && this.pagination.current_page > 0){ // maior que 1
+                        this.pagination.current_page--;
+                    } 
                     Materialize.toast('Conta bancária excluida com sucesso!', 4000);
                 });
             },
