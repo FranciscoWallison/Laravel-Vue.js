@@ -9,7 +9,7 @@ const env = require('gulp-env');
 const stringifyObject = require('stringify-object');
 const file = require('gulp-file');
 
-const HOST = "localhost"; // contant alterar host de forma global
+const HOST = "localhost"; // constante alterar host de forma global
 
 
 /*

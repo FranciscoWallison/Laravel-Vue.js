@@ -1,5 +1,49 @@
 <template>
-   <div id="app">
+    <div id="app">
+        <div class="preloader-background" v-if="loading" >
+            <div class="preloader-wrapper small active">
+              <div class="spinner-layer spinner-blue">
+                <div class="circle-clipper left">
+                  <div class="circle"></div>
+                </div><div class="gap-patch">
+                  <div class="circle"></div>
+                </div><div class="circle-clipper right">
+                  <div class="circle"></div>
+                </div>
+              </div>
+
+              <div class="spinner-layer spinner-red">
+                <div class="circle-clipper left">
+                  <div class="circle"></div>
+                </div><div class="gap-patch">
+                  <div class="circle"></div>
+                </div><div class="circle-clipper right">
+                  <div class="circle"></div>
+                </div>
+              </div>
+
+              <div class="spinner-layer spinner-yellow">
+                <div class="circle-clipper left">
+                  <div class="circle"></div>
+                </div><div class="gap-patch">
+                  <div class="circle"></div>
+                </div><div class="circle-clipper right">
+                  <div class="circle"></div>
+                </div>
+              </div>
+
+              <div class="spinner-layer spinner-green">
+                <div class="circle-clipper left">
+                  <div class="circle"></div>
+                </div><div class="gap-patch">
+                  <div class="circle"></div>
+                </div><div class="circle-clipper right">
+                  <div class="circle"></div>
+                </div>
+              </div>
+            </div>
+         </div>
+
         <header v-if="showMenu">
             <menu></menu>
         </header>
@@ -28,10 +72,19 @@ import Auth from '../services/auth';
         components: {
             'menu': MenuComponent
         },
+        created(){
+            window.Vue.http.interceptors.unshift((request, next) => {
+                this.loading = true;// se houver um requesição torna o loading true
+                next(() => {                    
+                    this.loading = false
+                }); // depois de haver uam requesição seta o loadin a false
+            });
+        },
         data(){
             return {
                 year: new Date().getFullYear(),
-                user: Auth.user
+                user: Auth.user,
+                loading: true
             }
        },
         computed: {

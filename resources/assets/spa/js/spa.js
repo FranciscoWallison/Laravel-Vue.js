@@ -10,7 +10,15 @@ Vue.http.options.root = appConfig.api_url;
 
 require('./services/interceptors');
 require('./router');
-console.log( appConfig.login_url );
+
+//Preload
+document.addEventListener("DOMContentLoaded", function(){
+    $('.preloader-background').delay(1700).fadeOut('slow');
+    
+    $('.preloader-wrapper')
+        .delay(1700)
+        .fadeOut();
+});
 
 /*
 	LocalStorage.set('name', 'Francisco Wallison');
