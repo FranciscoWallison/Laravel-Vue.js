@@ -11,6 +11,9 @@
 // Materialize CSS
 @import "node_modules/materialize-css/sass/materialize";
 
+// Default sass
+@import "../../_default/sass/_default";
+
 #app{
 	display: flex;
 	min-height: 100vh;
@@ -19,9 +22,4 @@
 
 main {
 	flex: 10 auto
-}
-
-.bank-logo{
-	width: 30px;
-	height: 30px;
 }

@@ -13,8 +13,8 @@ use CodeFin\Transformers\BankTransformer;
 class BankAccountTransformer extends TransformerAbstract
 {
 
-    //protected $defaultIncludes = ['bank'];
-    protected $availableIncludes = ['bank'];//['bank','outroDados','...']  ?include=bank
+    protected $defaultIncludes = ['bank'];
+    //protected $availableIncludes = ['bank'];//['bank','outroDados','...']  ?include=bank
 
     /**
      * Transform the \BankAccount entity

@@ -1,5 +1,5 @@
 <template>
-	<div class="container">
+	<!-- <div class="container"> -->
 		<div class="row">
 			<page-title>
 				<h5>Minhas contas bancárias</h5>
@@ -27,6 +27,16 @@
                             <td>{{ o.agency }}</td>
                             <td>{{ o.account }}</td>
                             <td>
+                                <div class="row">
+                                    <div class="col s2">
+                                        <img class="bank-logo" :src="o.bank.data.logo" />
+                                    </div>
+                                    <div class="col s10 valign">
+                                        <span class="left">{{o.bank.data.name}}</span>
+                                    </div>
+                                </div>
+                            </td>
+                            <td>
                                 <i class="material-icons green-text" v-if="o.default">check</i>
                                 <i class="material-icons red-text" v-else="o.default">clear</i>
                             </td>
@@ -53,7 +63,7 @@
             </div>
 
 		</div>
-	</div>
+	<!-- </div> -->
 
 	<modal :modal="modal">
         <div slot="content" v-if="bankAccountToDelete">
@@ -74,7 +84,7 @@
 </template>
 
 <script>
-	import {BankAccount} from '../../services/resources';
+	import {BankAccount, Banks} from '../../services/resources';
     import ModalComponent from '../../../../_default/components/Modal.vue';
     import PaginationComponent from '../Pagination.vue';
     import PageTitleComponent from '../../../../_default/components/PageTitle.vue';
@@ -122,6 +132,10 @@
                         account: {
                             label: 'C/C',
                             width: '15%'
+                        },
+                        'banks:bank_id|banks.name':{  // serve para poder fazer a ordenação por nome do banco
+                            label: 'Banco',
+                            width: '17%',
                         },
                         'default':{
                             label: 'Padrão',
