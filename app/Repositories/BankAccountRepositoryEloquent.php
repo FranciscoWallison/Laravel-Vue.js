@@ -16,8 +16,9 @@ class BankAccountRepositoryEloquent extends BaseRepository implements BankAccoun
 {
 
     protected $fieldSearchable = [
-        'name'  => 'LIKE' ,
-        'agency'  => 'LIKE' ,
+        'name'      => 'LIKE',
+        'agency'    => 'LIKE',
+        'account'   => 'LIKE',
         'bank.name' => 'LIKE'
     ];
 

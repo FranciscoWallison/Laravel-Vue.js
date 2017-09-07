@@ -30,3 +30,15 @@ body{
     right: 0;
     bottom: 0;  
 }
+
+.filter-group{
+    .btn{
+        float: right;
+        height: 3rem;
+        line-height: 3rem;
+    }
+    .filter-wrapper{
+        overflow: hidden;
+        padding-right: 10px;
+    }
+}
