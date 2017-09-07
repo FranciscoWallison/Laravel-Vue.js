@@ -11,6 +11,8 @@ use Prettus\Validator\Exceptions\ValidatorException;
 use CodeFin\Http\Requests\BankAccountCreateRequest;
 use CodeFin\Http\Requests\BankAccountUpdateRequest;
 use CodeFin\Repositories\BankAccountRepository;
+use CodeFin\Criteria\FindByNameCriteria;
+use CodeFin\Criteria\FindByLikeAgencyCriteria;
 
 
 class BankAccountsController extends Controller
@@ -34,6 +36,8 @@ class BankAccountsController extends Controller
      */
     public function index()
     {
+        $this->repository->pushCriteria(new FindByNameCriteria('New Josefina'))
+                        ->pushCriteria(new FindByLikeAgencyCriteria(4));
         $bankAccounts = $this->repository->paginate();
 
         return  $bankAccounts;
