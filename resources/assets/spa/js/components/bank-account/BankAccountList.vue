@@ -9,12 +9,12 @@
     			<table class="bordered striped highlight responsive-table">
     				<thead>
     					<tr>
-    						<th v-for="(key, o ) in table.headers" :width="o.width">
+    						<th v-for="(key, o ) in table.headers" >
                                 <a href="#" @click.prevent="sortBy(key)">
                                     {{ o.label }}
-                                    <i class="material-icons right" v-if="order.key == key">
+                                   <!--  <i class="material-icons" v-if="order.key == key">
                                         {{ order.sort == 'asc' ? 'arrow_drop_up' : 'arrow_drop_down' }}
-                                    </i>
+                                    </i> -->
                                 </a>                 
                             </th>
                             <th>Ações</th>
@@ -34,13 +34,16 @@
                         </tr>
     				</tbody>			 	
     			</table>
-                <pagination :current-page.sync="pagination.current_page"
+                <div class="row center">
+                     <pagination :current-page.sync="pagination.current_page"
                             :per-page="pagination.per_page" 
                             :total-records="pagination.total"></pagination>
+                </div>
+               
             </div>
 
 			<div class="fixed-action-btn">
-                <a class="btn-floating btn-large" >
+                <a class="btn-floating btn-large" v-link="{name: 'bank-account.created'}">
                     <i class="large material-icons">add</i>
                 </a>
             </div>
