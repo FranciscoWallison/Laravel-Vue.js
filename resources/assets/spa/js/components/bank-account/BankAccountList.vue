@@ -16,7 +16,7 @@
                                         {{ order.sort == 'asc' ? 'arrow_drop_up' : 'arrow_drop_down' }}
                                     </i> -->
                                 </a>                 
-                            </th>
+                            </th>                            
                             <th>Ações</th>
     					</tr>
     				</thead>
@@ -26,6 +26,10 @@
                             <td>{{ o.name }}</td>
                             <td>{{ o.agency }}</td>
                             <td>{{ o.account }}</td>
+                            <td>
+                                <i class="material-icons green-text" v-if="o.default">check</i>
+                                <i class="material-icons red-text" v-else="o.default">clear</i>
+                            </td>
                             <td>
                                 <a v-link="{ name: 'bank-account.update', params: {id: o.id} }">Editar</a>
                                 |
@@ -109,7 +113,7 @@
                         },
                         name: {
                             label: 'Nome',
-                            width: '45%'
+                            width: '30%'
                         },
                         agency: {
                             label: 'Agência',
@@ -117,6 +121,10 @@
                         },
                         account: {
                             label: 'C/C',
+                            width: '15%'
+                        },
+                        'default':{
+                            label: 'Padrão',
                             width: '15%'
                         }
                     }
