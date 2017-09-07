@@ -11,6 +11,7 @@ Vue.http.options.root = appConfig.api_url;
 require('./services/interceptors');
 require('./router');
 
+//Preload
 document.addEventListener("DOMContentLoaded", function(){
     $('.preloader-background').delay(1700).fadeOut('slow');
     

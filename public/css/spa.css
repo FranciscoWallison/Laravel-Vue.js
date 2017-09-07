@@ -10666,7 +10666,8 @@ body {
   background-color: #eee;
   position: fixed;
   z-index: 1004;
-  opacity: 0.5;
+  opacity: 0.7;
+  background: #000;
   top: 0;
   left: 0;
   right: 0;

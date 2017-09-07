@@ -1,6 +1,6 @@
 <template>
     <div id="app">
-        <div class="preloader-background">
+        <div class="preloader-background" v-if="loading" >
             <div class="preloader-wrapper small active">
               <div class="spinner-layer spinner-blue">
                 <div class="circle-clipper left">
@@ -72,10 +72,19 @@ import Auth from '../services/auth';
         components: {
             'menu': MenuComponent
         },
+        created(){
+            window.Vue.http.interceptors.unshift((request, next) => {
+                this.loading = true;// se houver um requesição torna o loading true
+                next(() => {                    
+                    this.loading = false
+                }); // depois de haver uam requesição seta o loadin a false
+            });
+        },
         data(){
             return {
                 year: new Date().getFullYear(),
-                user: Auth.user
+                user: Auth.user,
+                loading: true
             }
        },
         computed: {
