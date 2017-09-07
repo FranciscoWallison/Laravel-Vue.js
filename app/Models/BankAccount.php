@@ -20,7 +20,7 @@ class BankAccount extends Model implements Transformable
 
     public function bank()
     {
-    	return $this->belomgsTo(Bank::class);
+    	return $this->belongsTo(Bank::class);
     }
 
 }

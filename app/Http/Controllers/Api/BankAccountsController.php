@@ -36,8 +36,8 @@ class BankAccountsController extends Controller
      */
     public function index()
     {
-        $this->repository->pushCriteria(new FindByNameCriteria('New Josefina'))
-                        ->pushCriteria(new FindByLikeAgencyCriteria(4));
+        // $this->repository->pushCriteria(new FindByNameCriteria('New Josefina'))
+        //                 ->pushCriteria(new FindByLikeAgencyCriteria(4));
         $bankAccounts = $this->repository->paginate();
 
         return  $bankAccounts;
