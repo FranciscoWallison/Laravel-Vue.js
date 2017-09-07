@@ -39,3 +39,8 @@
 ## TIPO (Tudo compaartilhado (container, hadware, banco de dadoss))
 1 Muitos TENANTS envolvidos
 2 Baixa Customização 
+
+
+## libs 
+1 hyn/multi-tenant (trabalhas com subdominhos)
+2 orchestral/tenanti (trabalhas com vaias instancias de bancos )
