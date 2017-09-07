@@ -1,11 +1,9 @@
 <template>
 	<div class="container">
 		<div class="row">
-			<div class="card-panel green lighten-3">
-				<span class="green-test text-darken-2">
-					<h5>Minhas contas bancárias</h5>
-				</span>
-			</div>
+			<page-title>
+				<h5>Minhas contas bancárias</h5>
+			</page-title>
             <div class="card-panel z-depth-5">
                 <form name="form" method="GET" @submit="filter()">
                     <div class="filter-group">                        
@@ -81,11 +79,13 @@
 	import {BankAccount} from '../../services/resources';
     import ModalComponent from '../../../../_default/components/Modal.vue';
     import PaginationComponent from '../Pagination.vue';
+    import PageTitleComponent from '../../../../_default/components/PageTitle.vue';
 
     export default{
     	components: {
     		'modal': ModalComponent,
-            'pagination': PaginationComponent
+            'pagination': PaginationComponent,
+            'page-title': PageTitleComponent
     	},
     	data() {
     		return {
