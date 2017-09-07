@@ -157,6 +157,7 @@
                 this.getBankAccounts();
             },
             filter(){
+                this.pagination.current_page = 0;
                 this.getBankAccounts();
             }
         },
