@@ -43,9 +43,8 @@
                 Bank.query({
 
                 }).then((response) => {
-
                     this.banks = response.data.data;
-                    //this.initAutocomplete();
+                    this.initAutocomplete();
                 })
             },
             getBanksAccount(id, availableIncludes){
@@ -54,7 +53,7 @@
                     include: 'bank'
                 }).then((response) => {
                     this.bankAccount = response.data.data;
-                    //this.bank = response.data.data.bank.data;
+                    this.bank = response.data.data.bank.data;
                 })
             },
             initAutocomplete(){  // autocomplete configurações
@@ -80,6 +79,7 @@
                             self.bankAccount.bank_id = item.id;
                             //self.bank_name = item.name;
                             //self.banks.bank_name = item.name;
+                            //console.log(item);
                         },
                         ignoreCase:true,
                         throttling:true,

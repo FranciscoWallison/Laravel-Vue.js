@@ -12,8 +12,7 @@
     "laravel-elixir-browsersync-official": "^1.0.0",
     "laravel-elixir-vue": "^0.1.4",
     "laravel-elixir-webpack-official": "^1.0.2",
-    "lodash": "^4.16.2",
-    "materialize-autocomplete": "^1.0.7",
+    "lodash": "^4.11.2",
     "materialize-css": "^0.97.8",
     "stringify-object": "^3.2.0",
     "vue": "^1.0.26",
@@ -22,5 +21,8 @@
     "webpack": "^1.15.0",
     "webpack-dev-server": "^1.16.5",
     "webpack-merge": "^0.14.1"
+  },
+  "dependencies": {
+    "materialize-autocomplete": "^1.0.7"
   }
 }

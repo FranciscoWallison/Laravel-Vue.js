@@ -39,14 +39,14 @@
             getBanks(){ // bancos para inserir no formulario menu pendente
                 Bank.query({}).then((response) => {
                     this.banks = response.data.data;
-                    //this.initAutocomplete(); // para inicializar o autocomplete e mostrar na caixa de preenchimento
+                    this.initAutocomplete(); // para inicializar o autocomplete e mostrar na caixa de preenchimento
                 })
             },
-            initAutocomplete(){  // autocomplete configurações
+           initAutocomplete(){  // autocomplete configurações
                 let self = this; // para poder usar o this dentro do jquery
                 $(document).ready(() =>{
                     $('#bank-id').materialize_autocomplete({
-                        cacheable: true,
+                        //cacheable: true,
                         limit: 10,
                         multiple:{
                             enable:false
@@ -54,7 +54,7 @@
                         dropdown: {
                             el: '#bank-id-dropdown'
                         },
-                        getData: (value, callback) => {
+                        getData(value, callback){
                             let banks = self.filterBankByName(value); // aqui fica a nossa subcoleção para o autoomplete
                             banks = banks.map((o) =>{
                                 return {id: o.id, text: o.name};  // banks.map ordena o nosso objeto para o formato necessário
@@ -62,7 +62,7 @@
                             callback(value, banks);
                         },
                         onSelect(item){
-                            self.bankAccount.bank_id = item.id;
+                            self.bankAccount.bank_id = item.id; // aliemta o input
                             //console.log(item);
                         },
                         ignoreCase:true,
