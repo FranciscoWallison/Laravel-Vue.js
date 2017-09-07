@@ -50,3 +50,11 @@ $factory->define(CodeFin\Models\BankAccount::class, function (Faker\Generator $f
 });
 
 
+$factory->define(CodeFin\Models\Client::class, function (Faker\Generator $faker) {
+    //static $password;
+
+    return [
+        'name'      => $faker->name
+    ];
+});
+
