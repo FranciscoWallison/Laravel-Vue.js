@@ -101,6 +101,11 @@
                 this.bankAccountToDelete = bankAccount;
                 $('#modal-delete').modal('open'); //
             },
+        },
+        events: {
+            'pagination::changed'( page ){
+                this.getBankAccounts();
+            }
         }
     };
 </script>
