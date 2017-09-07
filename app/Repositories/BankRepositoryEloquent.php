@@ -9,6 +9,7 @@ use CodeFin\Repositories\BankRepository;
 use CodeFin\Models\Bank;
 use CodeFin\Validators\BankValidator;
 use Illuminate\Http\UploadedFile;
+use CodeFin\Presenters\BankPresenter;
 
 /**
  * Class BankRepositoryEloquent
@@ -65,5 +66,10 @@ class BankRepositoryEloquent extends BaseRepository implements BankRepository
     public function boot()
     {
         $this->pushCriteria(app(RequestCriteria::class));
+    }
+
+    public function presenter()
+    {
+        return BankPresenter::class;
     }
 }
