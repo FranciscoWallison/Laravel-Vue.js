@@ -25,6 +25,11 @@ class BankAccountCreateRequest extends FormRequest
     {
         return [
             //
+            'name'      => 'required|max:255',
+            'agency'    => 'required|max:255',
+            'account'   => 'required|max:255',
+            'default'   => 'boolean',
+            'bank_id'   => 'required'
         ];
     }
 }

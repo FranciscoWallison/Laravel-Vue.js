@@ -21,8 +21,7 @@ class CreateBanksLogoDefault extends Migration
                     'default.jpg'
                 );
         $name = env('BANK_LOGO_DEFAULT');
-
-       $destFile = Bank::logosDir();
+        $destFile = Bank::logosDir();
 
        \Storage::disk('public')->putFileAs($destFile, $logo, $name);
     }
@@ -35,5 +34,10 @@ class CreateBanksLogoDefault extends Migration
     public function down()
     {
         //
+        $name = env('BANK_LOGO_DEFAULT');
+        $path = Bank::logosDir().'/'.$name;
+
+        \Storage::disk('public')->delete($path);
+
     }
 }

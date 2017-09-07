@@ -1,33 +1,22 @@
 <template>
-	<div class="container">
+	<!-- <div class="container"> -->
 		<div class="row">
-			<div class="card-panel green lighten-3">
-				<span class="green-test text-darken-2">
-					<h5>Minhas contas bancárias</h5>
-				</span>
-			</div>
+			<page-title>
+				<h5>Minhas contas bancárias</h5>
+			</page-title>
             <div class="card-panel z-depth-5">
-                <form name="form" method="GET" @submit="filter()">
-                    <div class="filter-group">                        
-                        <button class="btn waves-effect" type="submit">
-                            <i class="material-icons">search</i>
-                        </button>
-                        <div class="filter-wrapper">                        
-                            <input type="text" v-model="search" placeholder="O que procura?">
-                        </div>
-                    </div>
-                </form>        
+               <search @on-submit="filter" :model.sync="search"></search>
     			<table class="bordered striped highlight responsive-table">
     				<thead>
     					<tr>
-    						<th v-for="(key, o ) in table.headers" :width="o.width">
+    						<th v-for="(key, o ) in table.headers" >
                                 <a href="#" @click.prevent="sortBy(key)">
                                     {{ o.label }}
-                                    <i class="material-icons right" v-if="order.key == key">
+                                   <!--  <i class="material-icons" v-if="order.key == key">
                                         {{ order.sort == 'asc' ? 'arrow_drop_up' : 'arrow_drop_down' }}
-                                    </i>
+                                    </i> -->
                                 </a>                 
-                            </th>
+                            </th>                            
                             <th>Ações</th>
     					</tr>
     				</thead>
@@ -38,6 +27,20 @@
                             <td>{{ o.agency }}</td>
                             <td>{{ o.account }}</td>
                             <td>
+                                <div class="row">
+                                    <div class="col s2">
+                                        <img class="bank-logo" :src="o.bank.data.logo" />
+                                    </div>
+                                    <div class="col s10 valign">
+                                        <span class="left">{{o.bank.data.name}}</span>
+                                    </div>
+                                </div>
+                            </td>
+                            <td>
+                                <i class="material-icons green-text" v-if="o.default">check</i>
+                                <i class="material-icons red-text" v-else="o.default">clear</i>
+                            </td>
+                            <td>
                                 <a v-link="{ name: 'bank-account.update', params: {id: o.id} }">Editar</a>
                                 |
                                 <a href="#" @click.prevent="openModalDelete(o)">Excluir</a>
@@ -45,19 +48,22 @@
                         </tr>
     				</tbody>			 	
     			</table>
-                <pagination :current-page.sync="pagination.current_page"
+                <div class="row center">
+                     <pagination :current-page.sync="pagination.current_page"
                             :per-page="pagination.per_page" 
                             :total-records="pagination.total"></pagination>
+                </div>
+               
             </div>
 
 			<div class="fixed-action-btn">
-                <a class="btn-floating btn-large" >
+                <a class="btn-floating btn-large" v-link="{name: 'bank-account.created'}">
                     <i class="large material-icons">add</i>
                 </a>
             </div>
 
 		</div>
-	</div>
+	<!-- </div> -->
 
 	<modal :modal="modal">
         <div slot="content" v-if="bankAccountToDelete">
@@ -78,14 +84,18 @@
 </template>
 
 <script>
-	import {BankAccount} from '../../services/resources';
+	import {BankAccount, Banks} from '../../services/resources';
     import ModalComponent from '../../../../_default/components/Modal.vue';
     import PaginationComponent from '../Pagination.vue';
+    import PageTitleComponent from '../../../../_default/components/PageTitle.vue';
+    import SearchComponent from '../../../../_default/components/Search.vue';
 
     export default{
     	components: {
     		'modal': ModalComponent,
-            'pagination': PaginationComponent
+            'pagination': PaginationComponent,
+            'page-title': PageTitleComponent,
+            'search': SearchComponent
     	},
     	data() {
     		return {
@@ -113,7 +123,7 @@
                         },
                         name: {
                             label: 'Nome',
-                            width: '45%'
+                            width: '30%'
                         },
                         agency: {
                             label: 'Agência',
@@ -121,6 +131,14 @@
                         },
                         account: {
                             label: 'C/C',
+                            width: '15%'
+                        },
+                        'banks:bank_id|banks.name':{  // serve para poder fazer a ordenação por nome do banco
+                            label: 'Banco',
+                            width: '17%',
+                        },
+                        'default':{
+                            label: 'Padrão',
                             width: '15%'
                         }
                     }
@@ -134,7 +152,10 @@
         	destroy(){
                 BankAccount.delete({id: this.bankAccountToDelete.id}).then((response) => {
                     this.bankAccounts.$remove(this.bankAccountToDelete);
-                    this.bankAccountToDelete = null;                   
+                    this.bankAccountToDelete = null;
+                    if(this.bankAccounts.length === 0 && this.pagination.current_page > 0){ // maior que 1
+                        this.pagination.current_page--;
+                    } 
                     Materialize.toast('Conta bancária excluida com sucesso!', 4000);
                 });
             },
@@ -161,6 +182,7 @@
                 this.getBankAccounts();
             },
             filter(){
+                this.pagination.current_page = 0;
                 this.getBankAccounts();
             }
         },

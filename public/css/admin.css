@@ -10652,6 +10652,11 @@ button.picker__today:focus, button.picker__clear:focus, button.picker__close:foc
   }
 }
 
+.bank-logo {
+  width: 30px;
+  height: 30px;
+}
+
 #app {
   display: -webkit-box;
   display: flex;
@@ -10664,11 +10669,6 @@ button.picker__today:focus, button.picker__clear:focus, button.picker__close:foc
 main {
   -webkit-box-flex: 10;
   flex: 10 auto;
-}
-
-.bank-logo {
-  width: 30px;
-  height: 30px;
 }
 
 /*# sourceMappingURL=admin.css.map */

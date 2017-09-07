@@ -9,6 +9,7 @@ use CodeFin\Repositories\BankRepository;
 use CodeFin\Models\Bank;
 use CodeFin\Validators\BankValidator;
 use Illuminate\Http\UploadedFile;
+use CodeFin\Presenters\BankPresenter;
 
 /**
  * Class BankRepositoryEloquent
@@ -20,11 +21,17 @@ class BankRepositoryEloquent extends BaseRepository implements BankRepository
     {
         $logo = isset( $attributes['logo'] ) ? $attributes['logo'] : null;
         $attributes['logo'] = env('BANK_LOGO_DEFAULT');
+
+        $skipPresenter = $this->skipPresenter;
+        $this->skipPresenter(true);//escapando presenter estruct->toArray()
+
         $model = parent::create($attributes);
         $event = new BankStoredEvent($model, $logo);
         event($event);
 
-        return $model;
+        $this->skipPresenter = $skipPresenter;//retornando ao valo original
+
+        return $this->parserResult($model);//verifica se tem presenter
     }
 
     public function update(array $attributes, $id)
@@ -38,12 +45,16 @@ class BankRepositoryEloquent extends BaseRepository implements BankRepository
             unset($attributes['logo']);
         }
 
-        $model = parent::update($attributes, $id);
+        $skipPresenter = $this->skipPresenter;
+        $this->skipPresenter(true);//escapando presenter estruct->toArray()
 
+        $model = parent::update($attributes, $id);
         $event = new BankStoredEvent($model, $logo);
         event($event);
 
-        return $model;
+        $this->skipPresenter = $skipPresenter;//retornando ao valo original
+
+        return $this->parserResult($model);//verifica se tem presenter
     }
 
     
@@ -65,5 +76,10 @@ class BankRepositoryEloquent extends BaseRepository implements BankRepository
     public function boot()
     {
         $this->pushCriteria(app(RequestCriteria::class));
+    }
+
+    public function presenter()
+    {
+        return BankPresenter::class;
     }
 }
