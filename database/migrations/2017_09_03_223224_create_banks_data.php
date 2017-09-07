@@ -2,9 +2,10 @@
 
 use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
-use CodeFin\Repositories\BankRepository;
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Http\UploadedFile;
+use CodeFin\Repositories\BankRepository;
+use CodeFin\Models\Bank;
 
 
 class CreateBanksData extends Migration
@@ -33,6 +34,16 @@ class CreateBanksData extends Migration
     public function down()
     {
         //
+        $repository = app(BankRepository::class);
+        $repository->skipPresenter(true);
+        $count = count($this->getData());
+
+        foreach (range(1, $count) as $value) {
+            $model  = $repository->find($value);
+            $path   = Bank::logosDir(). '/' . $model->logo;
+            \Storage::disk('public')->delete($path);
+            $model->delete();
+        }
     }
 
     public function getData()

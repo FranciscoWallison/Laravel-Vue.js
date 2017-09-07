@@ -14,15 +14,14 @@ class BankAccountTableSeeder extends Seeder
     public function run()
     {
         //
-        $repository = app(BankRepository::class);
-        $banks = $repository->all();
+        $banks = $this->getBanks();  //coleção de bancos
         $max = 15;
         $bankAccountId = rand(1, $max);
 
 
         factory(BankAccount::class, $max)
         ->make()
-        ->each(function($bankAccount) use($banks, $bankAccountId) {
+        ->each(function($bankAccount) use ($banks, $bankAccountId) {
         	$bank = $banks->random();
         	$bankAccount->bank_id = $bank->id;
         	//$bankAccount->associate($bank);
@@ -35,5 +34,12 @@ class BankAccountTableSeeder extends Seeder
         		$bankAccount->save();
         	}
         });
+    }
+
+    private function getBanks(){
+        /** @var \codeFin\Repositories\BankRepository $repository */
+        $repository = app(BankRepository::class);
+        $repository->skipPresenter(true);
+        return $repository->all();
     }
 }
