@@ -5,16 +5,7 @@
 				<h5>Minhas contas bancárias</h5>
 			</page-title>
             <div class="card-panel z-depth-5">
-                <form name="form" method="GET" @submit="filter()">
-                    <div class="filter-group">                        
-                        <button class="btn waves-effect" type="submit">
-                            <i class="material-icons">search</i>
-                        </button>
-                        <div class="filter-wrapper">                        
-                            <input type="text" v-model="search" placeholder="O que procura?">
-                        </div>
-                    </div>
-                </form>        
+               <search @on-submit="filter" :model.sync="search"></search>
     			<table class="bordered striped highlight responsive-table">
     				<thead>
     					<tr>
@@ -80,12 +71,14 @@
     import ModalComponent from '../../../../_default/components/Modal.vue';
     import PaginationComponent from '../Pagination.vue';
     import PageTitleComponent from '../../../../_default/components/PageTitle.vue';
+    import SearchComponent from '../../../../_default/components/Search.vue';
 
     export default{
     	components: {
     		'modal': ModalComponent,
             'pagination': PaginationComponent,
-            'page-title': PageTitleComponent
+            'page-title': PageTitleComponent,
+            'search': SearchComponent
     	},
     	data() {
     		return {
