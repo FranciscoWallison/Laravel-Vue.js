@@ -11,6 +11,7 @@
     				<thead>
     					<tr>
     						<th>#</th>
+                            <th>Nome</th>
     						<th>Agencia</th>
     						<th>C/C</th>
     						<th>Ações</th>
@@ -24,7 +25,8 @@
                             <td>{{ o.account }}</td>
                             <td>
                                 <a v-link="{ name: 'bank-account.update', params: {id: o.id} }">Editar</a>
-                                <a href="#" @click.prevent="openModalDelete(o)">Apagar</a>
+                                |
+                                <a href="#" @click.prevent="openModalDelete(o)">Excluir</a>
                             </td>
                         </tr>
     				</tbody>			 	
@@ -77,7 +79,7 @@
     		};
     	},
     	created(){
-        	//this.getBankAccounts(this.availableIncludes);
+        	this.getBankAccounts(this.availableIncludes);
         },
         methods: {
         	destroy(){
@@ -85,6 +87,11 @@
                     this.bankAccounts.$remove(this.bankAccountToDelete);
                     this.bankAccountToDelete = null;                   
                     Materialize.toast('Conta bancária excluida com sucesso!', 4000);
+                });
+            },
+            getBankAccounts(availableIncludes){
+                BankAccount.query({}).then((response) => {
+                    this.bankAccounts = response.data.data;  //data.data por causa do fractal
                 });
             },
             openModalDelete(bankAccount){
