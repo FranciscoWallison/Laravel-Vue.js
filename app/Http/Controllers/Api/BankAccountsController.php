@@ -34,7 +34,7 @@ class BankAccountsController extends Controller
      */
     public function index()
     {
-        $bankAccounts = $this->repository->all();
+        $bankAccounts = $this->repository->paginate();
 
         return  $bankAccounts;
     }
