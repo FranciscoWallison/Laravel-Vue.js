@@ -2,7 +2,7 @@
 
 use Illuminate\Database\Seeder;
 
-class BanksTableSeeder extends Seeder
+class ClientsTableSeeder extends Seeder
 {
     /**
      * Run the database seeds.
@@ -11,7 +11,7 @@ class BanksTableSeeder extends Seeder
      */
     public function run()
     {
-        // Definida na migração
-        //factory(CodeFin\Models\Bank::class, 10)->create();
+        //cirando tenancy
+        factory(\CodeFin\Models\Client::class, 5)->create();
     }
 }

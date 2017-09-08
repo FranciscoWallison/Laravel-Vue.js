@@ -36,10 +36,11 @@ class BankAccountTableSeeder extends Seeder
         });
     }
 
-    private function getBanks(){
+    private function getBanks()
+    {
         /** @var \codeFin\Repositories\BankRepository $repository */
         $repository = app(BankRepository::class);
-        $repository->skipPresenter(true);
+        $repository->skipPresenter(true);//valores do tipo toArray()
         return $repository->all();
     }
 }

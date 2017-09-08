@@ -17,7 +17,7 @@ class Client extends Model implements Transformable
 
     public function users()
     {
-    	return $this->hasMany(User::class)
+    	return $this->hasMany(User::class);
     }
 
 }
