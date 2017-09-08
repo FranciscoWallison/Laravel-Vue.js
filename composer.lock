@@ -4,8 +4,8 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "fc2d11be85815a16453800b178c8d812",
-    "content-hash": "3855a3bb778adf625977982f996b6eaa",
+    "hash": "f30cfa98f20eada65dbf6aa3b2ad6a03",
+    "content-hash": "82692e701fb37cc41faa953e4830f9a1",
     "packages": [
         {
             "name": "barryvdh/laravel-cors",
@@ -223,6 +223,54 @@
                 "string"
             ],
             "time": "2015-11-06 14:35:42"
+        },
+        {
+            "name": "hipsterjazzbo/landlord",
+            "version": "v2.0.4",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/HipsterJazzbo/Landlord.git",
+                "reference": "4828c32f811ae3d7989524015ea9b0773ddecf56"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/HipsterJazzbo/Landlord/zipball/4828c32f811ae3d7989524015ea9b0773ddecf56",
+                "reference": "4828c32f811ae3d7989524015ea9b0773ddecf56",
+                "shasum": ""
+            },
+            "require": {
+                "illuminate/support": "5.2.*|5.3.*",
+                "php": ">=5.6.0"
+            },
+            "require-dev": {
+                "laravel/framework": "5.2.*|5.3.*",
+                "mockery/mockery": "~0.9",
+                "phpunit/phpunit": "5.5.*"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "HipsterJazzbo\\Landlord\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Caleb Fidecaro",
+                    "email": "calebfidecaro@gmail.com"
+                }
+            ],
+            "description": "A simple, single database multi-tenancy solution for Laravel 5.2+",
+            "keywords": [
+                "multitenancy",
+                "multitenant",
+                "tenancy",
+                "tenant"
+            ],
+            "time": "2016-11-29 23:37:17"
         },
         {
             "name": "jakub-onderka/php-console-color",
