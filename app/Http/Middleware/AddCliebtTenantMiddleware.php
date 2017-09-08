@@ -19,7 +19,7 @@ class AddCliebtTenantMiddleware
         {
             $user = \Auth::guard('api')->user();
             if($user){ // verifica se ta logado
-                $client = $user->client;
+                $client = $user->client;//chamando o modelo
                 \Landlord::addTenant($client); // observador 
             }
         }
