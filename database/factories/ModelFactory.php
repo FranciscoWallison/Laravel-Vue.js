@@ -11,8 +11,10 @@
 |
 */
 
+// Cria os tipos de informações que seram geradas para cada emdidade
+
 /** @var \Illuminate\Database\Eloquent\Factory $factory */
-$factory->define(CodeFin\Models\User::class, function (Faker\Generator $faker) {
+$factory->define(CodeFin\Models\User::class, function (Faker\Generator $faker){
     static $password;
 
     return [
@@ -31,16 +33,14 @@ $factory->state(\CodeFin\Models\User::class, 'admin', function (Faker\Generator 
 });
 
 // $factory->define(CodeFin\Models\Bank::class, function (Faker\Generator $faker) {
-//     //static $password;
-
+// Definida na migrãção
 //     return [
 //         'name' => $faker->name,
 //         'logo' => md5(time()).'.jpeg'
 //     ];
 // });
 
-$factory->define(CodeFin\Models\BankAccount::class, function (Faker\Generator $faker) {
-    //static $password;
+$factory->define(CodeFin\Models\BankAccount::class, function (Faker\Generator $faker){
 
     return [
         'name'      => $faker->city,
@@ -49,4 +49,11 @@ $factory->define(CodeFin\Models\BankAccount::class, function (Faker\Generator $f
     ];
 });
 
+
+$factory->define(CodeFin\Models\Client::class, function (Faker\Generator $faker){
+
+    return [
+        'name' => $faker->name,
+    ];
+});
 

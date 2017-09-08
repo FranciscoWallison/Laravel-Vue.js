@@ -3,6 +3,7 @@
 use Illuminate\Database\Seeder;
 use CodeFin\Models\BankAccount;
 use CodeFin\Repositories\BankRepository;
+use CodeFin\Repositories\ClientRepository;
 
 class BankAccountTableSeeder extends Seeder
 {
@@ -15,20 +16,24 @@ class BankAccountTableSeeder extends Seeder
     {
         //
         $banks = $this->getBanks();  //coleção de bancos
-        $max = 15;
+        $clients = $this->getClients();
+        $max = 50;
         $bankAccountId = rand(1, $max);
 
 
         factory(BankAccount::class, $max)
         ->make()
-        ->each(function($bankAccount) use ($banks, $bankAccountId) {
+        ->each(function($bankAccount) use ($banks, $bankAccountId, $clients) {
         	$bank = $banks->random();
+            $client = $clients->random();
+
         	$bankAccount->bank_id = $bank->id;
+            $bankAccount->client_id = $client->id;
         	//$bankAccount->associate($bank);
 
         	$bankAccount->save();
         	
-        	if($bankAccountId  == $bankAccount->id)
+        	if($bankAccountId  == $bankAccount->id) // conta padrão
         	{
         		$bankAccount->default = 1;
         		$bankAccount->save();
@@ -36,10 +41,19 @@ class BankAccountTableSeeder extends Seeder
         });
     }
 
-    private function getBanks(){
+    private function getBanks()
+    {
         /** @var \codeFin\Repositories\BankRepository $repository */
         $repository = app(BankRepository::class);
-        $repository->skipPresenter(true);
+        $repository->skipPresenter(true);//valores do tipo toArray()
+        return $repository->all();
+    }
+
+    private function getClients()
+    {
+        /** @var \codeFin\Repositories\ClientRepository $repository */
+        $repository = app(ClientRepository::class);
+        $repository->skipPresenter(true);//valores do tipo toArray()
         return $repository->all();
     }
 }

@@ -5,6 +5,7 @@ namespace CodeFin\Models;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Tymon\JWTAuth\Contracts\JWTSubject;
+use CodeFin\Models\Client;
 
 class User extends Authenticatable implements JWTSubject
 {
@@ -18,7 +19,7 @@ class User extends Authenticatable implements JWTSubject
      * @var array
      */
     protected $fillable = [
-        'name', 'email', 'password',
+        'name', 'email', 'password', 'client_id'
     ];
 
     /**
@@ -29,6 +30,12 @@ class User extends Authenticatable implements JWTSubject
     protected $hidden = [
         'password', 'remember_token',
     ];
+
+
+    public function client()
+    {
+        return $this->belongsTo(Client::class);
+    }
 
     /**
     * Get the identifier that will be stored in the subject claim of the JWT.

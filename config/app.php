@@ -170,6 +170,7 @@ return [
         Barryvdh\Cors\ServiceProvider::class,
         Prettus\Repository\Providers\RepositoryServiceProvider::class,
         Collective\Html\HtmlServiceProvider::class,
+        HipsterJazzbo\Landlord\LandlordServiceProvider::class,
 
         //
 
@@ -233,6 +234,7 @@ return [
         //Custons
         'Form' => Collective\Html\FormFacade::class,
         'Html' => Collective\Html\HtmlFacade::class,
+        'Landlord'   => HipsterJazzbo\Landlord\Facades\Landlord::class,
 
     ],
 
