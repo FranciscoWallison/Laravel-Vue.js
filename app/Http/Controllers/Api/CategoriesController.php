@@ -48,7 +48,7 @@ class CategoriesController extends Controller
      */
     public function store(CategoryRequest $request)
     {
-        dd('deucerto');
+//dd('deu certo');
         $category = $this->repository->create($request->all());
 
         return response()->json($category, 201);

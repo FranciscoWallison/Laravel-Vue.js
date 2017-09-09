@@ -15,6 +15,53 @@ use CodeFin\Presenters\CategoryPresenter;
  */
 class CategoryRepositoryEloquent extends BaseRepository implements CategoryRepository
 {
+
+    public function create(array $attributes)
+    {
+        // verificar se tem valor valido para parent_id
+        if(isset($attributes['parent_id']))
+        {
+            //filha
+            $skipPresenter = $this->skipPresenter;
+            $this->skipPresenter(true);//escapando presenter estruct->toArray()
+
+            $parent = $this->find($attributes['parent_id']);//pegando a instacia do eloquent
+
+            $this->skipPresenter = $skipPresenter; // retornado ao estado inicial
+
+            $child = $parent->children()->create($attributes);
+
+            return $this->parserResult($child);
+
+        }else{
+            //pai
+            return parent::create($attributes);
+        }
+
+    }
+
+    public function update(array $attributes, $id)
+    {
+        if(isset($attributes['parent_id']))
+        {
+            //filha
+            $skipPresenter = $this->skipPresenter;
+            $this->skipPresenter(true);//escapando presenter estruct->toArray()
+
+            $child = $this->find($id);//pegando a instacia do eloquent
+            $child->parent_id = $attributes['parent_id'];
+            $child->save();
+
+            $this->skipPresenter = $skipPresenter; // retornado ao estado inicial
+
+            return $this->parserResult($child);
+
+        }else{
+            //pai
+            return parent::update($attributes);
+        }
+    }
+
     /**
      * Specify Model class name
      *

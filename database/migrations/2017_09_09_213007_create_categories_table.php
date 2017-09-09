@@ -14,6 +14,12 @@ class CreateCategoriesTable extends Migration
 	 */
 	public function up()
 	{
+		//TO::DO https://laravel.com/docs/5.3/eloquent#soft-deleting
+		/*
+		* Qundo vc deleta uma chave pai as filhas iram juntas 
+		* Usando Soft Delete evitarar a perca de todos os campos 
+		*/
+		
 		Schema::create('categories', function(Blueprint $table) {
             $table->increments('id');
             $table->string('name');// left right parent_id
