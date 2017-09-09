@@ -53,7 +53,7 @@
                     include: 'bank'
                 }).then((response) => {
                     this.bankAccount = response.data.data;
-                    this.bank = response.data.data.bank.data;
+                    this.bank = response.data.data.bank.data; //alimentando o fomulario 
                 })
             },
             initAutocomplete(){  // autocomplete configurações

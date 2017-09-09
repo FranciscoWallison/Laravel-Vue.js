@@ -1,5 +1,5 @@
 <template>
-	<!-- <div class="container"> -->
+	<div class="container">
 		<div class="row">
 			<page-title>
 				<h5>Minhas contas bancárias</h5>
@@ -31,9 +31,9 @@
                                     <div class="col s2">
                                         <img class="bank-logo" :src="o.bank.data.logo" />
                                     </div>
-                                    <div class="col s10 valign">
+                                    <!-- <div class="col s10 valign">
                                         <span class="left">{{o.bank.data.name}}</span>
-                                    </div>
+                                    </div> -->
                                 </div>
                             </td>
                             <td>
@@ -63,7 +63,7 @@
             </div>
 
 		</div>
-	<!-- </div> -->
+	</div>
 
 	<modal :modal="modal">
         <div slot="content" v-if="bankAccountToDelete">
