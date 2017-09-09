@@ -8,6 +8,7 @@
         "php": ">=5.6.4",
         "barryvdh/laravel-cors": "^0.9.3",
         "hipsterjazzbo/landlord": "^2.0.4",
+        "kalnoy/nestedset": "4.2.0",
         "laravel/framework": "5.3.*",
         "laravelcollective/html": "^5.3.0",
         "league/fractal": "^0.17.0",
