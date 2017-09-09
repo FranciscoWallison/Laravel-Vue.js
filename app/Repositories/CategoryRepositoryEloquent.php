@@ -7,6 +7,7 @@ use Prettus\Repository\Criteria\RequestCriteria;
 use CodeFin\Repositories\CategoryRepository;
 use CodeFin\Models\Category;
 use CodeFin\Validators\CategoryValidator;
+use CodeFin\Presenters\CategoryPresenter;
 
 /**
  * Class CategoryRepositoryEloquent
@@ -32,5 +33,10 @@ class CategoryRepositoryEloquent extends BaseRepository implements CategoryRepos
     public function boot()
     {
         $this->pushCriteria(app(RequestCriteria::class));
+    }
+
+    public function presenter()
+    {
+        return CategoryPresenter::class;
     }
 }

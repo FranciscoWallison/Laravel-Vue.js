@@ -23,6 +23,7 @@ Route::group(['middleware' => 'cors' , 'as' => 'api.'], function(){
 	Route::group(['middleware' => 'auth:api'], function(){
 		Route::resource('banks', 'Api\BanksController', ['only' => ['index']]);
 		Route::resource('bank_accounts', 'Api\BankAccountsController', ['except'=> ['create' , 'edit'] ]);
+		Route::resource('categories', 'Api\CategoriesController', ['except'=> ['create' , 'edit'] ]);
 
 		Route::post('/logout', 'Api\AuthController@logout')->name('logout');
 
