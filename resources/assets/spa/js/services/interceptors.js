@@ -3,7 +3,8 @@
 	verificar se caso não tenha internet puchar as informações do localStorage;
 */
 
-import Auth from './auth';
+//import Auth from './auth';
+import store from '../store';
 import appConfig from './appConfig';
 import JwtToken from './jwt-token';
 
@@ -22,7 +23,7 @@ Vue.http.interceptors.push((request, next) => {
 				return Vue.http(request);
 			})
 			.catch(() => {
-				Auth.clearAuth();
+				store.dispatch('clearAuth');
 				window.location.href = appConfig.login_url
 			});
 		}

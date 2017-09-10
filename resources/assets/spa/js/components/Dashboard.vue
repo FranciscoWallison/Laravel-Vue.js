@@ -10,7 +10,7 @@
                     </div>
                 </div>
             </div>
-            <button type="button" @click="updateUser">Atulizar usuário</button>          
+                
         </div>
     </div>
 </template>

@@ -13,10 +13,19 @@ const state = {
 const mutations = {
 	setUser(state, user){
 		state.user = user;
-		LocalStorage.setObject(USER , user);
+		if(user !== null){
+			LocalStorage.setObject(USER , user);
+		}else{
+			LocalStorage.remove(USER);
+		}
+		
 	},
 	authenticated(state){
 		state.check = true;
+	},
+	unauthenticated(state){
+		state.check = false;
+		JwtToken.token = null;
 	}
 };
 
@@ -32,6 +41,20 @@ const actions = {
 		return User.get().then((response) => {
 				context.commit('setUser', response.data);
 			});
+	},
+	clearAuth(context){
+		context.commit('unauthenticated');
+		context.commit('setUser', null);
+	},
+	logout(context){
+		let afterLogout = (response) => {
+			context.dispatch('clearAuth');
+			return response;
+		}
+
+		return JwtToken.revokeToken()
+				.then( afterLogout )
+				.catch( afterLogout);
 	}
 }
 
