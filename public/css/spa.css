@@ -5130,7 +5130,7 @@ td, th {
   }
 }
 
-.collection {
+.collection, .category-tree {
   margin: 0.5rem 0 1rem 0;
   border: 1px solid #e0e0e0;
   border-radius: 2px;
@@ -5138,7 +5138,7 @@ td, th {
   position: relative;
 }
 
-.collection .collection-item {
+.collection .collection-item, .category-tree .collection-item, .category-tree .category-child {
   background-color: #fff;
   line-height: 1.5rem;
   padding: 10px 20px;
@@ -5146,13 +5146,13 @@ td, th {
   border-bottom: 1px solid #e0e0e0;
 }
 
-.collection .collection-item.avatar {
+.collection .collection-item.avatar, .category-tree .collection-item.avatar, .category-tree .avatar.category-child {
   min-height: 84px;
   padding-left: 72px;
   position: relative;
 }
 
-.collection .collection-item.avatar .circle {
+.collection .collection-item.avatar .circle, .category-tree .collection-item.avatar .circle, .category-tree .avatar.category-child .circle {
   position: absolute;
   width: 42px;
   height: 42px;
@@ -5162,7 +5162,7 @@ td, th {
   vertical-align: middle;
 }
 
-.collection .collection-item.avatar i.circle {
+.collection .collection-item.avatar i.circle, .category-tree .collection-item.avatar i.circle, .category-tree .avatar.category-child i.circle {
   font-size: 18px;
   line-height: 42px;
   color: #fff;
@@ -5170,54 +5170,54 @@ td, th {
   text-align: center;
 }
 
-.collection .collection-item.avatar .title {
+.collection .collection-item.avatar .title, .category-tree .collection-item.avatar .title, .category-tree .avatar.category-child .title {
   font-size: 16px;
 }
 
-.collection .collection-item.avatar p {
+.collection .collection-item.avatar p, .category-tree .collection-item.avatar p, .category-tree .avatar.category-child p {
   margin: 0;
 }
 
-.collection .collection-item.avatar .secondary-content {
+.collection .collection-item.avatar .secondary-content, .category-tree .collection-item.avatar .secondary-content, .category-tree .avatar.category-child .secondary-content {
   position: absolute;
   top: 16px;
   right: 16px;
 }
 
-.collection .collection-item:last-child {
+.collection .collection-item:last-child, .category-tree .collection-item:last-child, .category-tree .category-child:last-child {
   border-bottom: none;
 }
 
-.collection .collection-item.active {
+.collection .collection-item.active, .category-tree .collection-item.active, .category-tree .active.category-child {
   background-color: #43A047;
   color: #fdfefd;
 }
 
-.collection .collection-item.active .secondary-content {
+.collection .collection-item.active .secondary-content, .category-tree .collection-item.active .secondary-content, .category-tree .active.category-child .secondary-content {
   color: #fff;
 }
 
-.collection a.collection-item {
+.collection a.collection-item, .category-tree a.collection-item, .category-tree a.category-child {
   display: block;
   transition: .25s;
   color: #43A047;
 }
 
-.collection a.collection-item:not(.active):hover {
+.collection a.collection-item:not(.active):hover, .category-tree a.collection-item:not(.active):hover, .category-tree a.category-child:not(.active):hover {
   background-color: #ddd;
 }
 
-.collection.with-header .collection-header {
+.collection.with-header .collection-header, .with-header.category-tree .collection-header {
   background-color: #fff;
   border-bottom: 1px solid #e0e0e0;
   padding: 10px 20px;
 }
 
-.collection.with-header .collection-item {
+.collection.with-header .collection-item, .with-header.category-tree .collection-item, .collection.with-header .category-tree .category-child, .category-tree .collection.with-header .category-child, .with-header.category-tree .category-child {
   padding-left: 30px;
 }
 
-.collection.with-header .collection-item.avatar {
+.collection.with-header .collection-item.avatar, .with-header.category-tree .collection-item.avatar, .collection.with-header .category-tree .avatar.category-child, .category-tree .collection.with-header .avatar.category-child, .with-header.category-tree .avatar.category-child {
   padding-left: 72px;
 }
 
@@ -5226,7 +5226,7 @@ td, th {
   color: #43A047;
 }
 
-.collapsible .collection {
+.collapsible .collection, .collapsible .category-tree {
   margin: 0;
   border: none;
 }
@@ -10688,6 +10688,25 @@ body {
 .filter-group .filter-wrapper {
   overflow: hidden;
   padding-right: 10px;
+}
+
+.category-tree {
+  border: none;
+  margin: 0;
+}
+
+.category-tree .category-child {
+  padding-left: 50px;
+}
+
+.category-tree .category-symbol {
+  line-height: 36px;
+  height: 36px;
+}
+
+.category-tree .category-symbol i {
+  line-heught: inherit;
+  height: inherit;
 }
 
 /*# sourceMappingURL=spa.css.map */

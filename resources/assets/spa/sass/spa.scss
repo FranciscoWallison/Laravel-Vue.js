@@ -45,3 +45,24 @@ body{
         padding-right: 10px;
     }
 }
+
+.category-tree{
+    @extend .collection;
+    border: none;
+    margin: 0;
+
+    .category-child{
+        @extend .collection-item;
+        padding-left: 50px;
+    }
+
+    .category-symbol{
+        line-height: 36px;
+        height: 36px;
+
+        i{
+            line-heught: inherit;
+            height: inherit;
+        }
+    }
+}
