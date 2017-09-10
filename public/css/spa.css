@@ -10693,6 +10693,7 @@ body {
 .category-tree {
   border: none;
   margin: 0;
+  overflow: visible;
 }
 
 .category-tree .category-child {

@@ -50,6 +50,7 @@ body{
     @extend .collection;
     border: none;
     margin: 0;
+    overflow: visible;
 
     .category-child{
         @extend .collection-item;
