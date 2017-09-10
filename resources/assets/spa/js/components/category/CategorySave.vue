@@ -1,29 +1,31 @@
 <template>
 	<div>
-		<modal :modal="modalOptions">
-			<div slot="content">
-				<h4> 
-					<slot name="title"></slot>		
-				</h4>
-				<form name="form" action="" method="POST" @sugmit="sugmit">
+		<form name="form" action="" method="POST" @submit.prevent="submit">
+			<modal :modal="modalOptions">
+				<div slot="content">
+					<h4> 
+						<slot name="title"></slot>		
+					</h4>
+					
 					<div class="row">
 	                    <div class="input-field col s12">
 	                        <label class="active">Nome</label>
 	                        <input type="text" v-model="category.name" placerholder="O seu nome" />
 	                    </div>
-                	</div>
-                	<div class="row">
+	            	</div>
+	            	<div class="row">
 	                    <div class="input-field col s12">
 	                        <label class="active">Categpria Pai</label>
 	                        <input type="text"  placerholder="O seu nome" />
 	                    </div>
-                	</div>
-				</form>
-			</div>
-			<div slot="footer">
-				<slot name="footer"></slot>
-			</div>
-		</modal>	
+	            	</div>
+					
+				</div>
+				<div slot="footer">
+					<slot name="footer"></slot>
+				</div>
+			</modal>
+		</form>
 	</div>
 </template>
 <script>

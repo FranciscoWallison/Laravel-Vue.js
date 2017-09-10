@@ -21,6 +21,7 @@
 <script>
 	import PageTitleComponent from '../../../../_default/components/PageTitle.vue';
 	import CategoryTreeComponent from './CategoryTree.vue';
+    import CategorySaveComponent from './CategorySave.vue'
 	import {Category} from '../../services/resources';
 
 
@@ -28,11 +29,17 @@
 
     	components: {    		
             'page-title': PageTitleComponent,
-            'category-tree': CategoryTreeComponent
+            'category-tree': CategoryTreeComponent,
+            'category-save': CategorySaveComponent
     	},
     	data(){
     		return{
     			categories:[],
+                categorySave:{
+                    id: 0,
+                    name: '',
+                    parent_id: 0
+                },
                 title: 'Adicionar categoria',
                 modalOptionsSave: {
                     id: 'modal-category-save'
@@ -50,8 +57,23 @@
     		},
             saveCategory(){
                 console.log('saveCategory');
+            },
+            modalNew(category){
+                this.categorySave = category; // mande para o component
+                $(`#${this.modalOptionsSave.id}`).modal('open');
+            },
+            modalEdit(category){
+                $(`#${this.modalOptionsSave.id}`).modal('open');
             }
-    	}
+    	},
+        events: {
+            'category-new'(category){
+                this.modalNew(category);
+            },
+            'category-edit'(category){
+
+            }
+        }
 	}
 	
 </script>

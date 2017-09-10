@@ -12,13 +12,13 @@
 					</a>
 					<ul :id="dropdownId(o)" class="dropdown-content">
 						<li>
-							<a href="">Adicionar</a>
+							<a href="#" @click.prevent="categoryNew(o)">Adicionar</a>
 						</li>
 						<li>
-							<a href="">Editar</a>
+							<a href="#" @click.prevent="categoryEdit(o)">Editar</a>
 						</li>
 						<li>
-							<a href="">Excluir</a>
+							<a href="#">Excluir</a>
 						</li>
 					</ul>
 					<span class="valign">{{{ categoryText(o) }}}</span>
@@ -62,6 +62,14 @@
 			},
 			categoryIcon(category){
 				return category.children.data.length > 0 ? 'folder': 'label';
+			},
+			categoryNew(category){
+				this.$dispatch('category-new', category);
+				
+			},
+			categoryEdit(category){
+				this.$dispatch('category-edit', category);
+				
 			}
 		}
 	}
