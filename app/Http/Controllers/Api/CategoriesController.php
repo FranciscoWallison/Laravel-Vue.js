@@ -10,7 +10,7 @@ use CodeFin\Http\Requests\CategoryRequest;
 use CodeFin\Repositories\CategoryRepository;
 use CodeFin\Criteria\FindByNameCriteria;
 use CodeFin\Criteria\FindByLikeAgencyCriteria;
-
+use CodeFin\Criteria\FindRootCategoriesCriteria;
 
 class CategoriesController extends Controller
 {
@@ -33,8 +33,8 @@ class CategoriesController extends Controller
      */
     public function index()
     {
-
-        $categories = $this->repository->paginate();
+        $this->repository->pushCriteria( new FindRootCategoriesCriteria());
+        $categories = $this->repository->all();
 
         return  $categories;
     }
