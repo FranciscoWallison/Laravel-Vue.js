@@ -104,7 +104,17 @@
 
                 $(`#${this.modalOptionsSave.id}`).modal('open');
             },
-            modalEdit(category){
+            modalEdit(category, parent){
+                this.title = "Editar Categoria";
+
+                this.categorySave = {
+                    id: category.id,
+                    name: category.name,
+                    parent_id: category.parent_id
+                }; // mande para o component
+
+                this.parent = parent;
+
                 $(`#${this.modalOptionsSave.id}`).modal('open');
             },
             formatCategories(){
@@ -134,8 +144,8 @@
             'category-new'(category){
                 this.modalNew(category);
             },
-            'category-edit'(category){
-
+            'category-edit'(category, parent){
+                this.modalEdit(category, parent);
             }
         }
 	}
