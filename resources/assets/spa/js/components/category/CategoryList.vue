@@ -50,6 +50,7 @@
                     name: '',
                     parent_id: 0
                 },
+                category: null,
                 parent: null,
                 title: '',
                 modalOptionsSave: {
@@ -85,10 +86,16 @@
     			})
     		},
             saveCategory(){
-                CategoryService.new(this.categorySave, this.parent, this.categories).then(response => {
-                    Materialize.toast('Categoria adicionada com sucesso!', 4000);
+                CategoryService.save(this.categorySave, this.parent, this.categories, this.category).then(response => {
+                    if(this.categorySave === 0){
+                        Materialize.toast('Categoria adicionada com sucesso!', 4000);
+                    }else{
+                        Materialize.toast('Categoria alterada com sucesso!', 4000);
+                    }
                     this.resetScope();
                 });
+
+                //CategoryService.new(this.categorySave, this.parent, this.categories)
                 //console.log('saveCategory');
             },
             modalNew(category){
@@ -112,7 +119,7 @@
                     name: category.name,
                     parent_id: category.parent_id
                 }; // mande para o component
-
+                this.category = parent;
                 this.parent = parent;
 
                 $(`#${this.modalOptionsSave.id}`).modal('open');

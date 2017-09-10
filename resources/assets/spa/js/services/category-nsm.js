@@ -30,6 +30,14 @@ export class CategoryFormat{
 
 export class CategoryService{
 	
+	static save(Category, parent, categories, categoriesOriginal){
+		if(category.id === 0){
+			return this.new(category, parent, categories);
+		}else{
+			return this.edit(category, parent, categoriesOriginal);
+		}
+	}
+
 	static new(category, parent, categories){
 
 		let categoryCopy = $.extend(true, {}, category);
@@ -93,6 +101,23 @@ export class CategoryService{
 					self._addChild(categoryUpdated, categories);
 					return reponse;
 				}
+			}
+
+			/*
+			* Alteração somente no nome da categoria
+			* Arualiza~r as informações na arvore
+			*/
+			//TO::DO Criar um metodo para não deixar de ser repetitivo
+			if(parent){
+				let index = parent.children.data.findIndex(element => {
+					return element.id == categoryUpdated.id;
+				});
+				parent.children.data.$set(index, categoryUpdated);
+			}else{
+				let index = categories.findIndex(element => {
+					return element.id == categoryUpdated.id;
+				});
+				categories.$set(index, categoryUpdated);
 			}
 
 			return reponse;
