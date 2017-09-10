@@ -14,7 +14,9 @@ class DatabaseSeeder extends Seeder
         $this->call(ClientsTableSeeder::class);// precisa estar antes para poder alimenta os usuarios
         $this->call(UsersTableSeeder::class);
         $this->call(BankAccountTableSeeder::class);
+        $this->call(CategoriesTableSeeder::class);
         
-        //$this->call(BanksTableSeeder::class); foi definida na migrção
+        
+        //$this->call(BanksTableSeeder::class); foi definida na migrção a criação do seu seed
     }
 }

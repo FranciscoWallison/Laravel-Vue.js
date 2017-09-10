@@ -3,7 +3,7 @@
 2 Ambiente ComPatilhado.
 3 Customizações por Cliente
 4 Atentimento a vários clientes
-5 Precisa de arquitetura milte-tenancy.
+5 Precisa de arquitetura multe-tenancy.
 6 Ideal em cloud server
 
 ## O Qque é multi-tenancy?
@@ -44,3 +44,6 @@
 ## libs 
 1 hyn/multi-tenant (trabalhas com subdominhos)
 2 orchestral/tenanti (trabalhas com vaias instancias de bancos )
+
+## [Nested set model](https://en.wikipedia.org/wiki/Nested_set_model)
+
