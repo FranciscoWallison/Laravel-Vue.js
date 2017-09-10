@@ -10,8 +10,7 @@
                     </div>
                 </div>
             </div>
-            <button type="button" @click="updateUser">Atulizar usuário</button>
-            {{user.name}}
+            <button type="button" @click="updateUser">Atulizar usuário</button>          
         </div>
     </div>
 </template>
@@ -20,15 +19,5 @@
     import store from '../store';   
 
     export default {
-        computed:{
-            user(){
-                return store.state.user;
-            }
-        },
-        methods: {
-            updateUser(){
-                store.commit('setUser',{name: 'Wallison'});
-            }
-       }
     }
 </script>

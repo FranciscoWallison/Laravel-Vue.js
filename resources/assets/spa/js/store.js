@@ -6,13 +6,14 @@ import Vuex from 'vuex';
 const USER	= 'user';
 
 const state = {
-	user: LocalStorage.getObject(USER),
+	user: LocalStorage.getObject(USER) || {name: ''},
 	check: JwtToken.token != null 
 };
 
 const mutations = {
 	setUser(state, user){
 		state.user = user;
+		LocalStorage.setObject(USER , user);
 	},
 	authenticated(state){
 		state.check = true;
@@ -23,10 +24,14 @@ const actions = {
 	login(context, {email, password}){
 		return JwtToken.accessToken(email, password).then((response) =>{
 			context.commit('authenticated');
-			//let afterLoginContext = afterLogin.bind(this);
-			//afterLoginContext(response);
+			context.dispatch('getUser');
             return response;
         });
+	},
+	getUser(context){
+		return User.get().then((response) => {
+				context.commit('setUser', response.data);
+			});
 	}
 }
 

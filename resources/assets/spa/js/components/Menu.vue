@@ -42,7 +42,7 @@
 </template>
 
 <script type="text/javascript">
-    import Auth from '../services/auth';
+    //import Auth from '../services/auth';
     import store from '../store'; 
 
     export default {
@@ -60,8 +60,7 @@
                         url: 'category.list'
                     },
                 ],
-                menusDropdown:[],
-                user: Auth.user,
+                menusDropdown:[]              
             }
         },
         computed:{
