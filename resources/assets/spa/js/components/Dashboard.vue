@@ -10,7 +10,8 @@
                     </div>
                 </div>
             </div>
-            {{user}}
+            <button type="button" @click="updateUser">Atulizar usuário</button>
+            {{user.name}}
         </div>
     </div>
 </template>
@@ -19,14 +20,14 @@
     import store from '../store';   
 
     export default {
-        components:{
+        computed:{
             user(){
-               return this.convetUset();
+                return store.state.user;
             }
-       },
-       methods: {
-            convetUset(){
-                console.log( JSON.parse( store.state.user ) , 'aqui');
+        },
+        methods: {
+            updateUser(){
+                store.commit('setUser',{name: 'Wallison'});
             }
        }
     }

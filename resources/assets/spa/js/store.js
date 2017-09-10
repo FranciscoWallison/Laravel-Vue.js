@@ -6,11 +6,17 @@ import Vuex from 'vuex';
 const USER	= 'user';
 
 const state = {
-	user: LocalStorage.get(USER),
+	user: LocalStorage.getObject(USER),
 	check: JwtToken.token != null 
 };
 
-export default new Vuex.Store({ state });
+const mutations = {
+	setUser(state, user){
+		state.user = user;
+	}
+};
+
+export default new Vuex.Store({ state, mutations });
 
 /*
 const afterLogin = function(response) {
