@@ -81,7 +81,7 @@ export class CategoryService{
 				}
 			}else{
 				/*
-                 * Categoria alterada, está sem pai
+                 * Categoria alterada, se tem pai
                  * E antes tinha um pai
                  */
 				if(parent){
@@ -120,6 +120,18 @@ export class CategoryService{
 					return element.id == categoryUpdated.id;
 				});
 				categories.$set(index, categoryUpdated);
+			}
+
+			return response;
+		});
+	}
+
+	static destroy(category, parent, categories){
+		return Category.delete({id: category.id}).then(response => {
+			if(parent){
+				parent.children.data.$remove(category);
+			}else{
+				categories.$remove(category);
 			}
 
 			return response;
