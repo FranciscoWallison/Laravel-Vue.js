@@ -21,7 +21,7 @@
     export default {
         ready(){
             User.get().then(( response ) => {
-                console.log( response.data );
+                //console.log( response.data );
             });
             
         }

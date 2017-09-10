@@ -24,7 +24,9 @@ class CategoryTransformer extends TransformerAbstract
     {
         return [
             'id'         => (int) $model->id,
-            'name'       => $model->name,
+            'name'       => $model->name,          
+            'parent_id'  => $model->parent_id,
+            'depth'      => $model->depth, // nivel da subcategoria
 
             /* place your other model properties here */
 
@@ -35,10 +37,17 @@ class CategoryTransformer extends TransformerAbstract
 
     public function includeChildren(Category $model)
     {
-        //nem toda categoria vai ter filho
-        if($model->children)
-        {
-            return $this->collection($model->children, new CategoryTransformer());//verifica se tem filho
-        }
+        
+        $children = $model->children()->withDepth()->get();
+        return $this->collection($children, new CategoryTransformer());
+        // //children tirando os children vazios
+        // if($model->children->count()){
+        //      return $this->collection($model->children, new CategoryTransformer());//verifica se tem filho
+        // }
+        // //nem toda categoria vai ter filho
+        // if($model->children)
+        // {
+        //     return $this->collection($model->children, new CategoryTransformer());//verifica se tem filho
+        // }
     }
 }

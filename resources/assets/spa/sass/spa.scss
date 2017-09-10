@@ -11,8 +11,14 @@
 // Materialize CSS
 @import "node_modules/materialize-css/sass/materialize";
 
+// Select2 CSS
+//@import "node_modules/select2/dist/css/select2";
+
 // Default sass
 @import "../../_default/sass/_default";
+
+// Select2 materialize css
+@import "../../_default/sass/select2-materialize";
 
 body{
 	background-color: color('green', 'lighten-5');
@@ -43,5 +49,27 @@ body{
     .filter-wrapper{
         overflow: hidden;
         padding-right: 10px;
+    }
+}
+
+.category-tree{
+    @extend .collection;
+    border: none;
+    margin: 0;
+    overflow: visible;
+
+    .category-child{
+        @extend .collection-item;
+        padding-left: 50px;
+    }
+
+    .category-symbol{
+        line-height: 36px;
+        height: 36px;
+
+        i{
+            line-heught: inherit;
+            height: inherit;
+        }
     }
 }

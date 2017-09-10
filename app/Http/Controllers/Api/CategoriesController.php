@@ -11,6 +11,7 @@ use CodeFin\Repositories\CategoryRepository;
 use CodeFin\Criteria\FindByNameCriteria;
 use CodeFin\Criteria\FindByLikeAgencyCriteria;
 use CodeFin\Criteria\FindRootCategoriesCriteria;
+use CodeFin\Criteria\WithDepthCategoriesCriteria;
 
 class CategoriesController extends Controller
 {
@@ -23,6 +24,7 @@ class CategoriesController extends Controller
     public function __construct(CategoryRepository $repository)
     {
         $this->repository = $repository;
+        $this->repository->pushCriteria( new WithDepthCategoriesCriteria());
     }
 
 
@@ -33,7 +35,9 @@ class CategoriesController extends Controller
      */
     public function index()
     {
-        $this->repository->pushCriteria( new FindRootCategoriesCriteria());
+        $this->repository
+            ->pushCriteria( new FindRootCategoriesCriteria());
+            
         $categories = $this->repository->all();
 
         return  $categories;
@@ -49,7 +53,10 @@ class CategoriesController extends Controller
     public function store(CategoryRequest $request)
     {
 //dd('deu certo');
-        $category = $this->repository->create($request->all());
+        $category = $this->repository->skipPresenter()->create($request->all());
+
+        $this->repository->skipPresenter(false);
+        $category = $this->repository->find($category->id); // serealizada com a profundade
 
         return response()->json($category, 201);
     }
@@ -97,7 +104,10 @@ class CategoriesController extends Controller
      */
     public function update(CategoryRequest $request, $id)
     {
-        $category = $this->repository->update($request->all(), $id);
+
+        $category = $this->repository->skipPresenter()->update($request->all(), $id);
+        $this->repository->skipPresenter(false);
+        $category = $this->repository->find($category->id); // serealizada com a profundade
 
         return response()->json($category);
     }
