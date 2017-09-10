@@ -13,10 +13,25 @@ const state = {
 const mutations = {
 	setUser(state, user){
 		state.user = user;
+	},
+	authenticated(state){
+		state.check = true;
 	}
 };
 
-export default new Vuex.Store({ state, mutations });
+const actions = {
+	login(context, {email, password}){
+		return JwtToken.accessToken(email, password).then((response) =>{
+			context.commit('authenticated');
+			//let afterLoginContext = afterLogin.bind(this);
+			//afterLoginContext(response);
+            return response;
+        });
+	}
+}
+
+
+export default new Vuex.Store({ state, mutations, actions });
 
 /*
 const afterLogin = function(response) {
