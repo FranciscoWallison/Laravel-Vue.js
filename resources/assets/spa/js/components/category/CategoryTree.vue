@@ -1,29 +1,33 @@
 <template>
-	<ul class="category-tree">
-		<li v-for="(index, o) in categories" class="category-child">
-			<div class="valign-wrapper">
-				<a :data-activates="dropdownId(o)" href="javascript:void(0);" class="category-symbol" 
-					:class="{'green-text' : o.children.data.length > 0 , 'grey-text' : !o.children.data.length }">
-					<i class="material-icons">
-						{{ categoryIcon(o) }}
-					</i>
-				</a>
-				<ul :id="dropdownId(o)" class="dropdown-content">
-					<li>
-						<a href="">Adicionar</a>
-					</li>
-					<li>
-						<a href="">Editar</a>
-					</li>
-					<li>
-						<a href="">Excluir</a>
-					</li>
-				</ul>
-				<span class="valign">{{{ categoryText(o) }}}</span>
-			</div>
-			<category-tree :categories="o.children.data"></category-tree>	
-		</li>
-	</ul>
+<!-- <div class="container"> -->
+	<div class="row">
+		<ul class="category-tree">
+			<li v-for="(index, o) in categories" class="category-child">
+				<div class="valign-wrapper">
+					<a :data-activates="dropdownId(o)" href="javascript:void(0);" class="category-symbol" 
+						:class="{'green-text' : o.children.data.length > 0 , 'grey-text' : !o.children.data.length }">
+						<i class="material-icons">
+							{{ categoryIcon(o) }}
+						</i>
+					</a>
+					<ul :id="dropdownId(o)" class="dropdown-content">
+						<li>
+							<a href="">Adicionar</a>
+						</li>
+						<li>
+							<a href="">Editar</a>
+						</li>
+						<li>
+							<a href="">Excluir</a>
+						</li>
+					</ul>
+					<span class="valign">{{{ categoryText(o) }}}</span>
+				</div>
+				<category-tree :categories="o.children.data"></category-tree>	
+			</li>
+		</ul>
+	</div>
+<!-- </div> -->
 </template>
 <script>
 

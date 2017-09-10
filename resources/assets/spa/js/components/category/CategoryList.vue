@@ -7,7 +7,14 @@
             <div class="card-panel z-depth-5">
                <category-tree :categories="categories"></category-tree>
             </div>
-
+            
+            <category-save :modal-options="modalOptionsSave" :category.sync="categorySave" @save-category="saveCategory">
+                <span slot="title">{{ title }}</span>
+                <div slot="footer">
+                    <button type="submit" class="btn btn-flat waves-effect green lighten-2 modal-close modal-action">OK</button>
+                    <button class="btn btn-flat waves-effect waves-red modal-close modal-action">Cancelar</button>
+                </div>
+            </category-save>
 		</div>
 	</div>
 </template>
@@ -25,7 +32,11 @@
     	},
     	data(){
     		return{
-    			categories:[]
+    			categories:[],
+                title: 'Adicionar categoria',
+                modalOptionsSave: {
+                    id: 'modal-category-save'
+                }
     		}
     	},
     	created(){
@@ -36,7 +47,10 @@
     			Category.query().then(response => {
     				this.categories = response.data.data;
     			})
-    		}
+    		},
+            saveCategory(){
+                console.log('saveCategory');
+            }
     	}
 	}
 	
