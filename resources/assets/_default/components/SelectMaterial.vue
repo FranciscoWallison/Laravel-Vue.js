@@ -11,9 +11,12 @@
 				requered: true
 			},
 			selected: {
+				validator(value){
+					return typeof value == 'string' || typeof value == 'number' || typeof value === null;  
+				}
 				//valor selecionado
-				type: [String, Number],
-				required: true
+				// type: [String, Number],
+				// required: true
 			}
 		},
 		ready(){
@@ -25,7 +28,7 @@
 					self.selected =  this.value
 				});
 			//atribuir o valor selecionado 
-			$(this.$el).val(this.selected).trigger('change'); 
+			$(this.$el).val(this.selected !== null ? this.selected: 0 ).trigger('change'); 
 		},
 		watch:{ //
 			'options.data'(data){
@@ -33,7 +36,7 @@
 			},
 			'selected'(selected){
 				if(selected != $(this.$el).val()){
-					$(this.$el).val(selected).trigger('change');
+					$(this.$el).val(selected !== null ? selected: 0).trigger('change');
 				}
 			}
 		}
