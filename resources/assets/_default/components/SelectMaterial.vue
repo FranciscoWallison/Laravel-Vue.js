@@ -1,5 +1,5 @@
 <template>
-	<select name="" id=""></select>
+	<select></select>
 </template>
 <script>
 	import 'select2';
@@ -26,6 +26,11 @@
 				});
 			//atribuir o valor selecionado 
 			$(this.$el).val(this.selected).trigger('change'); 
+		},
+		watch:{ //
+			'options.data'(data){
+				$(this.$el).select2(Object.assign({}, this.options, {data: data}));
+			}
 		}
 	}
 </script>

@@ -24,7 +24,8 @@ class CategoryTransformer extends TransformerAbstract
     {
         return [
             'id'         => (int) $model->id,
-            'name'       => $model->name,
+            'name'       => $model->name,          
+            'parent_id'  => $model->parent_id,
 
             /* place your other model properties here */
 

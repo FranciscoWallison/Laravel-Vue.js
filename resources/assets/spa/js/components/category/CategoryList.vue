@@ -5,16 +5,17 @@
 				<h5>Administração de categoria</h5>
 			</page-title>
             <div class="card-panel z-depth-5">
-                <select-material :options="options" :selected.sync="selected"></select-material>
-                {{ selected }}
                <category-tree :categories="categories"></category-tree>
             </div>
             
-            <category-save :modal-options="modalOptionsSave" :category.sync="categorySave" @save-category="saveCategory">
+            <category-save  :modal-options="modalOptionsSave" 
+                            :category.sync="categorySave" 
+                            :cp-options="cpOptions"
+                            @save-category="saveCategory">
                 <span slot="title">{{ title }}</span>
                 <div slot="footer">
                     <button type="submit" class="btn btn-flat waves-effect green lighten-2 modal-close modal-action">OK</button>
-                    <button class="btn btn-flat waves-effect waves-red modal-close modal-action">Cancelar</button>
+                    <button type="button" class="btn btn-flat waves-effect waves-red modal-close modal-action">Cancelar</button>
                 </div>
             </category-save>
 		</div>
@@ -25,7 +26,6 @@
 	import CategoryTreeComponent from './CategoryTree.vue';
     import CategorySaveComponent from './CategorySave.vue'
 	import {Category} from '../../services/resources';
-    import SelectMaterialComponent from '../../../../_default/components/SelectMaterial.vue';
 
 
 	export default {
@@ -33,12 +33,12 @@
     	components: {    		
             'page-title': PageTitleComponent,
             'category-tree': CategoryTreeComponent,
-            'category-save': CategorySaveComponent,
-            'select-material': SelectMaterialComponent,
+            'category-save': CategorySaveComponent,            
     	},
     	data(){
     		return{
     			categories:[],
+                categoriesFormatted:[],
                 categorySave:{
                     id: 0,
                     name: '',
@@ -47,19 +47,17 @@
                 title: 'Adicionar categoria',
                 modalOptionsSave: {
                     id: 'modal-category-save'
-                },
-                options:{
-                    data: [
-                        {id: 1, text: 'Values 1'},
-                        {id: 2, text: 'Values 2'},
-                        {id: 3, text: 'Values 3'},
-                        {id: 4, text: 'Values 4'},
-                        {id: 5, text: 'Values 5'},
-                    ]
-                },
-                selected: 4
+                }                
     		}
     	},
+        computed:{
+            //opçoes para o campo select 2 de categoria pai
+            cpOptions(){
+                return {
+                    data: this.categoriesFormatted
+                }
+            }
+        },
     	created(){
     		this.getCategories();
     	},
@@ -67,6 +65,7 @@
     		getCategories(){
     			Category.query().then(response => {
     				this.categories = response.data.data;
+                    this.formatCategories();
     			})
     		},
             saveCategory(){
@@ -78,6 +77,16 @@
             },
             modalEdit(category){
                 $(`#${this.modalOptionsSave.id}`).modal('open');
+            },
+            formatCategories(){
+
+                for(let category of this.categories){
+                    this.categoriesFormatted.push({
+                        id: category.id,
+                        text: category.name
+                    });
+                }
+                //this.categoriesFormatted = this.categories;
             }
     	},
         events: {

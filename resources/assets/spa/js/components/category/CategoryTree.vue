@@ -50,7 +50,7 @@
 						belowOrigin: true
 					});
 				},	
-				deep: true
+				deep: true //  assistir os subniveis
 			}
 		},
 		methods:{
