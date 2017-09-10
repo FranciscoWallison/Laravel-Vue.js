@@ -86,7 +86,8 @@
     		},
             saveCategory(){
                 CategoryService.new(this.categorySave, this.parent, this.categories).then(response => {
-                    
+                    Materialize.toast('Categoria adicionada com sucesso!', 4000);
+                    this.resetScope();
                 });
                 //console.log('saveCategory');
             },
@@ -96,9 +97,11 @@
                 this.categorySave = {
                     id: 0,
                     name: '',
-                    parent_id: category === null ? null : category.parent_id
+                    parent_id: category === null ? null : category.id
                 }; // mande para o component
-                this.parent_id = category;
+
+                this.parent = category;
+
                 $(`#${this.modalOptionsSave.id}`).modal('open');
             },
             modalEdit(category){
@@ -113,6 +116,18 @@
                 //     });
                 // }
                 //this.categoriesFormatted = this.categories;
+            },
+            resetScope(){
+                //reset o categorySave
+                this.categorySave = {
+                    id: 0,
+                    name: '',
+                    parent_id: 0
+                }; // mande para o component
+
+                this.category = null;
+                this.parent = null;
+                this.formatCategories(); // chama novamente o nosso formatCategories para ter uma coleçao de categorias formatada
             }
     	},
         events: {

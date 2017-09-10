@@ -32,7 +32,7 @@ export class CategoryService{
 	
 	static new(category, parent, categories){
 
-		let categoryCopy = $.extend(true, {}, Category);
+		let categoryCopy = $.extend(true, {}, category);
 		if(categoryCopy.parent_id === null){
 			delete categoryCopy.parent_id;//excluir para não mecher no objeto original
 		}

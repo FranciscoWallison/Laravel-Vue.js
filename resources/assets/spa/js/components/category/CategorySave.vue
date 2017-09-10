@@ -10,7 +10,7 @@
 					<div class="row">
 	                    <div class="input-field col s12">
 	                        <label class="active">Nome</label>
-	                        <input type="text" v-model="category.name" placerholder="O seu nome" />
+	                        <input type="text" v-model="category.name" placerholder="Nome da categoria" />
 	                    </div>
 	            	</div>
 	            	<div class="row">

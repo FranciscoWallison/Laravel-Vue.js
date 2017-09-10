@@ -25,7 +25,12 @@
 				//.val(this.selected)
 				.select2(this.options)
 				.on('change', function (){
-					self.selected =  this.value
+//console.log(this.value , parseInt(this.value, 10), 'aqui');
+					//verifica se parente id é egual a null
+					if(parseInt(this.value, 10)  !== 0 ){
+						self.selected =  this.value;
+					}
+					
 				});
 			//atribuir o valor selecionado 
 			$(this.$el).val(this.selected !== null ? this.selected: 0 ).trigger('change'); 
