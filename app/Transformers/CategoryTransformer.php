@@ -39,7 +39,7 @@ class CategoryTransformer extends TransformerAbstract
     {
         
         $children = $model->children()->withDepth()->get();
-            return $this->collection($children, new CategoryTransformer());
+        return $this->collection($children, new CategoryTransformer());
         // //children tirando os children vazios
         // if($model->children->count()){
         //      return $this->collection($model->children, new CategoryTransformer());//verifica se tem filho

@@ -11,6 +11,7 @@ use CodeFin\Repositories\CategoryRepository;
 use CodeFin\Criteria\FindByNameCriteria;
 use CodeFin\Criteria\FindByLikeAgencyCriteria;
 use CodeFin\Criteria\FindRootCategoriesCriteria;
+use CodeFin\Criteria\WithDepthCategoriesCriteria;
 
 class CategoriesController extends Controller
 {
@@ -33,7 +34,9 @@ class CategoriesController extends Controller
      */
     public function index()
     {
-        $this->repository->pushCriteria( new FindRootCategoriesCriteria());
+        $this->repository
+            ->pushCriteria( new FindRootCategoriesCriteria())
+            ->pushCriteria( new WithDepthCategoriesCriteria());
         $categories = $this->repository->all();
 
         return  $categories;

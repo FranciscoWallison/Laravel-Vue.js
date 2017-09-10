@@ -55,7 +55,16 @@
             //opçoes para o campo select 2 de categoria pai
             cpOptions(){
                 return {
-                    data: this.categoriesFormatted
+                    data: this.categoriesFormatted,
+
+                    templateResult(category){
+                        let margin = '&nbsp'.repeat(category.level * 6);
+                        let text = category.hasChildren ? `<strong>${category.text}</strong>` : category.text;
+                        return `${margin}${text}`;
+                    },
+                    escapeMarkup(m){
+                        return m;
+                    }
                 }
             }
         },
