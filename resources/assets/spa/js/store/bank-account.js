@@ -17,9 +17,6 @@ const mutations = {
 	'delete'(state){
 		state.bankAccounts.$remove(state.bankAccountDelete);
 	},
-	setInclude(){
-		state.searchOptions.include = include;
-	},
 	setOrder(state, key){
 		state.searchOptions.order.key = key;
 
@@ -57,6 +54,19 @@ const actions = {
     },
     queryWithFilter(context){    	
     	context.dispatch('query'); // atualiza 
+    },
+    'delete'(context){
+    	let id = context.state.bankAccountDelete.id;
+    	return BankAccount.delete({id: id}).then((response) => {
+    			context.commit('delete');
+    			context.commit('setDelete', null);
+    			let bankAccounts = context.state.bankAccounts;
+    			let pagination = context.state.searchOptions.pagination;
+                if(bankAccounts.length === 0 && pagination.current_page > 0){ // maior que 1
+                    context.commit('setCurrentPage', pagination.current_page--);
+                } 
+                return response;
+            });
     }
 };
 
