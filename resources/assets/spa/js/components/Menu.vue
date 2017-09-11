@@ -43,7 +43,7 @@
 
 <script type="text/javascript">
     //import Auth from '../services/auth';
-    import store from '../store'; 
+   import store from '../store/store';
 
     export default {
         data(){
@@ -66,7 +66,7 @@
         computed:{
             name(){
                 //return this.user.data ? this.user.data.name : '' ;
-                return store.state.user.name;
+                return store.state.auth.user.name;
             }
         },
         ready() {

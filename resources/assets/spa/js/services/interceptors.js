@@ -4,7 +4,7 @@
 */
 
 //import Auth from './auth';
-import store from '../store';
+import store from '../store/store';
 import appConfig from './appConfig';
 import JwtToken from './jwt-token';
 
