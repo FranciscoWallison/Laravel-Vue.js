@@ -66,7 +66,7 @@
         computed:{
             name(){
                 //return this.user.data ? this.user.data.name : '' ;
-                return store.state.auth.user.name;
+                return store.state.auth.user.name !== '' ? store.state.auth.user.name : '' ;
             }
         },
         ready() {

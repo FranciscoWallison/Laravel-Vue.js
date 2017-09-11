@@ -89,6 +89,7 @@
     import PaginationComponent from '../Pagination.vue';
     import PageTitleComponent from '../../../../_default/components/PageTitle.vue';
     import SearchComponent from '../../../../_default/components/Search.vue';
+    import store from '../../store/store';
 
     export default{
     	components: {
@@ -99,7 +100,6 @@
     	},
     	data() {
     		return {
-    			bankAccounts: [],
                 bankAccountToDelete: null,
                 availableIncludes: 'bank',
                 modal:{
@@ -145,6 +145,11 @@
                 }
     		};
     	},
+        computed:{
+            bankAccounts(){
+                return store.state.bankAccount.bankAccounts;
+            }
+        },
     	created(){
         	this.getBankAccounts(this.availableIncludes);
         },
@@ -159,22 +164,18 @@
                     Materialize.toast('Conta bancária excluida com sucesso!', 4000);
                 });
             },
-            getBankAccounts(availableIncludes){
-                BankAccount.query({
-                    page: this.pagination.current_page + 1,
-                    orderBy: this.order.key,
-                    sortedBy: this.order.sort,
-                    search: this.search
-                }).then((response) => {
-                    this.bankAccounts = response.data.data;  //data.data por causa do fractal
-                    let pagination = response.data.meta.pagination;
-                    pagination.current_page--;
-                    this.pagination = pagination;
-                });
-            },
             openModalDelete(bankAccount){
                 this.bankAccountToDelete = bankAccount;
                 $('#modal-delete').modal('open'); //
+            },
+            getBankAccounts(){
+                store.dispatch('query',{
+                    pagination: this.pagination,
+                    order: this.order,
+                    search: this.search
+                }).then((response) => {
+
+                });
             },
             sortBy(key){
                 this.order.key = key;
