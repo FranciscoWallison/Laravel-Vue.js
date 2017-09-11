@@ -24,9 +24,6 @@ const mutations = {
 	setDelete(state, bankAccount){
 		state.bankAccountDelete = bankAccount;
 	},
-	'delete'(state){
-		state.bankAccounts.$remove(state.bankAccountDelete);
-	},
 	setOrder(state, key){
 		state.searchOptions.order.key = key;
 
@@ -42,7 +39,10 @@ const mutations = {
 	},
 	setFilter(state, filter){
 		state.searchOptions.search = filter;
-	}
+	},
+	'delete'(state){
+		state.bankAccounts.$remove(state.bankAccountDelete);
+	},
 };
 
 const actions = {
@@ -65,6 +65,17 @@ const actions = {
     queryWithFilter(context){    	
     	context.dispatch('query'); // atualiza 
     },
+    save(context, bankAccount){
+    	return BankAccount.save({}, bankAccount).then((response) =>{
+	       return response;
+    	});
+    },
+    update(context,{id , bankAccount}){
+		// int id , Object bankAccount
+    	return BankAccount.update({id: id}, bankAccount).then((response) =>{
+	       return response;
+    	});
+    },
     'delete'(context){
     	let id = context.state.bankAccountDelete.id;
     	return BankAccount.delete({id: id}).then((response) => {
@@ -78,6 +89,7 @@ const actions = {
                 return response;
             });
     }
+   
 };
 
 const module = {

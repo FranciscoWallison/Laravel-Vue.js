@@ -12,18 +12,17 @@
         },
         data(){
             return{
-               title: 'Nova Conta Bancária',
-               bankAccount: {
+                title: 'Nova Conta Bancária',
+                bankAccount: {
                     name: '',
                     agency: '',
                     account: '',
                     bank_id: '',
                     'default': false,
-               },
+                },
                 bank: {
                     name: ""
                 },
-                banks: [],
             };
         },
         computed:{
@@ -36,7 +35,7 @@
         },
         methods: {
             submit(){
-                BankAccount.save({}, this.bankAccount).then( () =>{
+                store.dispatch('bankAccount/save', this.bankAccount).then(() =>{
                     Materialize.toast('Conta bancária criada com sucesso!', 4000);
                     this.$router.go({name: 'bank-account.list'});
                 });
