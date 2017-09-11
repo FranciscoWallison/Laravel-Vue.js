@@ -84,7 +84,6 @@
 </template>
 
 <script>
-	import {BankAccount, Banks} from '../../services/resources';
     import ModalComponent from '../../../../_default/components/Modal.vue';
     import PaginationComponent from '../Pagination.vue';
     import PageTitleComponent from '../../../../_default/components/PageTitle.vue';

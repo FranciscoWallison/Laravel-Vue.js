@@ -5,6 +5,8 @@
     import PageTitleComponent from '../../../../_default/components/PageTitle.vue';
     import 'materialize-autocomplete'; //busca a nossa biblioteca de jquery autocomplete
     import _ from 'lodash' // biblioteca caraterizada pelo underscore, vai ser vir para mostrar os resultados do autocomplete
+    import store from '../../store/store';
+
 
     export default{
         components:{
@@ -26,10 +28,18 @@
                 banks: [],
             };
         },
+        computed:{
+            bankAccount(){
+                return store.state.bankAccount.bankAccountSave;
+            }
+        },
         created(){
            this.getBanks();
         },
         methods: {
+            updateName(event){
+                store.commit('updateName', event.target.value);
+            },
             submit(){
                 BankAccount.save({}, this.bankAccount).then( () =>{
                     Materialize.toast('Conta bancária criada com sucesso!', 4000);
