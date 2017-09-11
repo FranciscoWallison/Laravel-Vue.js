@@ -1,7 +1,7 @@
 <template src="./_form.html"></template>
 
 <script>
-    import {BankAccount, Bank} from '../../services/resources';
+    import {BankAccount} from '../../services/resources';
     import PageTitleComponent from '../../../../_default/components/PageTitle.vue';
     import 'materialize-autocomplete'; //busca a nossa biblioteca de jquery autocomplete
     import _ from 'lodash' // biblioteca caraterizada pelo underscore, vai ser vir para mostrar os resultados do autocomplete
@@ -14,7 +14,7 @@
         },
         data(){
             return{
-               title: 'Nova Conta',
+               title: 'Nova Conta Bancária',
                bankAccount: {
                     name: '',
                     bank_id: '',
@@ -31,6 +31,9 @@
         computed:{
             bankAccount(){
                 return store.state.bankAccount.bankAccountSave;
+            },
+            banks(){
+                return store.state.bank.banks;
             }
         },
         created(){
@@ -47,10 +50,9 @@
                 });
             },
             getBanks(){ // bancos para inserir no formulario menu pendente
-                Bank.query({}).then((response) => {
-                    this.banks = response.data.data;
+                store.dispatch('bank/query').then((response) => {
                     this.initAutocomplete(); // para inicializar o autocomplete e mostrar na caixa de preenchimento
-                })
+                });
             },
            initAutocomplete(){  // autocomplete configurações
                 let self = this; // para poder usar o this dentro do jquery
