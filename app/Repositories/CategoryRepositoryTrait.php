@@ -2,23 +2,17 @@
 
 namespace CodeFin\Repositories;
 
-use Prettus\Repository\Eloquent\BaseRepository;
-use Prettus\Repository\Criteria\RequestCriteria;
-use CodeFin\Repositories\CategoryRepository;
-use CodeFin\Models\Category;
-use CodeFin\Validators\CategoryValidator;
-use CodeFin\Presenters\CategoryPresenter;
-
 /**
- * Class CategoryRepositoryEloquent
+ * trait CategoryRepositoryTrait
  * @package namespace CodeFin\Repositories;
  */
-class CategoryRepositoryEloquent extends BaseRepository implements CategoryRepository
+trait CategoryRepositoryTrait
 {
 
     public function create(array $attributes)
     {
-        Category::$enableTenant = false;
+        $model = $this->model();
+        $model::$enableTenant = false;
         // verificar se tem valor valido para parent_id
         if(isset($attributes['parent_id']))
         {
@@ -40,7 +34,7 @@ class CategoryRepositoryEloquent extends BaseRepository implements CategoryRepos
             //pai
             $result = parent::create($attributes);
         }
-        Category::$enableTenant = true;
+        $model::$enableTenant = true;
 
         return $result;
 
@@ -48,7 +42,8 @@ class CategoryRepositoryEloquent extends BaseRepository implements CategoryRepos
 
     public function update(array $attributes, $id)
     {
-        Category::$enableTenant = false;
+        $model = $this->model();
+        $model::$enableTenant = false;
 
         if(isset($attributes['parent_id']))
         {
@@ -70,33 +65,8 @@ class CategoryRepositoryEloquent extends BaseRepository implements CategoryRepos
             $result = parent::update($attributes, $id);
             $result->makeRoot()->save();
         }
-        Category::$enableTenant = true;
+        $model::$enableTenant = true;
 
         return $result;
-    }
-
-    /**
-     * Specify Model class name
-     *
-     * @return string
-     */
-    public function model()
-    {
-        return Category::class;
-    }
-
-    
-
-    /**
-     * Boot up the repository, pushing criteria
-     */
-    public function boot()
-    {
-        $this->pushCriteria(app(RequestCriteria::class));
-    }
-
-    public function presenter()
-    {
-        return CategoryPresenter::class;
     }
 }

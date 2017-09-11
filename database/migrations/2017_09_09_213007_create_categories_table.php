@@ -20,19 +20,10 @@ class CreateCategoriesTable extends Migration
 		* Usando Soft Delete evitarar a perca de todos os campos 
 		*/
 		
-		Schema::create('categories', function(Blueprint $table) {
-            $table->increments('id');
-            $table->string('name');// left right parent_id
-
-            //Campos NESTED SET MODEL
-            NestedSet::columns($table);
-
-            // Relacionamento multitenancy
-            $table->integer('client_id')->unsigned();
-            $table->foreign('client_id')->references('id')->on('clients');
-            // DB::select('DESCRIBE categories')
-            $table->timestamps();
-		});
+		/* 
+		* Foi trasferido a logia para as tabelas 
+		* category_revenues e category_expenses
+		**/
 	}
 
 	/**
@@ -42,7 +33,7 @@ class CreateCategoriesTable extends Migration
 	 */
 	public function down()
 	{
-		Schema::drop('categories');
+		//Schema::drop('categories');
 	}
 
 }

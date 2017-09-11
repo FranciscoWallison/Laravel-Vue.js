@@ -28,10 +28,20 @@ class CategoryRequest extends FormRequest
         return [
             //
             'name'      => 'required|max:255',
-            'parent_id' => Rule::exists('categories', 'id')
+            'parent_id' => Rule::exists($this->getTable(), 'id')
                 ->where(function($query) use($client){
                     $query->where('client_id', $client->id);
             })
         ];
+    }
+
+    protected function getTable(){
+        //pegando o controller que esta sendo acessado 
+        $currentAction = \Route::currentRouteAction();
+        list($controller) = explde('@', $currentAction); // pegando cntroller
+
+        //consutando a tabela
+        return str_is("$controller*", CategoryRevenuesController::class)
+            ? "category_revenues" : "category_expenses";
     }
 }

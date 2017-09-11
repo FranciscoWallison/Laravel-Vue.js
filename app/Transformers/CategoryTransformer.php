@@ -3,7 +3,7 @@
 namespace CodeFin\Transformers;
 
 use League\Fractal\TransformerAbstract;
-use CodeFin\Models\Category;
+use CodeFin\Models\AbstractCategory;
 
 /**
  * Class CategoryTransformer
@@ -15,12 +15,12 @@ class CategoryTransformer extends TransformerAbstract
     protected $defaultIncludes = ['children']; 
 
     /**
-     * Transform the \Category entity
-     * @param \Category $model
+     * Transform the \AbstractCategory entity
+     * @param \AbstractCategory $model
      *
      * @return array
      */
-    public function transform(Category $model)
+    public function transform(AbstractCategory $model)
     {
         return [
             'id'         => (int) $model->id,
@@ -35,7 +35,7 @@ class CategoryTransformer extends TransformerAbstract
         ];
     }
 
-    public function includeChildren(Category $model)
+    public function includeChildren(AbstractCategory $model)
     {
         
         $children = $model->children()->withDepth()->get();
