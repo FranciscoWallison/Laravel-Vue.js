@@ -1,8 +1,10 @@
 import {BankAccount} from '../services/resources';
+import SearchOptions from '../services/search-options';
 
 const state = {
 	bankAccounts: [],
     bankAccountDelete: null,
+    searchOptions: new SearchOptions(),
 };
 
 const mutations = {
@@ -14,6 +16,18 @@ const mutations = {
 	},
 	'delete'(state){
 		state.bankAccounts.$remove(state.bankAccountDelete);
+	},
+	setOrder(state, key){
+		state.searchOptions.order.key = key;
+	},
+	setPagination(state, pagination){
+		state.searchOptions.pagination = pagination;
+	},
+	setCurrentPage(state, currentPage){
+		state.searchOptions.pagination.current_page = currentPage;
+	},
+	setFilter(state, filter){
+		state.searchOptions.search = filter;
 	}
 };
 
@@ -27,11 +41,21 @@ const actions = {
                     include: 'bank'
                 }).then((response) => {
                     context.commit('set', response.data.data);  //data.data por causa do fractal
-                    let pagination_ = response.data.meta.pagination;
-                    pagination_.current_page--;
-                    pagination = pagination_;
+                    context.commit('setPagination', response.data.meta.pagination);
                 });
 	},
+	queryWithSortBy(context, key){
+		context.commit.('setOrder', key);
+		context.dispatch.('query');
+        
+    },
+    queryWithPagination(context, currentPage){
+    	context.commit('setCurrentPage', currentPage);
+    	context.dispatch.('query'); // atualiza 
+    }
+    queryWithFilter(context){    	
+    	context.dispatch.('query'); // atualiza 
+    }
 }
 
 const module = {
@@ -39,57 +63,3 @@ const module = {
 };
 
 export default module;
-
-/*
-const afterLogin = function(response) {
-	this.user.check = true;
-	User.get()
-		.then((response) => {
-			this.user.data = response.data;
-		});
-} 
-
-export default {
-	user: {
-		set data(value){
-			if(!value){
-				LocalStorage.remove(USER);
-				this._data = null
-				return;
-			}
-			this._data = value;
-			LocalStorage.setObject(USER, value);
-		},
-		get data(){
-			if(!this._data){
-				this._data = LocalStorage.getObject(USER);
-			}
-			return this._data;
-		},
-		check: JwtToken.token ? true : false
-	},
-	login(email, password){
-		return JwtToken.accessToken(email, password).then((response) =>{
-			let afterLoginContext = afterLogin.bind(this);
-			afterLoginContext(response);
-            return response;
-        });
-	},
-	logout(){
-		let afterLogout = (response) => {
-			this.clearAuth();
-			return response;
-		}
-
-		return JwtToken.revokeToken()
-				.then( afterLogout )
-				.catch( afterLogout);
-	},
-	clearAuth(){		
-		this.user.data = null;
-		this.user.check = false
-		// LocalStorage.remove(USER);
-		JwtToken.token = null;
-	}
-}
-*/
