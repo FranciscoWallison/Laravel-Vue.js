@@ -13,7 +13,7 @@
                                 <a href="#" @click.prevent="sortBy(key)">
                                     {{ o.label }}
                                    <!--  <i class="material-icons" v-if="searchOptions.order.key == key">
-                                        {{ order.sort == 'asc' ? 'arrow_drop_up' : 'arrow_drop_down' }}
+                                        {{ searchOptions.order.sort == 'asc' ? 'arrow_drop_up' : 'arrow_drop_down' }}
                                     </i> -->
                                 </a>                 
                             </th>                            
@@ -173,8 +173,8 @@
             sortBy(key){
                 store.dispatch('queryWithSortBy', key);
             },
-            filter(){
-                store.dispatch('queryWithFilter', key);
+            filter(filter){
+                store.dispatch('queryWithFilter', filter);
             }
         },
         events: {
