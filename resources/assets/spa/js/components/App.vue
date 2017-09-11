@@ -66,7 +66,6 @@
 
 <script type="text/javascript">
 import MenuComponent from './Menu.vue';
-//import Auth from '../services/auth';
 import store from '../store/store'; 
 
     export default {

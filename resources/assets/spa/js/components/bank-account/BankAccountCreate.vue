@@ -41,7 +41,7 @@
         },
         methods: {
             updateName(event){
-                store.commit('updateName', event.target.value);
+                store.commit('bankAccount/updateName', event.target.value);
             },
             submit(){
                 BankAccount.save({}, this.bankAccount).then( () =>{

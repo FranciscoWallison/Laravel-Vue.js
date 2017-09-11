@@ -14,7 +14,6 @@
 </template>
 
 <script type="text/javascript">
-    //import Auth from '../services/auth';
     import store from '../store/store';
 
 	export default{
@@ -26,7 +25,7 @@
 		methods: {
 			logout(){
                 let goToLogin = () => this.$router.go({name: 'auth.login'});
-                store.dispatch('logout')
+                store.dispatch('auth/logout')
                     .then( goToLogin )
 				    .catch( goToLogin );
 			}

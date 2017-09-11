@@ -1,7 +1,6 @@
 import AppComponent from './components/App.vue';
 import routerMap from './router.map';
 import VueRouter from 'vue-router';
-//import Auth from './services/auth'
 import store from './store/store';
 
 const router  = new VueRouter();

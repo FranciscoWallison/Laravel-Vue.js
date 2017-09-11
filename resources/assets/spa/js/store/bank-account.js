@@ -5,7 +5,7 @@ const state = {
 	bankAccounts: [],
     bankAccountDelete: null,
     bankAccountSave: {
-                    name: 'Minha conta',
+                    name: '',
                     bank_id: '',
                     agency: '',
                     account: '',
@@ -81,7 +81,10 @@ const actions = {
 };
 
 const module = {
-	state, mutations, actions
+	namespaced: true,
+	state, 
+	mutations, 
+	actions
 };
 
 export default module;
