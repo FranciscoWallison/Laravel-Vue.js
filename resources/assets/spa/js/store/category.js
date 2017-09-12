@@ -40,7 +40,7 @@ const mutations = {
 			state.parent.children.data.push(state.category);
 		}
 	},
-	edit(state){
+	edit(state, categoryUpdated){
 		if(state.category.parent_id === null){
 				/*
 				* Categoria alterada, sem pai
@@ -48,7 +48,7 @@ const mutations = {
 				*/
 				if(state.parent){
 					state.parent.children.data.$remove(state.category);
-					state.categories.push(state.category);
+					state.categories.push(categoryUpdated);
 					return;
 				}
 			}else{
@@ -61,7 +61,7 @@ const mutations = {
 					*/
 					if(state.parent.id != state.category.state.parent_id){ // verificar se a categoria pai é diferente da antiga
 						state.parent.children.data.$remove(state.category);
-						addChild(state.category, state.categories);
+						addChild(categoryUpdated, state.categories);
 						return;
 					}
 				}else{
@@ -70,7 +70,7 @@ const mutations = {
 					* Antes a categoria era um pai
 					*/
 					state.categories.$remove(state.category); // remove da raiz
-					addChild(state.category, state.categories);
+					addChild(categoryUpdated, state.categories);
 					return;
 				}
 			}
@@ -83,12 +83,12 @@ const mutations = {
 				let index = state.parent.children.data.findIndex(element => {
 					return element.id == state.category.id;
 				});
-				state.parent.children.data.$set(index, state.category);
+				state.parent.children.data.$set(index, categoryUpdated);
 			}else{
 				let index = state.categories.findIndex(element => {
 					return element.id == state.category.id;
 				});
-				state.categories.$set(index, state.category);
+				state.categories.$set(index, categoryUpdated);
 			}
 	},
 	'delete'(state){
@@ -105,40 +105,51 @@ const mutations = {
 		state.parent = parent;
 	},
 	setResource(state, type){
-		state.response = type == 'categoryRevenue' ? CategoryRevenue : CategoryExpense;
+		state.resource = type == 'categoryRevenue' ? CategoryRevenue : CategoryExpense;
 	}
 };
 
 const actions = {
-	query(context){
-		let searchOptions = context.state.searchOptions;
-		return  BankAccount.query(searchOptions.createOptions()).then((response) => {
-                    context.commit('set', response.data.data);  //data.data por causa do fractal
-                    context.commit('setPagination', response.data.meta.pagination);
+	query(context){		
+		return  context.state.resource.query().then((response) => {
+                    context.commit('set', response.data.data);
+                   return resource;
                 });
 	},
-    save(context, bankAccount){
-    	return BankAccount.save({}, bankAccount).then((response) =>{
-	       return response;
-    	});
+    save(context, category){
+
+    	let categoryCopy = $.extend(true, {}, category);
+		if(categoryCopy.parent_id === null){
+			delete categoryCopy.parent_id;//excluir para não mecher no objeto original
+		}
+
+    	if(category.id === 0){
+			return context.dispatch('new', categoryCopy);
+		}else{
+			return context.dispatch('edit', categoryCopy);			
+		}
     },
-    update(context,{id , bankAccount}){
-		// int id , Object bankAccount
-    	return BankAccount.update({id: id}, bankAccount).then((response) =>{
-	       return response;
-    	});
+    'new'(context, category){
+    	return context.state.resource.save(category).then(response => {
+			context.commit('setCategory', category);
+			context.commit('add');
+
+			return response;
+		})
+    },
+    edit(context, category){
+    	return this.resource.update({id: category.id}, category).then(response => {
+			context.commit('edit', response.data.data);
+			
+			return response;
+		});
     },
     'delete'(context){
-    	let id = context.state.bankAccountDelete.id;
-    	return BankAccount.delete({id: id}).then((response) => {
+    	let id = context.state.category.id;
+    	return context.state.resource.delete({id: id}).then((response) => {
     			context.commit('delete');
-    			context.commit('setDelete', null);
-    			let bankAccounts = context.state.bankAccounts;
-    			let pagination = context.state.searchOptions.pagination;
-                if(bankAccounts.length === 0 && pagination.current_page > 0){ // maior que 1
-                    context.commit('setCurrentPage', pagination.current_page--);
-                } 
-                return response;
+    			context.commit('setCategory', null);
+    			return response;
             });
     }
    
