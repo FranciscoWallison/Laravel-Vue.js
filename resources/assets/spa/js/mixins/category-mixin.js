@@ -23,7 +23,7 @@ export default {
             categories(){
                 return store.state[this.namespace()].categories;
             },
-            categoriasFormatted(){
+            categoriesFormatted(){
                 return store.getters[`${this.namespace()}/categoriesFormatted`];
             },
             categoryDelete(){
