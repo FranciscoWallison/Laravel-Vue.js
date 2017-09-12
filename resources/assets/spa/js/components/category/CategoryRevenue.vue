@@ -32,15 +32,13 @@
 	</div>
 </template>
 <script>
-    import {CategoryService} from '../../services/category-nsm';
     import categoryMixin from '../../mixins/category-mixin';
 
-
-	export default {
+    export default {
         mixins: [categoryMixin],
         methods: {
-            resource(){
-                return new CategoryService('revenue');
+            namespace(){
+                return 'categoryRevenue';
             }
         }
     }

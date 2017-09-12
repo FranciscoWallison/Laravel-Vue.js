@@ -1,6 +1,5 @@
 import {CategoryRevenue, CategoryExpense} from './resources';
-export class CategoryFormat{
-	
+export class CategoryFormat{	
 	static getCategoriesFormatted(categories){
 		let categoriesFormatted = this._formatCategories(categories);
 		categoriesFormatted.unshift({
@@ -42,12 +41,10 @@ export class CategoryService{
 	}
 
 	new(category, parent, categories){
-
 		let categoryCopy = $.extend(true, {}, category);
 		if(categoryCopy.parent_id === null){
-			delete categoryCopy.parent_id;//excluir para não mecher no objeto original
+			delete categoryCopy.parent_id;
 		}
-
 		return this.resource.save(categoryCopy).then(response => {
 			let categoryAdded = response.data.data;
 			if(categoryAdded.parent_id === null){
@@ -68,43 +65,25 @@ export class CategoryService{
 		return this.resource.update({id: categoryCopy.id}, categoryCopy).then(response => {
 			let categoryUpdated = response.data.data;
 			if(categoryUpdated.parent_id === null){
-				/*
-				* Categoria alterada, sem pai
-				* E antes ela tinha um pai
-				*/
 				if(parent){
 					parent.children.data.$remove(categoryOriginal);
 					categories.push(categoryUpdated);
 					return response;
 				}
-			}else{
-				/*
-                 * Categoria alterada, se tem pai
-                 */
-				if(parent){
-					/*
-					* Trocar categoria de pai
-					*/
-					if(parent.id != categoryUpdated.parent_id){ // verificar se a categoria pai é diferente da antiga
+			}else{				
+				if(parent){					
+					if(parent.id != categoryUpdated.parent_id){
 						parent.children.data.$remove(categoryOriginal);
 						CategoryService._addChild(categoryUpdated, categories);
 						return response;
 					}
-				}else{
-					/*
-					* Trocar categoria mestre um filho
-					* Antes a categoria era um pai
-					*/
-					categories.$remove(categoryOriginal); // remove da raiz
+				}else{					
+					categories.$remove(categoryOriginal);
 					CategoryService._addChild(categoryUpdated, categories);
 					return response;
 				}
 			}
 
-			/*
-			* Alteração somente no nome da categoria
-			* Arualizar as informações na arvore
-			*/
 			if(parent){
 				let index = parent.children.data.findIndex(element => {
 					return element.id == categoryUpdated.id;
@@ -139,7 +118,7 @@ export class CategoryService{
 
 	static _addChild(child, categories){
 		let parent = this._findParent(child.parent_id, categories);
-		parent.children.data.push(child);//adinconado filho
+		parent.children.data.push(child);
 	}
 
 	static _findParent(id, categories){

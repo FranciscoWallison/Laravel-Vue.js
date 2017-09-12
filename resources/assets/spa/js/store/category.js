@@ -1,4 +1,4 @@
-import {CategoryRevenue, CategoryExpense} from '../services/resources';
+import {CategoryExpense,CategoryRevenue} from '../services/resources';
 
 const formatCategories = (categories, categoryCollection = []) => {
 	for(let category of categories){
@@ -28,166 +28,140 @@ const findParent = (id, categories) => {
 		}
 	}
 	return result;
-}
+};
 
 const addChild = (child, categories) => {
 	let parent = findParent(child.parent_id, categories);
 	parent.children.data.push(child);//adinconado filho
-}
-
-
-
-const state = {
-	categories: [],
-	category: null
-	parent: null,
-	resource: null
 };
 
-const mutations = {	
-	set(state, categories){
-		state.categories = categories;		
-	},
-	add(state){
-		if(state.category.parent_id === null){
-			state.categories.push(state.category);
-		}else{
-			state.parent.children.data.push(state.category);
-		}
-	},
-	edit(state, categoryUpdated){
-		if(state.category.parent_id === null){
-				/*
-				* Categoria alterada, sem pai
-				* E antes ela tinha um pai
-				*/
-				if(state.parent){
-					state.parent.children.data.$remove(state.category);
-					state.categories.push(categoryUpdated);
-					return;
-				}
+export default () => {
+	const state = {
+		categories: [],
+		category: null,
+		parent: null,
+		resource: null
+	};
+
+	const mutations = {	
+		set(state, categories){
+            state.categories = categories;
+        },
+		add(state){
+			if(state.category.parent_id === null){
+				state.categories.push(state.category);
 			}else{
-				/*
-                 * Categoria alterada, se tem pai
-                 */
-				if(state.parent){
-					/*
-					* Trocar categoria de pai
-					*/
-					if(state.parent.id != state.category.state.parent_id){ // verificar se a categoria pai é diferente da antiga
+				state.parent.children.data.push(state.category);
+			}
+		},
+		edit(state, categoryUpdated){
+			if(categoryUpdated.parent_id === null){				
+					if(state.parent){
 						state.parent.children.data.$remove(state.category);
-						addChild(categoryUpdated, state.categories);
+						state.categories.push(categoryUpdated);
 						return;
 					}
 				}else{
-					/*
-					* Trocar categoria mestre um filho
-					* Antes a categoria era um pai
-					*/
-					state.categories.$remove(state.category); // remove da raiz
-					addChild(categoryUpdated, state.categories);
-					return;
+					if(state.parent){
+						if(state.parent.id != state.category.state.parent_id){ // verificar se a categoria pai é diferente da antiga
+							state.parent.children.data.$remove(state.category);
+							addChild(categoryUpdated, state.categories);
+							return;
+						}
+					}else{
+						state.categories.$remove(state.category); // remove da raiz
+						addChild(categoryUpdated, state.categories);
+						return;
+					}
 				}
-			}
-
-			/*
-			* Alteração somente no nome da categoria
-			* Arualizar as informações na arvore
-			*/
+				if(state.parent){
+					let index = state.parent.children.data.findIndex(element => {
+						return element.id == state.category.id;
+					});
+					state.parent.children.data.$set(index, categoryUpdated);
+				}else{
+					let index = state.categories.findIndex(element => {
+						return element.id == state.category.id;
+					});
+					state.categories.$set(index, categoryUpdated);
+				}
+		},
+		'delete'(state){
 			if(state.parent){
-				let index = state.parent.children.data.findIndex(element => {
-					return element.id == state.category.id;
-				});
-				state.parent.children.data.$set(index, categoryUpdated);
+				state.parent.children.data.$remove(state.category);
 			}else{
-				let index = state.categories.findIndex(element => {
-					return element.id == state.category.id;
-				});
-				state.categories.$set(index, categoryUpdated);
+				state.categories.$remove(state.category);
 			}
-	},
-	'delete'(state){
-		if(state.parent){
-			state.parent.children.data.$remove(state.category);
-		}else{
-			state.categories.$remove(state.category);
+		},
+		setCategory(state, category){
+			state.category = category;
+		},
+		setParent(state, parent){
+			state.parent = parent;
 		}
-	},
-	setCategory(state, category){
-		state.category = category;
-	},
-	setParent(state, parent){
-		state.parent = parent;
-	},
-	setResource(state, type){
-		state.resource = type == 'categoryRevenue' ? CategoryRevenue : CategoryExpense;
-	}
-};
-
-const actions = {
-	query(context){		
-		return  context.state.resource.query().then((response) => {
-                    context.commit('set', response.data.data);
-                   return resource;
-                });
-	},
-    save(context, category){
-
-    	let categoryCopy = $.extend(true, {}, category);
-		if(categoryCopy.parent_id === null){
-			delete categoryCopy.parent_id;//excluir para não mecher no objeto original
-		}
-
-    	if(category.id === 0){
-			return context.dispatch('new', categoryCopy);
-		}else{
-			return context.dispatch('edit', categoryCopy);			
-		}
-    },
-    'new'(context, category){
-    	return context.state.resource.save(category).then(response => {
-			context.commit('setCategory', category);
-			context.commit('add');
-			return response;
-		})
-    },
-    edit(context, category){
-    	return this.resource.update({id: category.id}, category).then(response => {
-			context.commit('edit', response.data.data);
-			return response;
-		});
-    },
-    'delete'(context){
-    	let id = context.state.category.id;
-    	return context.state.resource.delete({id: id}).then((response) => {
-    			context.commit('delete');
-    			context.commit('setCategory', null);
-    			return response;
+	};
+	
+	const actions = {
+		query(context){
+            return context.state.resource.query().then((response) => {
+                context.commit('set', response.data.data);
+                return response;
             });
-    }
-   
-};
+        },
+        'delete'(context){
+	    	let id = context.state.category.id;
+	    	return context.state.resource.delete({id: id}).then((response) => {
+	    			context.commit('delete');
+	    			context.commit('setCategory', null);
+	    			return response;
+	        });
+	    },
+	    save(context, category){
+	    	let categoryCopy = $.extend(true, {}, category);
+			if(categoryCopy.parent_id === null){
+				delete categoryCopy.parent_id;//excluir para não mecher no objeto original
+			}
+	    	if(category.id === 0){
+				return context.dispatch('new', categoryCopy);
+			}
+			return context.dispatch('edit', categoryCopy);
+	    },
+	    'new'(context, category){
+	    	return context.state.resource.save(category).then(response => {
+				context.commit('setCategory', response.data.data);
+				context.commit('add');
+				return response;
+			})
+	    },
+	    edit(context, category){
+	    	return context.state.resource.update({id: category.id}, category).then((response) => {
+				context.commit('edit', response.data.data);
+				return response;
+			});
+	    },	    
+	   
+	};
 
-const getters = {
-	categoriesFormatted(state){
-		let categoriesFormatted = formatCategories(state.categories);//reatividae
-		categoriesFormatted.unshift({
-			id: 0,
-			text: 'Nenhuma categoria',
-			level: 0,
-			hasChildren: false  
-		});
-		return categoriesFormatted;
-	}
-};
+	const getters = {
+		categoriesFormatted(state){
+			let categoriesFormatted = formatCategories(state.categories);
+			categoriesFormatted.unshift({
+				id: 0,
+				text: 'Nenhuma categoria',
+				level: 0,
+				hasChildren: false  
+			});
+			return categoriesFormatted;
+		}
+	};
 
+	const module = {
+		namespaced: true,
+		state, 
+		mutations, 
+		actions,
+		getters
+	};
 
-const module = {
-	namespaced: true,
-	state, 
-	mutations, 
-	actions,
-	getters
-};
-
-export default module;
+	return module;
+}

@@ -11,8 +11,6 @@ export default {
     	},
     	data(){
     		return{
-    			categories:[],
-                categoriesFormatted:[],
                 categorySave:{
                     id: 0,
                     name: '',
@@ -21,10 +19,18 @@ export default {
                 title: ''
     		}
     	},
-        computed:{
-            //opçoes para o campo select 2 de categoria pai
-            cpOptions(){
-                return {
+        computed:{           
+            categories(){
+                return store.state[this.namespace()].categories;
+            },
+            categoriasFormatted(){
+                return store.getters[`${this.namespace()}/categoriesFormatted`];
+            },
+            categoryDelete(){
+                return store.state[this.namespace()].category;
+            },            
+            cpOptions(){                 
+                return { //opçoes para o campo select 2 de categoria pai
                     data: this.categoriesFormatted,
                     templateResult(category){
                         let margin = '&nbsp'.repeat(category.level * 6);
@@ -36,15 +42,6 @@ export default {
                     }
                 }
             },
-            categories(){
-                return store.state[this.namespace()].categories;
-            },
-            categoriasFormatted(){
-                return store.getters[`${this.namespace()}/categoriesFormatted`];
-            },
-            categoryDelete(){
-                return store.state[this.namespace()].category;
-            },
             modalOptionsSave(){
             	return {id: `modal-category-save-${this._uid}`};
             },
@@ -53,11 +50,12 @@ export default {
             }
         },
     	created(){
-    		store.dispatch(`${this.namespace()}/query`);
+    		return store.dispatch(`${this.namespace()}/query`);
     	},
     	methods: {
             saveCategory(){
                 store.dispatch(`${this.namespace()}/save`, this.categorySave).then(response => {
+                     $(`#${this.modalOptionsSave.id}`).modal('close');
                     if(this.categorySave.id === 0){
                         Materialize.toast('Categoria adicionada com sucesso!', 4000);
                     }else{
@@ -67,8 +65,7 @@ export default {
                 });
             },
             destroy(){
-                store.dispatch(`${this.namespace()}/delete`)
-                    .then(response => {
+                store.dispatch(`${this.namespace()}/delete`).then(response => {
                         Materialize.toast('Categoria excluída com sucesso!', 4000);                      
                     });
             },
@@ -94,7 +91,7 @@ export default {
                 $(`#${this.modalOptionsSave.id}`).modal('open');
             },
             modalDelete(category, parent){
-                store.commit(`${this.namespace()}/setDelete`, category);
+                store.commit(`${this.namespace()}/setCategory`, category);
                 store.commit(`${this.namespace()}/setParent`, parent);//delete
                 $(`#${this.modalOptionsDelete.id}`).modal('open');
             },            
