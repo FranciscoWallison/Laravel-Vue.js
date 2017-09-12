@@ -1,6 +1,6 @@
 <template>
 	<div >
-        <div class="card-panel z-depth-5">
+        <div class="card-panel">
             <category-tree :categories="categories"></category-tree>
         </div>
             
@@ -8,7 +8,7 @@
                             :category.sync="categorySave" 
                             :cp-options="cpOptions"
                             @save-category="saveCategory">
-                <span slot="title">{{ title }}</span>
+                <span slot="title">{{ title }} de Despesas</span>
                 <div slot="footer">
                     <button type="submit" class="btn btn-flat waves-effect green lighten-2 modal-close modal-action">OK</button>
                     <button type="button" class="btn btn-flat waves-effect waves-red modal-close modal-action">Cancelar</button>

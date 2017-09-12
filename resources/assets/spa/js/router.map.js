@@ -42,9 +42,9 @@ export default{
 			}
 		}
 	},
-	'plan-account':{
-		name: 'category.list',
-		component: PlanAccountComponent,
-		auth: true
-	}
+    'plan-account': {
+        name: 'plan-account.list',
+        component: PlanAccountComponent,
+        auth: true
+    },
 }

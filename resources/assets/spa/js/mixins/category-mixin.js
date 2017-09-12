@@ -80,7 +80,7 @@ export default {
                     name: '',
                     parent_id: category === null ? null : category.id
                 }; // mande para o component
-                this.parent = category;
+                this.parent = parent;
                 $(`#${this.modalOptionsSave.id}`).modal('open');
             },
             modalEdit(category, parent){

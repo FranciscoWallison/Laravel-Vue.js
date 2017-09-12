@@ -1,6 +1,6 @@
 import {CategoryRevenue, CategoryExpense} from './resources';
-
 export class CategoryFormat{
+	
 	static getCategoriesFormatted(categories){
 		let categoriesFormatted = this._formatCategories(categories);
 		categoriesFormatted.unshift({
@@ -65,7 +65,6 @@ export class CategoryService{
 		if(categoryCopy.parent_id === null){
 			delete categoryCopy.parent_id;
 		}
-		let self = this; //pega o contexto da classe
 		return this.resource.update({id: categoryCopy.id}, categoryCopy).then(response => {
 			let categoryUpdated = response.data.data;
 			if(categoryUpdated.parent_id === null){
