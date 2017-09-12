@@ -4,7 +4,7 @@
 		<ul class="category-tree">
 			<li v-for="(index, o) in categories" class="category-child">
 				<div class="valign-wrapper">
-					<a :data-activates="dropdownId(o)" href="javascript:void(0);" class="category-symbol" :id="categorySymbolId(o)"
+					<a :data-activates="dropdownId(o)" href="!#" class="category-symbol" :id="categorySymbolId(o)"
 						:class="{'green-text' : o.children.data.length > 0 , 'grey-text' : !o.children.data.length }">
 						<i class="material-icons">
 							{{ categoryIcon(o) }}
@@ -59,20 +59,20 @@
 		},
 		methods:{
 			dropdownId(category){
-				return `category-tree-dropdown-${category.id}`;
-			},
-			categorySymbolId(category){
-				return `category-symbol-${this._uid}-${category.id}`;
-			},
-			makeDropdown(){
-				$(`a[id^=category-symbol-${this._uid}-]`).unbind('mouseenter mouseleave');		
-				$(`a[id^=category-symbol-${this._uid}-]`).dropdown({
-					hover: true,
-					inDuration: 300,
-					outDuration: 400,
-					belowOrigin: true
-				});
-			},
+                return `category-tree-dropdown-${this._uid}-${category.id}`;
+            },
+            categorySymbolId(category){
+                return `category-symbol-${this._uid}-${category.id}`;
+            },
+            makeDropdown(){
+                 $(`a[id^=category-symbol-${this._uid}-]`).unbind('mouseenter mouseleave');
+                $(`a[id^=category-symbol-${this._uid}-]`).dropdown({
+                    hover: true,
+                    inDuration: 300,
+                    outDuration: 400,
+                    belowOrigin: true
+                });
+            },
 			categoryText(category){
 				return category.children.data.length > 0 ? `<strong> ${category.name}</strong>` :  category.name;
 			},

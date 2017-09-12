@@ -40,10 +40,10 @@ export default {
                 }
             },
             modalOptionsSave(){
-            	return {id: `modal-category-save-${this._uld}`};
+            	return {id: `modal-category-save-${this._uid}`};
             },
             modalOptionsDelete(){
-            	return {id: `modal-category-delete-${this._uld}`};
+            	return {id: `modal-category-delete-${this._uid}`};
             }
         },
     	created(){
@@ -80,7 +80,7 @@ export default {
                     name: '',
                     parent_id: category === null ? null : category.id
                 }; // mande para o component
-                this.parent = parent;
+                this.parent = category;
                 $(`#${this.modalOptionsSave.id}`).modal('open');
             },
             modalEdit(category, parent){

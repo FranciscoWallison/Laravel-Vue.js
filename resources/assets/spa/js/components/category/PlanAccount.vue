@@ -31,15 +31,14 @@
 </template>
 <script>
 	import PageTitleComponent from '../../../../_default/components/PageTitle.vue';
-	import CategoryRevenue from './CategoryRevenue.vue';
-	import CategoryExpense from './CategoryExpense.vue';
-
-	export default { 
-		components: {
-			'page-title': PageTitleComponent,
-			'category-revenue': CategoryRevenue,
-			'category-expense': CategoryExpense
-		},
+    import CategoryRevenue from './CategoryRevenue.vue'
+    import CategoryExpense from './CategoryExpense.vue'
+    export default{
+        components: {
+            'page-title': PageTitleComponent,
+            'category-revenue': CategoryRevenue,
+            'category-expense': CategoryExpense,
+        },
 		methods: {
 			newRevenue(){
 				this.$refs.revenue.modalNew(null);

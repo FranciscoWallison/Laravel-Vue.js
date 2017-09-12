@@ -28,12 +28,6 @@
                     <button class="btn btn-flat waves-effect waves-red modal-close modal-action">Cancelar</button>
                 </div>
             </modal>
-
-           <!--  <div class="fixed-action-btn">
-                <button class="btn-floating btn-large" @click="modalNew(null)">
-                    <i class="large material-icons">add</i>
-                </button>
-            </div> -->
 		</div>
 	</div>
 </template>
