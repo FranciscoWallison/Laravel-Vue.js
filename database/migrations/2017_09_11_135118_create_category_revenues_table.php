@@ -1,18 +1,12 @@
 <?php
 
+use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
+use Kalnoy\Nestedset\NestedSet;
 
 class CreateCategoryRevenuesTable extends Migration
 {
-$table->increments('id');
-            $table->string('name');
-
-            NestedSet::columns($table);
-
-            $table->integer('client_id')->unsigned();
-            $table->foreign('client_id')->reference('id')->on('clients');
-            $table->timestamps();
 	/**
 	 * Run the migrations.
 	 *
@@ -26,8 +20,6 @@ $table->increments('id');
 
             NestedSet::columns($table);
 
-            $table->integer('client_id')->unsigned();
-            $table->foreign('client_id')->reference('id')->on('clients');
             $table->timestamps();
 		});
 	}

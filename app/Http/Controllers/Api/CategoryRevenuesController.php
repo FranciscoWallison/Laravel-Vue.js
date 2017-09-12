@@ -17,7 +17,7 @@ class CategoryRevenuesController extends Controller
     */
     protected $repository;
 
-    public function __construct(CategoryRevenueRepository $request)
+    public function __construct(CategoryRevenueRepository $repository)
     {
     	$this->repository = $repository;
     	$this->repository->pushCriteria(new WithDepthCategoriesCriteria());

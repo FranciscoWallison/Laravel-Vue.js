@@ -4,7 +4,7 @@ import DashboardComponent from  './components/Dashboard.vue';
 import BankAccountListComponent from './components/bank-account/BankAccountList.vue';
 import BankAccountCreateComponent from './components/bank-account/BankAccountCreate.vue';
 import BankAccountUpdateComponent from './components/bank-account/BankAccountUpdate.vue';
-import CategoryListComponent from './components/category/CategoryList.vue';
+import PlanAccountComponent from './components/category/PlanAccount.vue';
 
 export default{
 	'login': {
@@ -42,9 +42,9 @@ export default{
 			}
 		}
 	},
-	'categories':{
+	'plan-account':{
 		name: 'category.list',
-		component: CategoryListComponent,
+		component: PlanAccountComponent,
 		auth: true
 	}
 }

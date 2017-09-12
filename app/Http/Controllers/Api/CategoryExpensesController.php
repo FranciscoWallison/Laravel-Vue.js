@@ -14,7 +14,7 @@ class CategoryExpensesController extends Controller
 
     protected $repository;
 
-    public function __construct(CategoryExpenseRepository $request)
+    public function __construct(CategoryExpenseRepository $repository)
     {
 
     	$this->repository = $repository;

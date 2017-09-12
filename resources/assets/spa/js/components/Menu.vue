@@ -54,7 +54,7 @@
                         url: 'bank-account.list'
                     },
                     {
-                        name: 'Categorias', 
+                        name: 'Plano de Contas', 
                         routeName: 'category.list',
                         url: 'category.list'
                     },

@@ -7,6 +7,7 @@ use Prettus\Repository\Criteria\RequestCriteria;
 use CodeFin\Repositories\CategoryRevenueRepository;
 use CodeFin\Models\CategoryRevenue;
 use CodeFin\Validators\CategoryRevenueValidator;
+use CodeFin\Presenters\CategoryPresenter;
 
 /**
  * Class CategoryRevenueRepositoryEloquent

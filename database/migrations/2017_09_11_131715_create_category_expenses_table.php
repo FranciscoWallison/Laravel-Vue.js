@@ -15,15 +15,14 @@ class CreateCategoryExpensesTable extends Migration
     public function up()
     {
         //
-        Schema::create('category_expenses', function(Blueprint $table){
+        Schema::create('category_expenses', function(Blueprint $table) {
             $table->increments('id');
             $table->string('name');
 
             NestedSet::columns($table);
 
-            $table->integer('client_id')->unsigned();
-            $table->foreign('client_id')->reference('id')->on('clients');
             $table->timestamps();
+            
         });
     }
 

@@ -3,8 +3,11 @@
 namespace CodeFin\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Notifications\Notifiable;
 use Prettus\Repository\Contracts\Transformable;
 use Prettus\Repository\Traits\TransformableTrait;
+use HipsterJazzbo\Landlord\BelongsToTenants; 
+use Kalnoy\Nestedset\NodeTrait; 
 
 
 class AbstractCategory extends Model implements Transformable
