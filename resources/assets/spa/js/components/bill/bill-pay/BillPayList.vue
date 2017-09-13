@@ -78,7 +78,7 @@
     import SearchComponent from '../../../../../_default/components/Search.vue';
     import BillPayCreateComponent from './BillPayCreate.vue';
     import BillPayUpdateComponent from './BillPayUpdate.vue';
-    import store from '../../store/store';
+    import store from '../../../store/store';
    
 
     export default{
@@ -166,7 +166,7 @@
             sortBy(key){
                 store.dispatch('billPay/queryWithSortBy', key);
             },
-            filter(){
+            filter(filter){
                 store.dispatch('billPay/queryWithFilter', filter);
             }
         },

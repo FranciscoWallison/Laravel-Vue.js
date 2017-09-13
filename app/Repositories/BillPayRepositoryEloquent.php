@@ -7,6 +7,8 @@ use Prettus\Repository\Criteria\RequestCriteria;
 use CodeFin\Repositories\BillPayRepository;
 use CodeFin\Models\BillPay;
 use CodeFin\Validators\BillPayValidator;
+use CodeFin\Presenters\BillPayPresenter;
+
 
 /**
  * Class BillPayRepositoryEloquent
@@ -14,6 +16,12 @@ use CodeFin\Validators\BillPayValidator;
  */
 class BillPayRepositoryEloquent extends BaseRepository implements BillPayRepository
 {
+     protected $fieldSearchable = [
+        'date_due'  => 'LIKE',
+        'name'      => 'LIKE',
+        'value'     => 'LIKE',
+        'done'      => 'LIKE'
+    ];
     /**
      * Specify Model class name
      *
@@ -23,9 +31,6 @@ class BillPayRepositoryEloquent extends BaseRepository implements BillPayReposit
     {
         return BillPay::class;
     }
-
-    
-
     /**
      * Boot up the repository, pushing criteria
      */
@@ -34,8 +39,8 @@ class BillPayRepositoryEloquent extends BaseRepository implements BillPayReposit
         $this->pushCriteria(app(RequestCriteria::class));
     }
 
-    public function present()
+    public function presenter()
     {
-        return BillPlayPresenter::class;
+        return BillPayPresenter::class;
     }
 }

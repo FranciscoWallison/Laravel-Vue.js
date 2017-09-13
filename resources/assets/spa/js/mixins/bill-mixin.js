@@ -1,4 +1,4 @@
-import PageTitleComponent from '../../components/PageTitle.vue';
+import PageTitleComponent from '../../../_default/components/PageTitle.vue';
 import ModalComponent from '../../../_default/components/Modal.vue';
 import store from '../store/store';
 
