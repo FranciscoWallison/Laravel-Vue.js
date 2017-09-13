@@ -16,7 +16,8 @@
             type: Object,
                 default(){
                     return {
-                        id: ''
+                        id: '',
+                        options: {}
                     }
                 }
             }
@@ -26,7 +27,7 @@
             let id = this.modal.id;
             //console.log($(`#${id}`).modal());
             $(document).ready(() => {
-                $(`#${id}`).modal();
+                $(`#${id}`).modal(this.modal.options);
             });
         }
     }
