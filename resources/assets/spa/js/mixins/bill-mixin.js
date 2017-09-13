@@ -42,7 +42,7 @@ export default {
                         bill: this.bill,
                         index: this.index
                     }).then(() => {
-                        this.resetScope;
+                        this.resetScope();
                          $('#modal-edit').modal('close');
 
                         Materialize.toast('Conta atualizada com sucesso!', 4000);
@@ -52,7 +52,7 @@ export default {
                    
                 } else {
                     store.dispatch(`${this.namespace()}/save`, this.bill).then(() => {
-                        this.resetScope;
+                        this.resetScope();
                         $('#modal-create').modal('close');  
 
                         Materialize.toast('Conta criada com sucesso!', 4000); 
