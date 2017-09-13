@@ -56,35 +56,35 @@ export default () => {
 		},
 		edit(state, categoryUpdated){
 			if(categoryUpdated.parent_id === null){				
-					if(state.parent){
+				if(state.parent){
+					state.parent.children.data.$remove(state.category);
+					state.categories.push(categoryUpdated);
+					return;
+				}
+			}else{
+				if(state.parent){
+					if(state.parent.id != state.category.parent_id){ // verificar se a categoria pai é diferente da antiga
 						state.parent.children.data.$remove(state.category);
-						state.categories.push(categoryUpdated);
-						return;
-					}
-				}else{
-					if(state.parent){
-						if(state.parent.id != state.category.state.parent_id){ // verificar se a categoria pai é diferente da antiga
-							state.parent.children.data.$remove(state.category);
-							addChild(categoryUpdated, state.categories);
-							return;
-						}
-					}else{
-						state.categories.$remove(state.category); // remove da raiz
 						addChild(categoryUpdated, state.categories);
 						return;
 					}
-				}
-				if(state.parent){
-					let index = state.parent.children.data.findIndex(element => {
-						return element.id == state.category.id;
-					});
-					state.parent.children.data.$set(index, categoryUpdated);
 				}else{
-					let index = state.categories.findIndex(element => {
-						return element.id == state.category.id;
-					});
-					state.categories.$set(index, categoryUpdated);
+					state.categories.$remove(state.category); // remove da raiz
+					addChild(categoryUpdated, state.categories);
+					return;
 				}
+			}
+			if(state.parent){
+				let index = state.parent.children.data.findIndex(element => {
+					return element.id == state.category.id;
+				});
+				state.parent.children.data.$set(index, categoryUpdated);
+			}else{
+				let index = state.categories.findIndex(element => {
+					return element.id == state.category.id;
+				});
+				state.categories.$set(index, categoryUpdated);
+			}
 		},
 		'delete'(state){
 			if(state.parent){

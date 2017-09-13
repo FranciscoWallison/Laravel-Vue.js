@@ -67,7 +67,8 @@ export default {
             destroy(){
                 store.dispatch(`${this.namespace()}/delete`).then(response => {
                         Materialize.toast('Categoria excluída com sucesso!', 4000);                      
-                    });
+                });
+                this.resetScope();
             },
             modalNew(category){
                 this.title = "Nova Categoria";
