@@ -1,4 +1,4 @@
-import PageTitleComponent from '../components/PageTitle.vue';
+import PageTitleComponent from '../../components/PageTitle.vue';
 import ModalComponent from '../../../_default/components/Modal.vue';
 import store from '../store/store';
 
@@ -17,7 +17,7 @@ export default {
                 type: Object,
                 required: true
             }
-        }.
+        },
         data() {
             return {
                 bill: {
@@ -27,7 +27,7 @@ export default {
                     value: '',
                     done: false
                 }
-            },
+            }
         },
         methods: {
             doneId(){
