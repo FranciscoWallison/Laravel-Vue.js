@@ -1,0 +1,41 @@
+
+<form name="form" method="POST" @submit.prevent="submit">  
+     <div class="container">
+        <div class="row">    
+            <modal :modal="modalOptions">
+                <div slot="content">
+                    <page-title>
+                        <h5 class="center">{{title}}</h5>              
+                    </page-title>
+                    <div class="row">
+                        <div class="input-field col s6">
+                            <input type="text"  v-model="bill.date_due" placeholder="Informe a data"/>
+                            <label class="active">Vencimento</label>
+                        </div>
+                        <div class="input-field col s6">
+                            <input type="text" v-model="bill.value" placeholder="Informe o valor"/>
+                            <label class="active">Valor</label>
+                        </div>
+                        <div class="input-field col s6">
+                            <input type="text" v-model="bill.name" placeholder="Informe o nome"/>
+                            <label class="active">Nome</label>
+                        </div>
+                        <div class="input-field col s6">
+                            <input type="checkbox" class="filled-ind" v-model="bill.done" :id="doneId()"/>
+                            <label :for="doneId()">Pago?</label>
+                        </div>
+                    </div>
+                </div>
+                <div slot="footer">
+                    <button type="submit" class="btn btn-flat waves-effect green lighten-2">
+                        Ok
+                    </button>
+                    <button type="button" class="btn btn-flat waves-effect waves-red lighten-2 modal-close modal-action">
+                        Cancelar
+                    </button>
+                </div>
+            </modal>
+        </div>
+    </div>
+</form>
+      

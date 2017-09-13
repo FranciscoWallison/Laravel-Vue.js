@@ -41,26 +41,26 @@
                 </div>
                
             </div>
-
-			<div class="fixed-action-btn">
-                <a class="btn-floating btn-large" @click.prevent="openModalCreate()">
-                    <i class="large material-icons">add</i>
-                </a>
-            </div>
 		</div>
 	</div>
+
+    <div class="fixed-action-btn">
+        <a class="btn-floating btn-large" @click.prevent="openModalCreate()">
+            <i class="large material-icons">add</i>
+        </a>
+    </div>
 
 	<bill-pay-create :modal-options="modalCreate"></bill-pay-create>
 	<bill-pay-update :index="indexUpdate" :modal-options="modalEdit"></bill-pay-update>
 
 	<modal :modal="modalDelete">
-        <div slot="content" v-if="billPayDelete">
+        <div slot="content" v-if="billDelete">
             <h4>Mensagem de confirmação</h4>
             <p><strong>Deseja excluir esta conta?</strong></p>
             <div class="divider"></div>
-            <p>Vencimento: <strong>{{ billPayDelete.date_due }}</strong></p>
-            <p>Name: <strong>{{ billPayDelete.name }}</strong></p>
-            <p>Valor: <strong>{{ billPayDelete.value }}</strong></p>
+            <p>Vencimento: <strong>{{ billDelete.date_due }}</strong></p>
+            <p>Name: <strong>{{ billDelete.name }}</strong></p>
+            <p>Valor: <strong>{{ billDelete.value }}</strong></p>
             <div class="divider"></div>
         </div>
         <div slot="footer">
@@ -139,8 +139,8 @@
                     store.commit('billPay/setFilter', value);
                 }
             },
-            billPayDelete(){
-                return store.state.billPay.billPayDelete;
+            billDelete(){
+                return store.state.billPay.billDelete;
             }
         },
     	created(){
@@ -166,8 +166,8 @@
             sortBy(key){
                 store.dispatch('billPay/queryWithSortBy', key);
             },
-            filter(filter){
-                store.dispatch('billPay/queryWithFilter', filter);
+            filter(){
+                store.dispatch('billPay/queryWithFilter');
             }
         },
         events: {

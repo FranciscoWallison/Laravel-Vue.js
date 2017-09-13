@@ -8,8 +8,7 @@ use CodeFin\Http\Controllers\Controller;
 use CodeFin\Http\Requests;
 use Prettus\Validator\Contracts\ValidatorInterface;
 use Prettus\Validator\Exceptions\ValidatorException;
-use CodeFin\Http\Requests\BillPaysCreateRequest;
-use CodeFin\Http\Requests\BillPaysUpdateRequest;
+use CodeFin\Http\Requests\BillPayRequest;
 use CodeFin\Repositories\BillPayRepository;
 use CodeFin\Criteria\FindByNameCriteria;
 use CodeFin\Criteria\FindByLikeAgencyCriteria;
@@ -46,14 +45,15 @@ class BillPaysController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param  BillPaysCreateRequest $request
+     * @param  BillPayRequest $request
      *
      * @return \Illuminate\Http\Response
      */
-    public function store(BillPaysCreateRequest $request)
+    public function store(BillPayRequest $request)
     {
-        $billPay = $this->repository->create($request->all());
+        $billPay = $this->repository->skipPresenter()->create($request->all());
 
+        $this->repository->skipPresenter(false);
         return response()->json($billPay, 201);
     }
 
@@ -93,15 +93,16 @@ class BillPaysController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param  BillPayUpdateRequest $request
+     * @param  BillPayRequest $request
      * @param  string            $id
      *
      * @return Response
      */
-    public function update(BillPayUpdateRequest $request, $id)
+    public function update(BillPayRequest $request, $id)
     {
-        $billPay = $this->repository->update($request->all(), $id);
+        $billPay = $this->repository->skipPresenter()->update($request->all(), $id);
 
+        $this->repository->skipPresenter(false);
         return response()->json($billPay);
     }
 

@@ -6,6 +6,11 @@
 
 	export default {
 		mixins: [billPayMixin],
+		data(){
+            return{
+                title: 'Editar Pagamento',
+            };
+        },
 		created(){
 			let self = this;
 			this.modalOptions.options = {},
@@ -24,7 +29,8 @@
 				return 'Editar Pagamento';
 			},
 			getBill(){
-				let bill = store.getters[`${this.namespace}/billByIndex`](this.index);
+				this.resetScope();
+				let bill = store.getters[`${this.namespace()}/billByIndex`](this.index);
 				this.bill = {
 					id: bill.id,
 					date_due: bill.date_due,

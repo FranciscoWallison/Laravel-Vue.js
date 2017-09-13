@@ -1,11 +1,14 @@
 import PageTitleComponent from '../../../_default/components/PageTitle.vue';
 import ModalComponent from '../../../_default/components/Modal.vue';
+import SelectMaterialComponent from '../../../_default/components/SelectMaterial.vue';
 import store from '../store/store';
 
 export default {
         components: {
             'page-title': PageTitleComponent,
-            'modal': ModalComponent,   
+            'modal': ModalComponent,
+            'select-material': SelectMaterialComponent,
+
         },
         props:{
             index: {
@@ -39,15 +42,26 @@ export default {
                         bill: this.bill,
                         index: this.index
                     }).then(() => {
+                        this.resetScope;
+                         $('#modal-edit').modal('close');
+
                         Materialize.toast('Conta atualizada com sucesso!', 4000);
-                        this.resetScope;
+                       
                     });
+
+                   
                 } else {
-                    store.dispatch(`${this.namespace()}/save`. this.bill).then(() => {
-                        Materialize.toast('Conta criada com sucesso!', 4000);
+                    store.dispatch(`${this.namespace()}/save`, this.bill).then(() => {
                         this.resetScope;
+                        $('#modal-create').modal('close');  
+
+                        Materialize.toast('Conta criada com sucesso!', 4000); 
+
                     });
+
+                    
                 }
+                
             },          
             resetScope(){
                 this.bill = {
