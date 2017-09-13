@@ -60,7 +60,7 @@
             <div class="divider"></div>
             <p>Vencimento: <strong>{{ billDelete.date_due }}</strong></p>
             <p>Name: <strong>{{ billDelete.name }}</strong></p>
-            <p>Valor: <strong>{{ billDelete.value }}</strong></p>
+            <p>Valor: <strong>R$ {{ billDelete.value }}</strong></p>
             <div class="divider"></div>
         </div>
         <div slot="footer">
@@ -117,7 +117,7 @@
                             width: '15%'
                         },
                         value: {
-                            label: 'Value',
+                            label: 'Valor',
                             width: '15%'
                         }
                     }
