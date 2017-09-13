@@ -14,7 +14,8 @@
 </template>
 
 <script type="text/javascript">
-    import Auth from '../services/auth';
+    import store from '../store/store';
+
 	export default{
         ready(){
             setTimeout(() => {
@@ -24,7 +25,7 @@
 		methods: {
 			logout(){
                 let goToLogin = () => this.$router.go({name: 'auth.login'});
-                Auth.logout()
+                store.dispatch('auth/logout')
                     .then( goToLogin )
 				    .catch( goToLogin );
 			}

@@ -13,20 +13,8 @@ use CodeFin\Criteria\FindByLikeAgencyCriteria;
 use CodeFin\Criteria\FindRootCategoriesCriteria;
 use CodeFin\Criteria\WithDepthCategoriesCriteria;
 
-class CategoriesController extends Controller
+trait CategoriesControllerTrait
 {
-
-    /**
-     * @var CategoryRepository
-     */
-    protected $repository;
-
-    public function __construct(CategoryRepository $repository)
-    {
-        $this->repository = $repository;
-        $this->repository->pushCriteria( new WithDepthCategoriesCriteria());
-    }
-
 
     /**
      * Display a listing of the resource.

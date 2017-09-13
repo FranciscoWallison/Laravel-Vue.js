@@ -44,7 +44,8 @@
 </template>
 
 <script type="text/javascript">
-    import Auth from '../services/auth';
+    import store from '../store/store'; 
+
 	export default{
 		data(){
 			return {
@@ -60,9 +61,9 @@
 		},
 		methods: {
 			login(){
-                Auth.login(this.user.email, this.user.password)
+                store.dispatch('auth/login', this.user)
                     .then(() => this.$router.go({name: 'dashboard'}))
-				    .catch((resposeError) => {
+                    .catch((resposeError) => {
 
                         switch ( resposeError.status ){
                             case 401:
@@ -75,6 +76,8 @@
                         this.error.error = true;
                         
                     });
+                //Auth.login(this.user.email, this.user.password)
+                    
 			}
 		}
 	}

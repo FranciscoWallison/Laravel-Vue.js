@@ -1,6 +1,5 @@
-import {Category} from './resources';
-
-export class CategoryFormat{
+import {CategoryRevenue, CategoryExpense} from './resources';
+export class CategoryFormat{	
 	static getCategoriesFormatted(categories){
 		let categoriesFormatted = this._formatCategories(categories);
 		categoriesFormatted.unshift({
@@ -9,7 +8,6 @@ export class CategoryFormat{
 			level: 0,
 			hasChildren: false  
 		});
-//console.log(categoriesFormatted);
 		return categoriesFormatted;
 	}
 
@@ -22,7 +20,7 @@ export class CategoryFormat{
 				hasChildren: category.children.data.length > 0 
 			};
 			categoryCollection.push(categoryNew);
-			this._formatCategories(category.children.data, categoryCollection); //chegar ao fim da arvore
+			this._formatCategories(category.children.data, categoryCollection);
 		}
 		return categoryCollection;
 	}
@@ -30,7 +28,11 @@ export class CategoryFormat{
 
 export class CategoryService{
 	
-	static save(category, parent, categories, categoryOriginal){
+	constructor(type) {
+		this.resource = type == 'revenue' ? CategoryRevenue : CategoryExpense;
+	}
+
+	save(category, parent, categories, categoryOriginal){
 		if(category.id === 0){
 			return this.new(category, parent, categories);
 		}else{
@@ -38,16 +40,13 @@ export class CategoryService{
 		}
 	}
 
-	static new(category, parent, categories){
-
+	new(category, parent, categories){
 		let categoryCopy = $.extend(true, {}, category);
 		if(categoryCopy.parent_id === null){
-			delete categoryCopy.parent_id;//excluir para não mecher no objeto original
+			delete categoryCopy.parent_id;
 		}
-
-		return Category.save(categoryCopy).then(response => {
+		return this.resource.save(categoryCopy).then(response => {
 			let categoryAdded = response.data.data;
-			//verifica se é mestre ou filha
 			if(categoryAdded.parent_id === null){
 				categories.push(categoryAdded);
 			}else{
@@ -58,58 +57,33 @@ export class CategoryService{
 		})
 	}
 
-	static edit(category, parent, categories, categoryOriginal){
-
+	edit(category, parent, categories, categoryOriginal){
 		let categoryCopy = $.extend(true, {}, category);
 		if(categoryCopy.parent_id === null){
-			delete categoryCopy.parent_id;//excluir para não mecher no objeto original
+			delete categoryCopy.parent_id;
 		}
-		let self = this; //pega o contexto da classe
-		return Category.update({id: categoryCopy.id}, categoryCopy).then(response => {
-
+		return this.resource.update({id: categoryCopy.id}, categoryCopy).then(response => {
 			let categoryUpdated = response.data.data;
-			//verifica se é mestre ou filha
 			if(categoryUpdated.parent_id === null){
-				/*
-				* Categoria alterada, sem pai
-				* E antes ela tinha um pai
-				*/
 				if(parent){
 					parent.children.data.$remove(categoryOriginal);
 					categories.push(categoryUpdated);
 					return response;
 				}
-			}else{
-				/*
-                 * Categoria alterada, se tem pai
-                 * E antes tinha um pai
-                 */
-				if(parent){
-					/*
-					* Trocar categoria de pai
-					*/
-					if(parent.id != categoryUpdated.parent_id){ // verificar se a categoria pai é diferente da antiga
+			}else{				
+				if(parent){					
+					if(parent.id != categoryUpdated.parent_id){
 						parent.children.data.$remove(categoryOriginal);
-						self._addChild(categoryUpdated, categories);
+						CategoryService._addChild(categoryUpdated, categories);
 						return response;
 					}
-				}else{
-					/*
-					* Trocar categoria mestre um filho
-					* Antes a categoria era um pai
-					*/
-//console.log(categoryOriginal);
-					categories.$remove(categoryOriginal); // remove da raiz
-					self._addChild(categoryUpdated, categories);
+				}else{					
+					categories.$remove(categoryOriginal);
+					CategoryService._addChild(categoryUpdated, categories);
 					return response;
 				}
 			}
 
-			/*
-			* Alteração somente no nome da categoria
-			* Arualiza~r as informações na arvore
-			*/
-			//TO::DO Criar um metodo para não deixar de ser repetitivo
 			if(parent){
 				let index = parent.children.data.findIndex(element => {
 					return element.id == categoryUpdated.id;
@@ -126,8 +100,8 @@ export class CategoryService{
 		});
 	}
 
-	static destroy(category, parent, categories){
-		return Category.delete({id: category.id}).then(response => {
+	destroy(category, parent, categories){
+		return this.resource.delete({id: category.id}).then(response => {
 			if(parent){
 				parent.children.data.$remove(category);
 			}else{
@@ -138,9 +112,13 @@ export class CategoryService{
 		});
 	}
 
+	query(){
+		return this.resource.query();
+	}
+
 	static _addChild(child, categories){
 		let parent = this._findParent(child.parent_id, categories);
-		parent.children.data.push(child);//adinconado filho
+		parent.children.data.push(child);
 	}
 
 	static _findParent(id, categories){

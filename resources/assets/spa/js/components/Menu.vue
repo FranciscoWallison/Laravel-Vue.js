@@ -42,7 +42,7 @@
 </template>
 
 <script type="text/javascript">
-    import Auth from '../services/auth';
+   import store from '../store/store';
 
     export default {
         data(){
@@ -54,18 +54,18 @@
                         url: 'bank-account.list'
                     },
                     {
-                        name: 'Categorias', 
-                        routeName: 'category.list',
-                        url: 'category.list'
+                        name: 'Plano de Contas', 
+                        routeName: 'plan-account.list',
+                        url: 'plan-account.list'
                     },
                 ],
-                menusDropdown:[],
-                user: Auth.user,
+                menusDropdown:[]              
             }
         },
         computed:{
-            name(){
-                return this.user.data ? this.user.data.name : '' ;
+            name(){                
+               let user = store.state.auth.user;
+               return user ? user.name : '';
             }
         },
         ready() {

@@ -1,6 +1,6 @@
 <template>
 	<div>
-		<form name="form" action="" method="POST" @submit.prevent="submit">
+		<form name="form" method="POST" @submit.prevent="submit" id="form-category">
 			<modal :modal="modalOptions">
 				<div slot="content">
 					<h4> 

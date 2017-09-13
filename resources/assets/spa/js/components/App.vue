@@ -66,7 +66,7 @@
 
 <script type="text/javascript">
 import MenuComponent from './Menu.vue';
-import Auth from '../services/auth';
+import store from '../store/store'; 
 
     export default {
         components: {
@@ -82,14 +82,16 @@ import Auth from '../services/auth';
         },
         data(){
             return {
-                year: new Date().getFullYear(),
-                user: Auth.user,
+                year: new Date().getFullYear(),               
                 loading: true
             }
        },
         computed: {
+            isAuth(){
+              return store.state.auth.check;
+            },
             showMenu(){
-                return this.user.check && this.$router.name != 'auth.login';
+                return this.isAuth && this.$router.name != 'auth.login';
             }
         }
     };
