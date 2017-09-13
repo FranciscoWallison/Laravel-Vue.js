@@ -21,6 +21,7 @@ let Bank = Vue.resource('banks');
 let BankAccount = Vue.resource('bank_accounts{/id}'); // com o vue resource temos todas as operações put. delete update etc
 let CategoryRevenue = Vue.resource('category_revenues{/id}');
 let CategoryExpense = Vue.resource('category_expenses{/id}');
+let BillPay = Vue.resource('bill_pays{/id}');
 
-export {User, BankAccount, Bank, CategoryRevenue, CategoryExpense};
+export {User, BankAccount, Bank, CategoryRevenue, CategoryExpense, BillPay};
 
