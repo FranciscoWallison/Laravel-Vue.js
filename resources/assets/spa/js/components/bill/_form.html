@@ -25,7 +25,7 @@
                         <label class="active">Vencimento</label>
                     </div>
                     <div class="input-field col s6">
-                        <input type="text" v-model="bill.value" placeholder="Informe o valor"/>
+                        <input type="text" v-model="bill.value | numberFormat" placeholder="Informe o valor"/>
                         <label class="active">Valor</label>
                     </div>
                 </div>
