@@ -45,7 +45,7 @@
                     this.initAutocomplete(); // para inicializar o autocomplete e mostrar na caixa de preenchimento
                 });
             },
-           initAutocomplete(){  // autocomplete configurações
+            initAutocomplete(){  // autocomplete configurações
                 let self = this; // para poder usar o this dentro do jquery
                 $(document).ready(() =>{
                     $('#bank-id').materialize_autocomplete({

@@ -30,7 +30,7 @@ class BankAccountsController extends Controller
 
     public function lists()
     {
-        return $this->repository->all(['id', 'name', 'account']);
+        return $this->repository->skipPresenter()->all(['id','name','account']);
     }
     /**
      * Display a listing of the resource.

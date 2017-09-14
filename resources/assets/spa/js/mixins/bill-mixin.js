@@ -28,13 +28,56 @@ export default {
                     date_due: '',
                     name: '',
                     value: '',
-                    done: false
+                    done: false,
+                    bank_account_id: 0
+                }
+            }
+        },
+        computed:{
+            bankAccounts(){
+                return store.state.bankAccount.lists;
+            }
+        },
+        watch: {
+            bankAccounts(bankAccounts){
+                if(bankAccounts.length > 0){
+                    this.initAutocomplete();
                 }
             }
         },
         methods: {
             doneId(){
                 return `done-${this._uid}`;
+            },
+            bankAccountTextId(){
+                return `bank-account-text-${this._uid}`;
+            },
+            bankAccountDropdownId(){
+                return `bank-account-dropdown-${this._uid}`;
+            },
+            initAutocomplete(){  // autocomplete configurações
+                let self = this; // para poder usar o this dentro do jquery
+                $(document).ready(() =>{
+                    $(`#${this.bankAccountTextId()}`).materialize_autocomplete({
+                        //cacheable: true,
+                        limit: 10,
+                        multiple:{
+                            enable:false
+                        },
+                        dropdown: {
+                            el: `#${this.bankAccountDropdownId()}`
+                        },
+                        getData(value, callback){
+                            let mapBankAccoutns = store.getters['bankAccount/mapBankAccounts'];
+                            let bankAccounts = mapBankAccoutns(value); // aqui fica a nossa subcoleção para o autoomplete
+                            callback(value, bankAccounts);
+                        },
+                        onSelect(item){
+                            self.bill.bank_account_id = item.id; // aliemta o input
+                            //console.log(item);
+                        },
+                    });
+                });
             },
             submit(){
                 if (this.bill.id !== 0){
@@ -69,7 +112,8 @@ export default {
                     date_due: '',
                     name: '',
                     value: '',
-                    done: false
+                    done: false,
+                    bank_account_id: 0
                 }; // mande para o component
             }
         }

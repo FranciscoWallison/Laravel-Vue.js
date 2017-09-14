@@ -6,6 +6,14 @@
                     <h5 class="center">{{title}}</h5>              
                 </page-title>
                 <div class="row">
+                    <div class="input-field col s12">
+                        <label class="active">Conta Bancária:</label>
+                        <input type="text" :id="bankAccountTextId()" placeholder="Procurar banco"
+                        autocomplete="off" :data-activates="bankAccountDropdownId()" data-beloworigin="true"/>
+                        <ul :id="bankAccountDropdownId()" class="dropdown-content ac-dropdown"></ul>
+                    </div>
+                </div>
+                <div class="row">
                     <div class="input-field col s6">
                         <input type="text" v-model="bill.date_due" placeholder="Informe a data"/>
                         <label class="active">Vencimento</label>
