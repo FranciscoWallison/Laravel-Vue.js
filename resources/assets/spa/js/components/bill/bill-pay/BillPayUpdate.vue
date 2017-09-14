@@ -22,6 +22,9 @@
 			};
 		},
 		methods: {
+			categoryNamespace(){
+				return 'categoryExpense';
+			},
 			namespace(){
 				return 'billPay';
 			},
