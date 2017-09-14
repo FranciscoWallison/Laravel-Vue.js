@@ -6,6 +6,8 @@ use Illuminate\Database\Eloquent\Model;
 use Prettus\Repository\Contracts\Transformable;
 use Prettus\Repository\Traits\TransformableTrait;
 use CodeFin\Models\User;
+use CodeFin\Models\BankAccount;
+use CodeFin\Models\CategoryExpense;
 
 class Client extends Model implements Transformable
 {
@@ -18,6 +20,16 @@ class Client extends Model implements Transformable
     public function users()
     {
     	return $this->hasMany(User::class);
+    }
+
+    public function bankAccounts()
+    {
+    	return $this->hasMany(BankAccount::class);
+    }
+
+    public function categoryExpenses()
+    {
+    	return $this->hasMany(CategoryExpense::class);
     }
 
 }
