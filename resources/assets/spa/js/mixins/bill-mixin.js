@@ -80,17 +80,26 @@ export default {
             },
             validateCategory(){
                 let valid = this.$validator.validate('category_id', this.bill.category_id);
-                let parent = $(`$(this.formId())`).find(`[name="category_id]"`).parent();
+                let parent = $(`#${this.formId()}`).find('[name="category_id"]').parent();
                 let label = parent.find('label');
                 let spanSelect2 = parent.find('.select2-selection.select2-selection--single');
-
-               if(valid){
+                if(valid){
                    label.removeClass('label-error');
                    spanSelect2.removeClass('select2-invalid');
                 }else{
                     label.removeClass('label-error').addClass('label-error');
                     spanSelect2.removeClass('select2-invalid').addClass('select2-invalid');
                 }
+            },
+            validateBankAccount(){
+                this.$validator.validate('bank_account_id', this.bill.bank_account_id);
+            },
+            initSelect2(){
+                let select2 = $(`#${this.formId()}`).find('[name="category_id"]');
+                let self = this;
+                select2.on('select2:close',() => {
+                    self.validateCategory();
+                });
             },
             initAutocomplete(){  // autocomplete configurações
                 let self = this; // para poder usar o this dentro do jquery

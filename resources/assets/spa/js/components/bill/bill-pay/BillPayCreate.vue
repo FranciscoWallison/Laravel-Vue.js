@@ -9,6 +9,9 @@
                 title: 'Novo Pagamento',
             };
         },
+        ready(){
+        	this.initSelect2();
+        },
 		methods: {
 			namespace(){
 				return 'billPay';
