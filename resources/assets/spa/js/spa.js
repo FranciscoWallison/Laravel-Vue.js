@@ -10,6 +10,7 @@ require('vuex');
 Vue.http.options.root = appConfig.api_url;
 
 require('./filtes');
+require('./validators');
 require('./services/interceptors');
 require('./router');
 

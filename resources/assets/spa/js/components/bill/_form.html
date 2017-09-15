@@ -31,8 +31,9 @@
                 </div>
                 <div class="row">
                     <div class="input-field col s6">
-                        <input type="text" v-model="bill.name" placeholder="Informe o nome"/>
-                        <label class="active">Nome</label>
+                        <input type="text" v-model="bill.name" name="name" class="validate" placeholder="Informe o nome" 
+                            v-validate data-vv-rules="required" :class="{'invalid': errors.has('name')}"/>
+                        <label class="active" form="name" :data-error="errors.first('name')">Nome</label>
                     </div>
                     <div class="input-field col s6">
                         <input type="checkbox" class="filled-ind" v-model="bill.done" :id="doneId()"/>
