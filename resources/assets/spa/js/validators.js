@@ -8,7 +8,7 @@ import 'numeral/locales/pt-br';
 moment.locale('pt-br');
 numeral.locale('pt-br');
 
-VeeValidate.Validator.extend('date_format', {
+VeeValidate.Validator.extend('date_format_custom', {
 	messages: {
 		'pt-br': (field, args) => {
 			return `O campo ${field} não tem uma data válida.`
