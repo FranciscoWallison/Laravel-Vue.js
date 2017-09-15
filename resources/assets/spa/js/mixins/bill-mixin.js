@@ -75,6 +75,23 @@ export default {
             bankAccountDropdownId(){
                 return `bank-account-dropdown-${this._uid}`;
             },
+            formId(){
+                return `from-bill-${this._uid}`;
+            },
+            validateCategory(){
+                let valid = this.$validator.validate('category_id', this.bill.category_id);
+                let parent = $(`$(this.formId())`).find(`[name="category_id]"`).parent();
+                let label = parent.find('label');
+                let spanSelect2 = parent.find('.select2-selection.select2-selection--single');
+
+               if(valid){
+                   label.removeClass('label-error');
+                   spanSelect2.removeClass('select2-invalid');
+                }else{
+                    label.removeClass('label-error').addClass('label-error');
+                    spanSelect2.removeClass('select2-invalid').addClass('select2-invalid');
+                }
+            },
             initAutocomplete(){  // autocomplete configurações
                 let self = this; // para poder usar o this dentro do jquery
                 $(document).ready(() =>{
