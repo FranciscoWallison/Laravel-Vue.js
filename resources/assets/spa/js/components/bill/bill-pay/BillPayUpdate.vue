@@ -1,6 +1,5 @@
 <template src="../_form.html"></template>
-
-<script type="text/javascript">
+<script>
 	import billPayMixin from '../../../mixins/bill-mixin';
 	import store from '../../../store/store';
 	import Bill from '../../../models/bill';
