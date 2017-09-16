@@ -100,10 +100,8 @@ class BillPaysController extends Controller
      */
     public function update(BillPayRequest $request, $id)
     {
-        $billPay = $this->repository->skipPresenter()->update($request->all(), $id);
-
-        $this->repository->skipPresenter(false);
-        return response()->json($billPay);
+        $data = $this->repository->update($request->all(), $id);
+        return response()->json($data, 200);
     }
 
 

@@ -30,7 +30,6 @@ export default {
             return {
                 bill: new Bill(),              
                 bankAccount: {
-                    name: '',
                     text: ''
                 }
             }

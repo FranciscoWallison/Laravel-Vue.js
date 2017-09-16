@@ -18,7 +18,6 @@ Vue.filter('numberFormat', {
 	},
 	write(value){
 		let number = numeral(value).value();
-console.log(number ? number : 0);
 		return number ? number : 0;
 	}
 });

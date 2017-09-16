@@ -4,9 +4,16 @@ export default () => {
 	const include = 'category,bankAccount';
 	const state = {
 		bills: [],
+		 billData: {
+            total_paid: 0,
+            total_to_pay: 0,
+            total_expired: 0
+        },
 		billDelete: null,
 		resource: null,
 		searchOptions: new SearchOptions(include),
+		total_today: 0,
+        total_rest_of_month: 0
 	};
 
 	const mutations = {	

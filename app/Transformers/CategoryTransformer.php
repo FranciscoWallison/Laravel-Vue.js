@@ -36,18 +36,8 @@ class CategoryTransformer extends TransformerAbstract
     }
 
     public function includeChildren(AbstractCategory $model)
-    {
-        
+    {        
         $children = $model->children()->withDepth()->get();
         return $this->collection($children, new CategoryTransformer());
-        // //children tirando os children vazios
-        // if($model->children->count()){
-        //      return $this->collection($model->children, new CategoryTransformer());//verifica se tem filho
-        // }
-        // //nem toda categoria vai ter filho
-        // if($model->children)
-        // {
-        //     return $this->collection($model->children, new CategoryTransformer());//verifica se tem filho
-        // }
     }
 }

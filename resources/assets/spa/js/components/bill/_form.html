@@ -37,6 +37,7 @@
                     <div class="input-field col s6">
                         <input type="text" :id="bankAccountTextId()" placeholder="Procurar banco"                              
                                 autocomplete="off" :data-activates="bankAccountDropdownId()" data-beloworigin="true"
+                                :value="bankAccount.text"
                                 class="validate" :class="{'invalid': errors.has('bank_account_id')}"
                                 @blur="blurBankAccount"/>
                         <label class="active"  :data-error="errors.first('bank_account_id')">Conta Bancária:</label>

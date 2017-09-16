@@ -14,13 +14,10 @@
         },
 		created(){
 			let self = this;
-			this.modalOptions.options = {},
-			this.modalOptions.options.ready = () => {
-				self.getBill();
-			};
-			this.modalOptions.options.complete = () => {
-				self.resetScope();
-			};
+            this.modalOptions.options = {};
+            this.modalOptions.options.ready = () => {
+                self.getBill();
+            };		
 		},
 		methods: {
 			categoryNamespace(){
@@ -34,8 +31,10 @@
 			},
 			getBill(){
 				this.resetScope();
-				let bill = store.getters[`${this.namespace()}/billByIndex`](this.index);
-				this.bill = new Bill(bill);
+                let bill = store.getters[`${this.namespace()}/billByIndex`](this.index);
+                this.bill = new Bill(bill);
+                let text = store.getters['bankAccount/textAutocomplete'](bill.bankAccount.data);
+                this.bankAccount.text = text;
 			}
 		}
 	}
