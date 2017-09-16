@@ -71,7 +71,8 @@
                 </div>
             </div>
             <div slot="footer">
-                <button type="submit" class="btn btn-flat waves-effect green lighten-2">
+                <button type="submit" class="btn btn-flat waves-effect green lighten-2"
+                 :disabled="fields.dirty() && errors.any()">
                     Ok
                 </button>
                 <button type="button" class="btn btn-flat waves-effect waves-red lighten-2 modal-close modal-action">

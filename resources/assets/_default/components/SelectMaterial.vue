@@ -16,19 +16,21 @@
 				}			
 			}
 		},
+		data(){
+			return{
+				val: null
+			}
+		},
 		ready(){
 			let self = this;
 			$(this.$el)
 				.select2(this.options)
 				.on('change', function (){
-					if(parseInt(this.value, 10)  !== 0 ){
-						self.selected =  this.value;
-					}else{
-						self.selected = null;
-					}
+					self.selected = self.getSelectedValue(this.value);
+					self.val = self.selected;
 					
 				});		
-			$(this.$el).val(this.selected !== null ? this.selected: 0 ).trigger('change'); 
+			$(this.$el).val( this.getValue(this.selected) ).trigger('change'); 
 		},
 		watch:{
 			'options.data'(data){
@@ -37,7 +39,7 @@
 			},
 			'selected'(selected){
 				if(selected != $(this.$el).val()){
-					$(this.$el).val(selected !== null ? selected: 0).trigger('change');
+					$(this.$el).val(this.getValue(selected)).trigger('change');
 				}
 			}
 		},

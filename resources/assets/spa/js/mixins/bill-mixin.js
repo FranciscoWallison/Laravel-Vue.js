@@ -158,32 +158,29 @@ export default {
                 $(`#${this.bankAccountTextId()}`).parent().find('label').insertAfter(`#${this.bankAccountTextId()}`);
             },
             submit(){
-                if (this.bill.id !== 0){
-                    store.dispatch(`${this.namespace()}/edit`, {
-                        bill: this.bill,
-                        index: this.index
-                    }).then(() => {
-                        this.resetScope();
-                         $('#modal-edit').modal('close');
-
-                        Materialize.toast('Conta atualizada com sucesso!', 4000);
-                       
-                    });
-
-                   
-                } else {
-                    store.dispatch(`${this.namespace()}/save`, this.bill).then(() => {
-                        this.resetScope();
-                        $('#modal-create').modal('close');  
-
-                        Materialize.toast('Conta criada com sucesso!', 4000); 
-
-                    });
-
-                    
-                }
-                
-            },          
+                this.validateCategory();
+                this.$validator.validateAll().then(success => {
+                    if(success){
+                        if (this.bill.id !== 0){
+                            store.dispatch(`${this.namespace()}/edit`, {
+                                bill: this.bill,
+                                index: this.index
+                            }).then(() => {
+                                this.successSave('Conta atualizada com sucesso!');                               
+                            });                           
+                        } else {
+                            store.dispatch(`${this.namespace()}/save`, this.bill).then(() => {
+                                this.successSave('Conta criada com sucesso!');
+                            });                            
+                        }
+                    }
+                });
+            },
+            successSave(message){
+                $(`#${this.modalOptions.id}`).modal('close');
+                    Materialize.toast(message, 5000);
+                    this.resetScope();
+                },     
             resetScope(){
                 this.bill = {
                     id: 0,
