@@ -14,6 +14,12 @@ use CodeFin\Validators\StatementValidator;
  */
 class StatementRepositoryEloquent extends BaseRepository implements StatementRepository
 {
+
+    public function create(array $attributes)
+    {
+        $statementable = $attributes['statementable'];
+        return $statementable->statements()->create(array_except($attributes, 'statementable'));
+    }
     /**
      * Specify Model class name
      *

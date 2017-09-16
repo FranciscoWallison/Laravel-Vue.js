@@ -3,6 +3,7 @@
 namespace CodeFin\Repositories\Traits;
 
 use Carbon\Carbon;
+use CodeFin\Events\BillStoredEvent;
 
 trait BillRepositoryTrait
 {
@@ -48,5 +49,15 @@ trait BillRepositoryTrait
         $this->skipPresenter = $skipPresenter;
         return $this->parserResult($model);
     }
+
+    // public function getTotalFromPeriod(Carbon $dateStart, Carbon $dateEnd)
+    // {
+    //     $result = $this->getQueryTotal()
+    //         ->whereBetween('date_due',[$dateStart->format('Y-m-d'),$dateEnd->format('Y-m-d')])
+    //         ->get();
+    //     return [
+    //         'total' => (float)$result->first()->total
+    //     ];
+    // }
 
 }

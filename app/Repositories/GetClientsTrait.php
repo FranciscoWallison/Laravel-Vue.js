@@ -1,6 +1,7 @@
 <?php 
 
 namespace CodeFin\Repositories;
+use CodeFin\Repositories\ClientRepository;
 
 trait GetClientsTrait
 {

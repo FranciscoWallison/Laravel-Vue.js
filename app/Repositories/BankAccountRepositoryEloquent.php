@@ -6,7 +6,7 @@ use CodeFin\Criteria\LockTableCriteria;
 // use CodeFin\Events\BankAccountBalanceUpdatedEvent;
 use CodeFin\Models\BankAccount;
 use CodeFin\Presenters\BankAccountPresenter;
-use CodeFin\Repositories\Interfaces\BankAccountRepository;
+use CodeFin\Repositories\BankAccountRepository;
 use Prettus\Repository\Criteria\RequestCriteria;
 use Prettus\Repository\Eloquent\BaseRepository;
 

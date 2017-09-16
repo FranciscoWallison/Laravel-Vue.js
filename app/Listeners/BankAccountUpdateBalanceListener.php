@@ -4,8 +4,8 @@ namespace CodeFin\Listeners;
 
 use CodeFin\Events\BillStoredEvent;
 use CodeFin\Models\BillPay;
-use CodeFin\Repositories\Interfaces\BankAccountRepository;
-use CodeFin\Repositories\Interfaces\StatementRepository;
+use CodeFin\Repositories\BankAccountRepository;
+use CodeFin\Repositories\StatementRepository;
 
 class BankAccountUpdateBalanceListener
 {

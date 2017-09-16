@@ -2,6 +2,7 @@
 
 use Illuminate\Database\Seeder;
 use CodeFin\Models\BillPay;
+use CodeFin\Repositories\BillPayRepository;
 
 class BillPaysTableSeeder extends Seeder
 {
@@ -16,16 +17,19 @@ class BillPaysTableSeeder extends Seeder
         //
         $clients = $this->getClients();
 
+        $repository = app(BillPayRepository::class);
         factory(\CodeFin\Models\BillPay::class, 200)
             ->make()
-            ->each(function($billPay) use ($clients){
+            ->each(function($billPay) use ($clients, $repository){
                 $client = $clients->random();
+                \Landlord::addTenant($client);// ser acresentado no extrato
                 $bankAccount                = $client->bankAccounts->random();
                 $category                   = $client->categoryExpenses->random();
                 $billPay->client_id         = $client->id;
                 $billPay->bank_account_id   = $bankAccount->id;
                 $billPay->category_id       = $category->id;
-                $billPay->save();
+                $data = $billPay->toArray();//transformando em array o model
+                $repository->create($data);
             });
     }
 }
