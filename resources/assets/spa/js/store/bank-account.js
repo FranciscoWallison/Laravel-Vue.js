@@ -98,11 +98,14 @@ const getters = {
 	    return bankAccounts;
 	},
     mapBankAccounts: (state, getters) => (name) => {
-		let bankAccounts = getters.filterBankAccountByName(name);
-		return bankAccounts.map((o) => {
-			return {id: o.id, text: `${o.name} - ${o.account}`};
-		});
-	},
+        let bankAccounts = getters.filterBankAccountByName(name);
+        return bankAccounts.map((o) => {
+            return {id: o.id, text: getters.textAutocomplete(o)};
+        });
+    },
+    textAutocomplete: (state) => (bankAccount) => {
+        return `${bankAccount.name} - ${bankAccount.account}`;
+    }
 };
 
 const module = {

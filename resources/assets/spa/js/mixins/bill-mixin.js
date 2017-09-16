@@ -32,8 +32,12 @@ export default {
                     name: '',
                     value: 0,
                     done: false,
-                    bank_account_id: 0,
+                    bank_account_id: '',
                     category_id: 0
+                },
+                bankAccount: {
+                    name: '',
+                    text: ''
                 }
             }
         },
@@ -75,8 +79,22 @@ export default {
             bankAccountDropdownId(){
                 return `bank-account-dropdown-${this._uid}`;
             },
+            bankAccountHiddenId(){
+                 return `bank-account-hidden-${this._uid}`;
+            },
             formId(){
                 return `from-bill-${this._uid}`;
+            },
+            blurBankAccount($event){
+                let el = $($event.target);
+                let text = this.bankAccount.text;
+                if(el.val() != text){
+                    el.val(text);
+                }
+                this.validateBankAccount();
+            },
+            validateBankAccount(){
+                this.$validator.validate('bank_account_id', this.bill.bank_account_id);
             },
             validateCategory(){
                 let valid = this.$validator.validate('category_id', this.bill.category_id);
@@ -90,9 +108,6 @@ export default {
                     label.removeClass('label-error').addClass('label-error');
                     spanSelect2.removeClass('select2-invalid').addClass('select2-invalid');
                 }
-            },
-            validateBankAccount(){
-                this.$validator.validate('bank_account_id', this.bill.bank_account_id);
             },
             initSelect2(){
                 let select2 = $(`#${this.formId()}`).find('[name="category_id"]');
@@ -110,6 +125,9 @@ export default {
                         multiple:{
                             enable:false
                         },
+                        hidden: {
+                             el: `#${this.bankAccountHiddenId()}`
+                        },
                         dropdown: {
                             el: `#${this.bankAccountDropdownId()}`
                         },
@@ -119,11 +137,13 @@ export default {
                             callback(value, bankAccounts);
                         },
                         onSelect(item){
-                            self.bill.bank_account_id = item.id; // aliemta o input
-                            //console.log(item);
+                            self.bill.bank_account_id = item.id;
+                            self.bankAccount.name =item.text;
+                            self.validateBankAccount();
                         },
                     });
                 });
+                $(`#${this.bankAccountTextId()}`).parent().find('label').insertAfter(`#${this.bankAccountTextId()}`);
             },
             submit(){
                 if (this.bill.id !== 0){
@@ -159,7 +179,7 @@ export default {
                     name: '',
                     value: 0,
                     done: false,
-                    bank_account_id: 0,
+                    bank_account_id: '',
                     category_id: 0
                 }; // mande para o component
             }
