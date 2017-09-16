@@ -1,6 +1,7 @@
 /*
 * Modularizar o codigo
 */
+import BillPay from '../models/bill';
 import PageTitleComponent from '../../../_default/components/PageTitle.vue';
 import ModalComponent from '../../../_default/components/Modal.vue';
 import SelectMaterialComponent from '../../../_default/components/SelectMaterial.vue';
@@ -26,18 +27,7 @@ export default {
         },
         data() {
             return {
-                bill: {
-                    id: 0,
-                    date_due: '',
-                    name: '',
-                    value: 0,
-                    done: false,
-                    bank_account_id: '',
-                    category_id: 0
-                },
-                repeat: false,
-                repeat_type: 1,
-                repeat_number: 0,
+                bill: new BillPay(),              
                 bankAccount: {
                     name: '',
                     text: ''
@@ -182,18 +172,7 @@ export default {
                     this.resetScope();
                 },     
             resetScope(){
-                this.bill = {
-                    id: 0,
-                    date_due: '',
-                    name: '',
-                    value: 0,
-                    done: false,
-                    bank_account_id: '',
-                    category_id: 0
-                }; // mande para o component
-                this.repeat = false;
-                this.repeat_type = 1;
-                this.repeat_number = 0;
+                this.bill.init();
             }
         }
 	}

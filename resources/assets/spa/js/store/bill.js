@@ -75,13 +75,13 @@ export default () => {
 	        });
 	    },
 	    save(context, bill){
-	    	return context.state.resource.save({}, bill).then((response) =>{
+	    	return context.state.resource.save({}, bill.toJSON()).then((response) =>{
 		       	context.dispatch('query');
 		       return response;
 	    	});
     	},
 	    edit(context, {index, bill}){
-	    	return context.state.resource.update({id: bill.id}, bill).then((response) => {
+	    	return context.state.resource.update({id: bill.id}, bill.toJSON()).then((response) => {
 				context.commit('update', {index, bill});
 				return response;
 			});
