@@ -1,9 +1,10 @@
 <template src="../_form.html"></template>
 <script>
 	import billPayMixin from '../../../mixins/bill-mixin';
+	import validatorOffRemoveMixim from '../../../mixins/validator-off-remove-mixin';
 
 	export default {
-		mixins: [billPayMixin],
+		mixins: [billPayMixin, validatorOffRemoveMixim],
 		 data(){
             return{
                 title: 'Novo Pagamento',

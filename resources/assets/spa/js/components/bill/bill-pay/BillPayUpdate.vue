@@ -4,9 +4,10 @@
 	import billPayMixin from '../../../mixins/bill-mixin';
 	import store from '../../../store/store';
 	import Bill from '../../../models/bill';
+	import validatorOffRemoveMixim from '../../../mixins/validator-off-remove-mixin';
 
 	export default {
-		mixins: [billPayMixin],
+		mixins: [billPayMixin, validatorOffRemoveMixim],
 		data(){
             return{
                 title: 'Editar Pagamento',
