@@ -33,7 +33,7 @@ class BillPayRequest extends FormRequest
             'done' => 'boolean',
             'repeat' => 'boolean',
             'repeat_number' => 'required_if:repeat,true|integer|min:0',
-            'repeat_type' => 'required_if:repeat,true|in:1,2',
+            'repeat_type' => 'required_if:repeat,true|in:1,2',//mensal ou anual
             'category_id' => Rule::exists('category_expenses', 'id')
                 ->where(function ($query) use ($client) {
                     $query->where('client_id', $client->id);

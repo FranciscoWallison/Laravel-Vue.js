@@ -1,11 +1,12 @@
 /*
 * Modularizar o codigo
 */
-import BillPay from '../models/bill';
+
 import PageTitleComponent from '../../../_default/components/PageTitle.vue';
 import ModalComponent from '../../../_default/components/Modal.vue';
 import SelectMaterialComponent from '../../../_default/components/SelectMaterial.vue';
 import store from '../store/store';
+import BillPay from '../models/bill';
 
 export default {
         components: {

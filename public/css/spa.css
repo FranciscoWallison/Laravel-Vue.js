@@ -10666,7 +10666,7 @@ button.picker__today:focus, button.picker__clear:focus, button.picker__close:foc
 }
 
 .select2 {
-  width: calc(100%) !important;
+  width: 100%;
 }
 
 .select2-container .select2-selection--single {
