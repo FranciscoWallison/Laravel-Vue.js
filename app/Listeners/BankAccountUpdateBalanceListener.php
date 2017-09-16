@@ -61,19 +61,19 @@ class BankAccountUpdateBalanceListener
         $model = $event->getModel();
         $modelOld = $event->getModelOld();
 
-        $value = $model->value;
-        $valueOld = $modelOld ? $modelOld->value : $model->value;
-        $doneOld = $modelOld ? $modelOld->done : false;
+        $value = $model->value; // valor atual 
+        $valueOld = $modelOld ? $modelOld->value : $model->value; // valor antigo
+        $doneOld = $modelOld ? $modelOld->done : false;//
 
         if ($value != $valueOld) { // valor da conta alterado
             if ($model->done == $modelOld->done && $model->done) {  // conta continua paga
                 return $model instanceof BillPay ? $valueOld - $value : $value - $valueOld;
             }
         }
-        if ($model->done != $doneOld) {
-            if ($model->done) {
+        if ($model->done != $doneOld) {// verificando o tipo de conta 
+            if ($model->done) { // antes não estava paga
                 return $model instanceof BillPay ? -$value : $value;
-            } else {
+            } else { // antes estava paga
                 return $model instanceof BillPay ? $valueOld : -$valueOld;
             }
         }
