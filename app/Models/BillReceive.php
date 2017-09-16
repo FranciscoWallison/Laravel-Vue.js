@@ -10,7 +10,7 @@ use HipsterJazzbo\Landlord\BelongsToTenants;
 use CodeFin\Models\BankAccount;
 use CodeFin\Models\CategoryExpense;
 
-class BillPay extends Model implements Transformable, BillRepeatTypeInterface
+class BillReceive extends Model implements Transformable, BillRepeatTypeInterface
 {
     use TransformableTrait;
     use BelongsToTenants;
