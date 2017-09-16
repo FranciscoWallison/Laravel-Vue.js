@@ -154,12 +154,12 @@
                     Materialize.toast('Conta excluáda com sucesso!', 4000);
                 });
             },
-            openModalCreate(){               
-                $('#modal-create').modal('open'); //
+            openModalCreate(){
+                $(`#${this.modalCreate.id}`).modal('open');
             },
             openModalEdit(index){
-            	this.indexUpdate = index;                
-                $('#modal-edit').modal('open'); //
+                this.indexUpdate = index;
+                $(`#${this.modalEdit.id}`).modal('open');
             },
             openModalDelete(billPay){
                 store.commit('billPay/setDelete',billPay);

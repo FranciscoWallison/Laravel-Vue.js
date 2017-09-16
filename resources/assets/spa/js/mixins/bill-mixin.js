@@ -6,7 +6,7 @@ import PageTitleComponent from '../../../_default/components/PageTitle.vue';
 import ModalComponent from '../../../_default/components/Modal.vue';
 import SelectMaterialComponent from '../../../_default/components/SelectMaterial.vue';
 import store from '../store/store';
-import BillPay from '../models/bill';
+import Bill from '../models/bill';
 
 export default {
         components: {
@@ -28,7 +28,7 @@ export default {
         },
         data() {
             return {
-                bill: new BillPay(),              
+                bill: new Bill(),              
                 bankAccount: {
                     name: '',
                     text: ''
@@ -167,13 +167,18 @@ export default {
                     }
                 });
             },
-            successSave(message){
-                $(`#${this.modalOptions.id}`).modal('close');
-                    Materialize.toast(message, 5000);
-                    this.resetScope();
+            successSave(message){                    
+                    $(`#${this.modalOptions.id}`).modal('close');
+                    Materialize.toast(message, 5000);  
+                    this.resetScope();                  
                 },     
             resetScope(){
+                this.errors.clear();
+                this.fields.reset();
                 this.bill.init();
+                this.bankAccount = {
+                    text: ''
+                };
             }
         }
 	}

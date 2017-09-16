@@ -9,7 +9,7 @@
                     <div class="input-field col s12">
                         <select-material :options="cpOptions" :selected.sync="bill.category_id"
                                          v-validate data-vv-rules="required" data-vv-name="category_id"
-                                         data-vv-value-path="val" data-vv-as="categoria" name="category_id" >
+                                         data-vv-value-path="val" data-vv-as="categoria" name="category_id">
                         </select-material>
                         <label class="active" :data-error="errors.first('category_id')">Categoria de Despesa</label>
                     </div>
