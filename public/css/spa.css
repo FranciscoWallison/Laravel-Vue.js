@@ -10665,6 +10665,10 @@ button.picker__today:focus, button.picker__clear:focus, button.picker__close:foc
   vertical-align: middle;
 }
 
+.select2 {
+  width: calc(100%) !important;
+}
+
 .select2-container .select2-selection--single {
   box-sizing: border-box;
   cursor: pointer;

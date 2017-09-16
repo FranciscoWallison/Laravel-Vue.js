@@ -25,3 +25,6 @@
 		}
 	}
 </script>
+
+<style type="text/css" scoped src="../_style.css">
+</style>
