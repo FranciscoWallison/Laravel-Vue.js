@@ -9,6 +9,7 @@ use CodeFin\Models\BillPay;
 use CodeFin\Validators\BillPayValidator;
 use CodeFin\Presenters\BillPayPresenter;
 use CodeFin\Repositories\Traits\BillRepositoryTrait;
+use CodeFin\Events\BillStoredEvent;
 
 
 /**
@@ -26,12 +27,6 @@ class BillPayRepositoryEloquent extends BaseRepository implements BillPayReposit
         'done'      => 'LIKE'
     ];
 
-    public function create( array $attributes)
-    {
-        $model = parent::create($attributes);
-        $this->repeatBill($attributes);
-        return $model;
-    }
 
     /**
      * Specify Model class name

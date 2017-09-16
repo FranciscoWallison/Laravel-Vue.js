@@ -10,7 +10,7 @@ use Prettus\Repository\Traits\TransformableTrait;
 class Statement extends Model implements Transformable
 {
     use TransformableTrait;
-    //use BelongsToTenants;
+    use BelongsToTenants;
 
     protected $fillable = [
         'value',
