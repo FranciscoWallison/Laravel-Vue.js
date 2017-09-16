@@ -4,14 +4,15 @@ namespace CodeFin\Http\Controllers\Api;
 
 use Illuminate\Http\Request;
 
+use CodeFin\Criteria\FindBetweenDateBRCriteria;
+use CodeFin\Criteria\FindByValueBRCriteria;
 use CodeFin\Http\Controllers\Controller;
+use CodeFin\Http\Controllers\Response;
 use CodeFin\Http\Requests;
-use Prettus\Validator\Contracts\ValidatorInterface;
-use Prettus\Validator\Exceptions\ValidatorException;
 use CodeFin\Http\Requests\BillPayRequest;
 use CodeFin\Repositories\BillPayRepository;
-use CodeFin\Criteria\FindByNameCriteria;
-use CodeFin\Criteria\FindByLikeAgencyCriteria;
+
+
 
 
 class BillPaysController extends Controller
@@ -28,18 +29,21 @@ class BillPaysController extends Controller
     }
 
 
-    /**
+     /**
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
-        // $this->repository->pushCriteria(new FindByNameCriteria('New Josefina'))
-        //                 ->pushCriteria(new FindByLikeAgencyCriteria(4));
-        $billPays = $this->repository->paginate(3);
+        $searchParam = config('repository.criteria.params.search');// pegando o parametro
+        $search = $request->get($searchParam);// nome do parametro
+        $this->repository
+            ->pushCriteria(new FindBetweenDateBRCriteria($search, 'date_due'))
+            ->pushCriteria(new FindByValueBRCriteria($search));
+        $billPays = $this->repository->paginate();
 
-        return  $billPays;
+        return $billPays;
     }
 
     /**
