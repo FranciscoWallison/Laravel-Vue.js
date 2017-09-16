@@ -7,7 +7,7 @@ export default class {
     init() {
         this.id = 0;
         this.name = '';
-        this.date_due = '';
+        this.date_due = '';//new date()
         this.value = 0;
         this.done = false;
         this.bank_account_id = '';

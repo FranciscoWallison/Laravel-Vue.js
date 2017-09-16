@@ -11,6 +11,11 @@
         },
         ready(){
         	this.initSelect2();
+        	// $('.datepicker').pickadate({
+        	// 	format: 'dd/mm/yyyy',
+        	// 	selectMonths: true,
+        	// 	selectYears: 15
+        	// });
         },
 		methods: {
 			namespace(){

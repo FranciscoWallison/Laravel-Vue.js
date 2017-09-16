@@ -17,7 +17,7 @@
                 <div class="row">
                     <div class="input-field col s6">
                         <input type="text" v-model="bill.date_due | dateFormat" placeholder="Informe a data"
-                               class="validate" name="date_due" v-validate data-vv-rules="required|date_format_custom"
+                               class="datepicker validate" name="date_due" v-validate data-vv-rules="required|date_format_custom"
                                :class="{'invalid': errors.has('date_due')}" data-vv-as="vencimento"/>
                         <label class="active" :data-error="errors.first('date_due')">Vencimento</label>
                     </div>
