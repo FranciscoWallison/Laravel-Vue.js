@@ -49,6 +49,10 @@
             return {
                 menus:[
                     {
+                        name: 'Dashboard',
+                        routeName: 'dashboard'
+                    },
+                    {
                         name: 'Conta bancária', 
                         routeName: 'bank-account.list',
                         url: 'bank-account.list'
@@ -58,8 +62,20 @@
                         routeName: 'plan-account.list',
                         url: 'plan-account.list'
                     },
+                    {
+                        name: 'Contas', 
+                        dropdownId: 'bills-dropdown'
+                    },
                 ],
-                menusDropdown:[]              
+                menusDropdown:[
+                    {
+                        id: 'bills-dropdown',
+                        items: [
+                            {name: "Contas a pagar", routeName: 'bill-pay.list'},
+                            // {name: "Contas a receber", routeName: 'bill-receive.list'},
+                        ]
+                    },
+                ]              
             }
         },
         computed:{

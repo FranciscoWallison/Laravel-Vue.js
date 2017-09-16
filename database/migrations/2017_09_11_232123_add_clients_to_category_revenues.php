@@ -14,7 +14,6 @@ class AddClientsToCategoryRevenues extends Migration
     public function up()
     {
         Schema::table('category_revenues', function (Blueprint $table) {
-            //
             $table->integer('client_id')->unsigned();
             $table->foreign('client_id')->references('id')->on('clients');
 

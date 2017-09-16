@@ -13,40 +13,43 @@
 			selected: {
 				validator(value){
 					return typeof value == 'string' || typeof value == 'number' || typeof value === null;  
-				}
-				//valor selecionado
-				// type: [String, Number],
-				// required: true
+				}			
+			}
+		},
+		data(){
+			return{
+				val: null
 			}
 		},
 		ready(){
 			let self = this;
 			$(this.$el)
-				//.val(this.selected)
 				.select2(this.options)
 				.on('change', function (){
-//console.log(this.value , parseInt(this.value, 10), 'aqui');
-					//verifica se parente id é egual a null
-					if(parseInt(this.value, 10)  !== 0 ){
-						self.selected =  this.value;
-					}else{
-						self.selected = null;
-					}
+					self.selected = self.getSelectedValue(this.value);
+					self.val = self.selected;
 					
-				});
-			//atribuir o valor selecionado 
-			$(this.$el).val(this.selected !== null ? this.selected: 0 ).trigger('change'); 
+				});		
+			$(this.$el).val( this.getValue(this.selected) ).trigger('change'); 
 		},
-		watch:{ //
+		watch:{
 			'options.data'(data){
 				$(this.$el).empty();
 				$(this.$el).select2( this.options );
 			},
 			'selected'(selected){
 				if(selected != $(this.$el).val()){
-					$(this.$el).val(selected !== null ? selected: 0).trigger('change');
+					$(this.$el).val(this.getValue(selected)).trigger('change');
 				}
 			}
-		}
+		},
+		methods: {
+            getSelectedValue(value){
+                 return parseInt(value,10) !== 0 ? value : null;
+            },
+            getValue(value){
+                 return value !== null ? value : 0
+            }
+        }
 	}
 </script>

@@ -1,5 +1,5 @@
 import {Bank} from '../services/resources';
-import _ from 'lodash' // biblioteca caraterizada pelo underscore, vai ser vir para mostrar os resultados do autocomplete    
+import _ from 'lodash'; // biblioteca caraterizada pelo underscore, vai ser vir para mostrar os resultados do autocomplete    
 
 const state = {
 	banks: []
@@ -33,9 +33,6 @@ const getters = {
 			return {id: o.id, text: o.name};
 		});
 	},
-	banksLength(state){
-		return state.banks.length
-	}
 };
 
 const module = {

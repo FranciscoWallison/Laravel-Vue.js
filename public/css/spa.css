@@ -10666,8 +10666,9 @@ button.picker__today:focus, button.picker__clear:focus, button.picker__close:foc
 }
 
 .select2 {
-  width: calc(100% - 45px) !important;
-  margin-left: 45px;
+  width: 100% !important;
+  width: calc(100% - 100px) !important;
+  margin: none !important;
 }
 
 .select2-container .select2-selection--single {
@@ -11405,6 +11406,29 @@ body {
 .category-tree .category-symbol i {
   line-heught: inherit;
   height: inherit;
+}
+
+.label-error {
+  width: 100%;
+}
+
+.label-error:after {
+  content: attr(data-error);
+  color: #F44336;
+  opacity: 1;
+  display: block;
+  position: absolute;
+  top: 55px;
+  transition: .2s opacity ease-out, .2s color ease-out;
+}
+
+.select2-invalid {
+  border-bottom: 1px solid #F44336 !important;
+  box-shadow: 0 1px 0 0 #F44336;
+}
+
+.ac-appender {
+  display: none;
 }
 
 /*# sourceMappingURL=spa.css.map */

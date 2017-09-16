@@ -1,15 +1,16 @@
-//import LocalStorage from './services/localStorage';
 import appConfig from './services/appConfig';
-//import Vuex from 'vuex';
 
 require('materialize-css')
 window.Vue = require('vue');
-// window.Vue.user(Vuex);
+
 
 require('vue-resource');
 require('vuex');
+
 Vue.http.options.root = appConfig.api_url;
 
+require('./filtes');
+require('./validators');
 require('./services/interceptors');
 require('./router');
 
