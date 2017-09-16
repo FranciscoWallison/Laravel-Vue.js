@@ -30,5 +30,8 @@ class BillPay extends Model implements Transformable, BillRepeatTypeInterface
     public function category(){
         return $this->belongsTo(CategoryExpense::class);
     }
-
+    public function statements()
+    {
+        return $this->morphMany(Statement::class, 'statementable');
+    }
 }

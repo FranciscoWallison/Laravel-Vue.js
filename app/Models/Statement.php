@@ -2,15 +2,15 @@
 
 namespace CodeFin\Models;
 
+use HipsterJazzbo\Landlord\BelongsToTenants;
 use Illuminate\Database\Eloquent\Model;
 use Prettus\Repository\Contracts\Transformable;
 use Prettus\Repository\Traits\TransformableTrait;
-use HipsterJazzbo\Landlord\BelongsToTenants;
 
 class Statement extends Model implements Transformable
 {
-     use TransformableTrait;
-    use BelongsToTenants;
+    use TransformableTrait;
+    //use BelongsToTenants;
 
     protected $fillable = [
         'value',
@@ -24,7 +24,7 @@ class Statement extends Model implements Transformable
 
     public function statementable()
     {
-        return $this->morphTo();
+        return $this->morphTo(); // polimorfismo
     }
 
 }
