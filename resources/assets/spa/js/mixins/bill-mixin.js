@@ -35,6 +35,9 @@ export default {
                     bank_account_id: '',
                     category_id: 0
                 },
+                repeat: false,
+                repeat_type: 1,
+                repeat_number: 0,
                 bankAccount: {
                     name: '',
                     text: ''
@@ -85,6 +88,9 @@ export default {
             formId(){
                 return `from-bill-${this._uid}`;
             },
+            repeatId(){
+                return `repeat-${this._uid}`;
+            },
             blurBankAccount($event){
                 let el = $($event.target);
                 let text = this.bankAccount.text;
@@ -92,6 +98,12 @@ export default {
                     el.val(text);
                 }
                 this.validateBankAccount();
+            },
+            blurRepeatNumber($event){
+                let el = $($event.target);
+                if(parseInt(el.val(),10) < 0){
+                    el.val(0);
+                }
             },
             validateBankAccount(){
                 this.$validator.validate('bank_account_id', this.bill.bank_account_id);
@@ -182,6 +194,9 @@ export default {
                     bank_account_id: '',
                     category_id: 0
                 }; // mande para o component
+                this.repeat = false;
+                this.repeat_type = 1;
+                this.repeat_number = 0;
             }
         }
 	}
