@@ -22,6 +22,89 @@ class StatementRepositoryEloquent extends BaseRepository implements StatementRep
         return $statementable->statements()->create(array_except($attributes, 'statementable'));
     }
 
+    public function getCashFlow(Carbon $dateStart, Carbon $dateEnd)
+    {
+        $datePrevious = $dateStart->copy()->day(1)->subMonths(2);
+        $datePrevious->day($datePrevious->daysInMonth);
+        $balancePreviousMonth = $this->getBalanceByMonth($datePrevious);
+
+        $revenuesCollection = $this->getCategoriesValuesCollection(
+            new CategoryRevenue(),
+            (new BillReceive())->getTable(),
+            $dateStart,
+            $dateEnd
+        );
+
+        $expensesCollection = $this->getCategoriesValuesCollection(
+            new CategoryExpense(),
+            (new BillPay())->getTable(),// despesas com conta apagar
+            $dateStart,
+            $dateEnd
+        );
+
+        return $this->formatCashFlow($expensesCollection, $revenuesCollection, $balancePreviousMonth);
+    }
+
+     protected function formatCashFlow($expensesCollection, $revenuesCollection, $balancePreviousMonth)
+    {
+        $periodList = $this->formatPeriods($expensesCollection, $revenuesCollection);
+        $expensesFormatted = $this->formatCategories($expensesCollection);
+        $revenuesFormatted = $this->formatCategories($revenuesCollection);
+
+        $collectionFormatted = [
+            'period_list' => $periodList,
+            'balance_before_first_month' => $balancePreviousMonth,
+            'categories_period' => [
+                'expenses' => [
+                    'data' => $expensesFormatted
+                ],
+                'revenues' => [
+                    'data' => $revenuesFormatted
+                ]
+            ]
+        ];
+
+        return $collectionFormatted;
+    }
+
+    protected function getCategoriesValuesCollection($model, $billTable, Carbon $dateStart, Carbon $dateEnd)
+    {
+        $dateStartStr = $dateStart->copy()->day(1)->format('Y-m-d');// dia primeiro do mes 
+        $dateEndStr = $dateEnd->copy()->day($dateEnd->daysInMonth)->format('Y-m-d'); // ultimo dia do mes
+
+        $firstDateStart = $dateStart->copy()->subMonths(1);  // primeiro de janeiro
+        $firstDateStartStr = $firstDateStart->format('Y-m-d');
+
+        $firstDateEnd = $firstDateStart->copy()->day($firstDateStart->daysInMonth);  // 31 de janeiro
+        $firstDateEndStr = $firstDateEnd->format('Y-m-d');
+
+        $firstCollection = $this->getQueryCategoriesValuesByPeriodAndDone( //coleção das contas que foram pagas
+            $model,
+            $billTable,
+            $firstDateEndStr,
+            $firstDateEndStr
+        )->get();
+
+        $mainCollection = $this->getQueryCategoriesValuesByPeriod(
+            $model,
+            $billTable,
+            $dateStartStr,
+            $dateEndStr
+        )->get();
+
+        $firstCollection->reverse()->each(function ($value) use ($mainCollection) {
+            $mainCollection->prepend($value);
+        });
+
+        return $mainCollection;
+    }
+
+    protected function getQueryCategoriesValuesByPeriodAndDone($model, $billTable, $dateStart, $dateEnd)
+    {
+        return $this->getQueryCategoriesValuesByPeriod($model, $billTable, $dateStart, $dateEnd)
+            ->whereRaw("done = true");
+    }
+
     /*
      * Qual é o id e o ultimo extrato
      * Jan Fev Mar Abr Mai
@@ -68,7 +151,7 @@ class StatementRepositoryEloquent extends BaseRepository implements StatementRep
             $dateFormat = $this->getFormatDateByDatabase($dateFormat);
             $query = $query->selectRaw("TO_CHAR(date_due, '$dateFormat') as period");// bill  2016-02
         } elseif (DB::connection() instanceof MySqlConnection) {
-            $query = $query->selectRaw("DATE_FORMAT(date_due, '$dateFormat') as period");
+            $query = $query->selectRaw("DATE_FORMAT(date_due, '$dateFormat') as period");// qual é o total do mes
         }
         return $query;
     }
