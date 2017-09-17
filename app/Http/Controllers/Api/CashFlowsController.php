@@ -2,14 +2,14 @@
 
 namespace CodeFin\Http\Controllers\Api;
 
+use Carbon\Carbon;
 use CodeFin\Http\Controllers\Controller;
 use CodeFin\Http\Controllers\Response;
 use CodeFin\Http\Requests;
 use CodeFin\Repositories\StatementRepository;
-use Carbon\Carbon;
 
 
-class StatementsController extends Controller
+class CashFlowsController extends Controller
 {
 
     /**
@@ -23,14 +23,17 @@ class StatementsController extends Controller
         $this->repository = $repository;
     }
 
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
     public function index()
     {
-        return $this->repository->paginate();
+        $dateStart = new Carbon('2018-02-01');
+        $dateEnd = $dateStart->copy()->addMonths(10);
+        return $this->repository->getCashFlow($dateStart, $dateEnd);
     }
 
+    public function monthly()
+    {
+        $dateStart = new Carbon();
+        $dateEnd = $dateStart->copy()->addDays(30);
+        return $this->repository->getCashFlowByPeriod($dateStart,$dateEnd);
+    }
 }

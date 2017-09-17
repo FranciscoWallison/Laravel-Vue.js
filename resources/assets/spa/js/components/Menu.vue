@@ -66,6 +66,11 @@
                         name: 'Contas', 
                         dropdownId: 'bills-dropdown'
                     },
+                    {
+                        name: 'Fluxo de Caixa', 
+                        routeName: 'cash-flow.list',
+                        url: 'cash-flow.list'
+                    },
                 ],
                 menusDropdown:[
                     {
