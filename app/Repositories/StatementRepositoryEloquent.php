@@ -22,7 +22,7 @@ class StatementRepositoryEloquent extends BaseRepository implements StatementRep
         return $statementable->statements()->create(array_except($attributes, 'statementable'));
     }
 
-    public function getCashFlow(Carbon $dateStart, Carbon $dateEnd)
+    public function getCashFlow(Carbon $dateStart, Carbon $dateEnd) // coleção de receitas e despesas 
     {
         $datePrevious = $dateStart->copy()->day(1)->subMonths(2);
         $datePrevious->day($datePrevious->daysInMonth);
@@ -42,10 +42,10 @@ class StatementRepositoryEloquent extends BaseRepository implements StatementRep
             $dateEnd
         );
 
-        return $this->formatCashFlow($expensesCollection, $revenuesCollection, $balancePreviousMonth);
+        return $this->formatCashFlow($expensesCollection, $revenuesCollection, $balancePreviousMonth);//forta
     }
 
-     protected function formatCashFlow($expensesCollection, $revenuesCollection, $balancePreviousMonth)
+    protected function formatCashFlow($expensesCollection, $revenuesCollection, $balancePreviousMonth)
     {
         $periodList = $this->formatPeriods($expensesCollection, $revenuesCollection);
         $expensesFormatted = $this->formatCategories($expensesCollection);
