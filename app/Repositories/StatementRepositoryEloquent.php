@@ -6,6 +6,7 @@ use Prettus\Repository\Eloquent\BaseRepository;
 use Prettus\Repository\Criteria\RequestCriteria;
 use CodeFin\Repositories\StatementRepository;
 use CodeFin\Models\Statement;
+use CodeFin\Presenters\StatementSerializerPresenter;
 
 use CodeFin\Models\CategoryRevenue;
 use CodeFin\Models\BillReceive;
@@ -15,6 +16,7 @@ use CodeFin\Models\BillPay;
 
 use Illuminate\Database\MySqlConnection;
 use Illuminate\Database\PostgresConnection;
+use CodeFin\Serializer\StatementSerializer;
 
 use CodeFin\Repositories\Traits\CashFlowRepositoryTrait;
 
@@ -79,7 +81,6 @@ class StatementRepositoryEloquent extends BaseRepository implements StatementRep
     {
         return Statement::class;
     }
-
     
 
     /**
@@ -89,4 +90,10 @@ class StatementRepositoryEloquent extends BaseRepository implements StatementRep
     {
         $this->pushCriteria(app(RequestCriteria::class));
     }
+
+    public function presenter()
+    {
+        return StatementSerializerPresenter::class;
+    }
+}
 }
