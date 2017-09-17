@@ -40,7 +40,7 @@ Vue.filter('dateFormat', {
 });
 
 Vue.filter('monthYear', (value) => {
-   return moment(value instanceof Date ? value : `${value}-01` ).format('MMM/YYYY');
+   return moment(value instanceof Date ? value : `${value}-01` ).format('MM/YYYY');
 });
 
 Vue.filter('dayMonth', (value) => {

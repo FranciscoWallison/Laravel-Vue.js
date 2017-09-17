@@ -55,32 +55,32 @@
                 return this.$options.filters.monthYear(new Date) ==
                     this.$options.filters.monthYear(monthYear);
             },
-            // downloadCsv(){
-            //     let anchor = $('<a/>');
-            //     anchor.css('display','none');
-            //     anchor.attr('download','fluxo-de-caixa.csv')
-            //         .attr('target','_blank')
-            //         .attr('href',`data:text/csv;charset=UTF-8,${encodeURIComponent(this.getCsv())}`);
-            //     anchor.html('Download CSV');
-            //     $('body').append(anchor);
-            //     anchor[0].click();
-            //     anchor.remove();
-            // },
-            // getCsv(){
-            //     let csvResult = [];
-            //     csvResult.push([]);
-            //     $('table thead .text-csv').each(function(key,item){
-            //         csvResult[0].push($(item).text().trim());
-            //     });
-            //     $('table tbody tr').each(function(key,tr){
-            //         csvResult.push([]);
-            //         $(tr).find('.text-csv').each((k, element) => {
-            //             csvResult[csvResult.length-1].push($(element).text().trim());
-            //         });
-            //     });
+            downloadCsv(){
+                let anchor = $('<a/>');
+                anchor.css('display','none');
+                anchor.attr('download','fluxo-de-caixa.csv')
+                    .attr('target','_blank')
+                    .attr('href',`data:text/csv;charset=UTF-8,${encodeURIComponent(this.getCsv())}`);
+                anchor.html('Download CSV');
+                $('body').append(anchor);
+                anchor[0].click();
+                anchor.remove();
+            },
+            getCsv(){
+                let csvResult = [];
+                csvResult.push([]);
+                $('table thead .text-csv').each(function(key,item){
+                    csvResult[0].push($(item).text().trim());
+                });
+                $('table tbody tr').each(function(key,tr){
+                    csvResult.push([]);
+                    $(tr).find('.text-csv').each((k, element) => {
+                        csvResult[csvResult.length-1].push($(element).text().trim());
+                    });
+                });
 
-            //     return Papa.unparse(csvResult);
-            // }
+                return Papa.unparse(csvResult);
+            }
         }
     }
 </script>

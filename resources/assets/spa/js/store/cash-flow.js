@@ -52,19 +52,19 @@ const getters = {
         },
         firstBalance(state, getters){
             let balanceBeforeFirstMonth = state.cashFlows.balance_before_first_month;
-            let balanceFirstMonth = 0;
+            let balanceFirstMonth = 0;// talvez não possa ter o primeiro mês
 
             if (getters.hasFirstMonthYear) {
-                let firstMonthYear = getters.filterMonthYear(state.firstMonthYear);
-                balanceFirstMonth = firstMonthYear[0].revenues.total - firstMonthYear[0].expenses.total;
+                let firstMonthYear  = getters.filterMonthYear(state.firstMonthYear);
+                balanceFirstMonth   = firstMonthYear[0].revenues.total - firstMonthYear[0].expenses.total;
             }
-            return balanceBeforeFirstMonth + balanceFirstMonth;
+            return balanceBeforeFirstMonth + balanceFirstMonth;// saldo anterior + atual
         },
         secondBalance(state, getters){
-            let firstBalance = getters.firstBalance;
-            let indexSecondMonth = getters.indexSecondMonth;
-            let secondMonthYear = state.cashFlows.period_list[indexSecondMonth].period;
-            let secondMonthObj = getters.filterMonthYear(secondMonthYear)[0];
+            let firstBalance        = getters.firstBalance;
+            let indexSecondMonth    = getters.indexSecondMonth;
+            let secondMonthYear     = state.cashFlows.period_list[indexSecondMonth].period;
+            let secondMonthObj      = getters.filterMonthYear(secondMonthYear)[0];
 
             return getters.firstBalance + secondMonthObj.revenues.total - secondMonthObj.expenses.total;
         },
@@ -79,6 +79,8 @@ const getters = {
             return state.cashFlowsMonthly != null && state.cashFlowsMonthly.period_list.length > 0;
         },
         balance: (state, getters) => (index) => {
+            // jan Fev Mar Abrl maio
+            // 0   1   2   3    4 
             return getters._calculateBalance(index + getters.indexSecondMonth + 1);
         },
         _calculateBalance: (state, getters) => (index) => {
