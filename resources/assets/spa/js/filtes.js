@@ -38,3 +38,11 @@ Vue.filter('dateFormat', {
 		return date.isValid() ? date.toDate() : value;
 	}
 });
+
+Vue.filter('monthYear', (value) => {
+   return moment(value instanceof Date ? value : `${value}-01` ).format('MM/YYYY');
+});
+
+Vue.filter('dayMonth', (value) => {
+   return moment(value).format('DD/MM');
+});

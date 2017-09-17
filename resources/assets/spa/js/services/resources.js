@@ -23,7 +23,14 @@ let BankAccount = Vue.resource('bank_accounts{/id}', {}, {
 }); // com o vue resource temos todas as operações put. delete update etc
 let CategoryRevenue = Vue.resource('category_revenues{/id}');
 let CategoryExpense = Vue.resource('category_expenses{/id}');
+//contas a pagar
 let BillPay = Vue.resource('bill_pays{/id}');
+//contas a receber
+let BillReceive = Vue.resource('bill-receives{/id}');
 
-export {User, BankAccount, Bank, CategoryRevenue, CategoryExpense, BillPay};
+let CashFlow = Vue.resource('cash_flows');
+
+//let Statement = Vue.resource('statements');
+
+export {User, BankAccount, Bank, CategoryRevenue, CategoryExpense, BillPay, BillReceive, CashFlow};
 

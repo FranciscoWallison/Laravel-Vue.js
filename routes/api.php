@@ -29,7 +29,9 @@ Route::group(['middleware' => 'cors' , 'as' => 'api.'], function(){
 		Route::resource('category_expenses', 'Api\CategoryExpensesController', ['except'=> ['create' , 'edit'] ]);
 		Route::resource('category_revenues', 'Api\CategoryRevenuesController', ['except'=> ['create' , 'edit'] ]);
 		Route::resource('bill_pays', 'Api\BillPaysController', ['except'=> ['create' , 'edit'] ]);
+		Route::resource('bill-receives', 'Api\BillReceivesController', ['except'=> ['create' , 'edit'] ]);
 
+		Route::get('cash_flows', 'Api\CashFlowsController@index');
 		Route::post('/logout', 'Api\AuthController@logout')->name('logout');
 
 		Route::get('/test_auth', function (Request $request) {

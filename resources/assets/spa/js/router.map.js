@@ -5,10 +5,16 @@ import BankAccountListComponent from './components/bank-account/BankAccountList.
 import BankAccountCreateComponent from './components/bank-account/BankAccountCreate.vue';
 import BankAccountUpdateComponent from './components/bank-account/BankAccountUpdate.vue';
 import PlanAccountComponent from './components/category/PlanAccount.vue';
+//contas a pagar
 import BillPayListComponent from './components/bill/bill-pay/BillPayList.vue';
 import BillPayCreateComponent from './components/bill/bill-pay/BillPayCreate.vue';
 import BillPayUpdateComponent from './components/bill/bill-pay/BillPayUpdate.vue';
+//contas a reveber
+import BillReceiveListComponent from './components/bill/bill-receive/BillReceiveList.vue';
+import BillReceiveCreateComponent from './components/bill/bill-receive/BillReceiveCreate.vue';
+import BillReceiveUpdateComponent from './components/bill/bill-receive/BillReceiveUpdate.vue';
 
+import CashFlowComponent from './components/cash-flow/CashFlowList.vue';
 
 export default{
 	'login': {
@@ -70,5 +76,30 @@ export default{
 				auth: true
 			}
 		}
-	}
+	},
+	'bill-receive': {
+		component: {template: "<router-view></router-view>"},
+		subRoutes: {
+			'/': {
+				name: 'bill-receive.list',
+				component: BillReceiveListComponent,
+				auth: true
+			},
+			'create': {
+				name: 'bill-receive.created',
+				component: BillReceiveCreateComponent,
+				auth: true
+			},
+			'/:id/update': {
+				name: 'bill-receive.update',
+				component: BillReceiveUpdateComponent,
+				auth: true
+			}
+		}
+	},
+	'cash-flow': {
+        name: 'cash-flow.list',
+        component: CashFlowComponent,
+        auth: true
+    },
 }

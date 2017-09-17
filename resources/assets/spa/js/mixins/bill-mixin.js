@@ -175,9 +175,7 @@ export default {
                 this.errors.clear();
                 this.fields.reset();
                 this.bill.init();
-                this.bankAccount = {
-                    text: ''
-                };
+                this.bankAccount.text = '';
             }
         }
 	}

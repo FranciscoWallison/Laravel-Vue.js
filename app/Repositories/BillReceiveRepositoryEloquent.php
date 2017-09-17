@@ -2,31 +2,25 @@
 
 namespace CodeFin\Repositories;
 
-use Prettus\Repository\Eloquent\BaseRepository;
-use Prettus\Repository\Criteria\RequestCriteria;
-use CodeFin\Repositories\BillPayRepository;
-use CodeFin\Models\BillPay;
-use CodeFin\Validators\BillPayValidator;
+use CodeFin\Models\BillReceive;
 use CodeFin\Presenters\BillPresenter;
+use CodeFin\Repositories\BillReceiveRepository;
 use CodeFin\Repositories\Traits\BillRepositoryTrait;
-use CodeFin\Events\BillStoredEvent;
-
+use CodeFin\Validators\BillReceiveValidator;
+use Prettus\Repository\Criteria\RequestCriteria;
+use Prettus\Repository\Eloquent\BaseRepository;
 
 /**
- * Class BillPayRepositoryEloquent
+ * Class BillReceiveRepositoryEloquent
  * @package namespace CodeFin\Repositories;
  */
-class BillPayRepositoryEloquent extends BaseRepository implements BillPayRepository
+class BillReceiveRepositoryEloquent extends BaseRepository implements BillReceiveRepository
 {
     use BillRepositoryTrait;
 
-     protected $fieldSearchable = [
-        'date_due'  => 'LIKE',
-        'name'      => 'LIKE',
-        'value'     => 'LIKE',
-        'done'      => 'LIKE'
+    protected $fieldSearchable = [
+        'name' => 'like'
     ];
-
 
     /**
      * Specify Model class name
@@ -35,8 +29,10 @@ class BillPayRepositoryEloquent extends BaseRepository implements BillPayReposit
      */
     public function model()
     {
-        return BillPay::class;
+        return BillReceive::class;
     }
+
+
     /**
      * Boot up the repository, pushing criteria
      */

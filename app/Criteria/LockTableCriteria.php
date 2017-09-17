@@ -21,6 +21,9 @@ class LockTableCriteria implements CriteriaInterface
      */
     public function apply($model, RepositoryInterface $repository)
     {
+        /*
+        * Vai fazer um bloqueio na tabela para 
+        **/
         return $model->lockForUpdate();
     }
 }

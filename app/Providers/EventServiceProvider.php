@@ -10,6 +10,8 @@ use Prettus\Repository\Events\RepositoryEntityUpdated;
 use CodeFin\Listeners\BankAccountSetDefaultListener;
 use CodeFin\Events\BankStoredEvent;
 use CodeFin\Listeners\BankLogoUploadListener;
+use CodeFin\Events\BillStoredEvent;
+use CodeFin\Listeners\BankAccountUpdateBalanceListener;
 
 class EventServiceProvider extends ServiceProvider
 {
@@ -24,6 +26,9 @@ class EventServiceProvider extends ServiceProvider
         ],
         RepositoryEntityCreated::class => [
             BankAccountSetDefaultListener::class
+        ],
+        BillStoredEvent::class => [
+            BankAccountUpdateBalanceListener::class
         ],
         RepositoryEntityUpdated::class => [
             BankAccountSetDefaultListener::class

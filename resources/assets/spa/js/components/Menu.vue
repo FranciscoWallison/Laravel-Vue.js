@@ -66,13 +66,18 @@
                         name: 'Contas', 
                         dropdownId: 'bills-dropdown'
                     },
+                    {
+                        name: 'Fluxo de Caixa', 
+                        routeName: 'cash-flow.list',
+                        url: 'cash-flow.list'
+                    },
                 ],
                 menusDropdown:[
                     {
                         id: 'bills-dropdown',
                         items: [
                             {name: "Contas a pagar", routeName: 'bill-pay.list'},
-                            // {name: "Contas a receber", routeName: 'bill-receive.list'},
+                            {name: "Contas a receber", routeName: 'bill-receive.list'},
                         ]
                     },
                 ]              
