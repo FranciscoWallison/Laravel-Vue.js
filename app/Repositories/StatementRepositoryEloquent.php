@@ -70,7 +70,7 @@ class StatementRepositoryEloquent extends BaseRepository implements StatementRep
             $filtered->each(function ($category) use (&$periods) {
                 $periods[] = [
                     'total' => $category->total,
-                    'period' => $category->period,
+                    'month_year' => $category->period,
                 ];
             });
             $arrayResult[] = [
@@ -82,10 +82,41 @@ class StatementRepositoryEloquent extends BaseRepository implements StatementRep
         return $arrayResult;
     }
 
+    protected function formatPeriods($expensesCollection, $revenuesCollection)
+    {
+         /*
+        * months_lists: {
+        *   {month_year: '2017-02', receives: {total: 10}, expense: {total: 5}}
+        * }
+        */
+
+        $periodExpenseCollection = $expensesCollection->pluck('month_year');
+        $periodRevenueCollection = $revenuesCollection->pluck('month_year');
+        $periodsCollection = $periodExpenseCollection->merge($periodRevenueCollection)->unique()->sort();//do menor para o maior
+        $periodList = [];
+        $periodsCollection->each(function ($period) use (&$periodList) {
+            $periodList[$period] = [
+                'month_year' => $period,
+                'revenues' => ['total' => 0],
+                'expenses' => ['total' => 0]
+            ];
+        });
+
+        foreach ($periodRevenueCollection as $period) {
+            $periodList[$period]['revenues']['total'] = $revenuesCollection->where('month_year', $period)->sum('total');
+        }
+
+        foreach ($periodExpenseCollection as $period) {
+            $periodList[$period]['expenses']['total'] = $expensesCollection->where('month_year', $period)->sum('total');
+        }
+
+        return array_values($periodList);
+    }
 
     protected function formatCashFlow($expensesCollection, $revenuesCollection, $balancePreviousMonth)
     {
-        // $periodList = $this->formatPeriods($expensesCollection, $revenuesCollection);
+       
+        $periodList = $this->formatPeriods($expensesCollection, $revenuesCollection);
         $expensesFormatted = $this->formatCategories($expensesCollection);
         $revenuesFormatted = $this->formatCategories($revenuesCollection);
 
