@@ -15,6 +15,9 @@ use CodeFin\Models\BillReceive;
 use CodeFin\Models\CategoryExpense;
 use CodeFin\Models\BillPay;
 
+use Illuminate\Database\MySqlConnection;
+use Illuminate\Database\PostgresConnection;
+
 
 /**
  * Class StatementRepositoryEloquent
@@ -29,7 +32,34 @@ class StatementRepositoryEloquent extends BaseRepository implements StatementRep
         return $statementable->statements()->create(array_except($attributes, 'statementable'));
     }
 
-    public function getCashFlow(Carbon $dateStart, Carbon $dateEnd) // coleção de receitas e despesas 
+    public function getCashFlowByPeriod(Carbon $dateStart, Carbon $dateEnd)
+    {
+        $dateFormat = '%Y-%m-%d';
+        $dateStartStr = $dateStart->format('Y-m-d');
+        $dateEndStr = $dateEnd->format('Y-m-d');
+
+        $revenuesCollection = $this->getQueryCategoriesValuesByPeriod(
+            new CategoryRevenue(),
+            (new BillReceive())->getTable(),
+            $dateStartStr,
+            $dateEndStr,
+            $dateFormat
+        )->get();
+
+        $expensesCollection = $this->getQueryCategoriesValuesByPeriod(
+            new CategoryExpense(),
+            (new BillPay())->getTable(),
+            $dateStartStr,
+            $dateEndStr,
+            $dateFormat
+        )->get();
+
+        return [
+            'period_list' => $this->formatPeriods($expensesCollection, $revenuesCollection)
+        ];
+    }
+
+    public function getCashFlow(Carbon $dateStart, Carbon $dateEnd)
     {
         $datePrevious = $dateStart->copy()->day(1)->subMonths(2);
         $datePrevious->day($datePrevious->daysInMonth);
@@ -44,33 +74,26 @@ class StatementRepositoryEloquent extends BaseRepository implements StatementRep
 
         $expensesCollection = $this->getCategoriesValuesCollection(
             new CategoryExpense(),
-            (new BillPay())->getTable(),// despesas com conta apagar
+            (new BillPay())->getTable(),
             $dateStart,
             $dateEnd
         );
 
-        return $this->formatCashFlow($expensesCollection, $revenuesCollection, $balancePreviousMonth);//forta
+        return $this->formatCashFlow($expensesCollection, $revenuesCollection, $balancePreviousMonth);
     }
 
     protected function formatCategories($collection)
     {   
-        /*
-        * id: 0
-        * name: Category X
-        * months: [
-        * { total: 10, periods: '2017-02'}, {total: 40, periods: '2017-04' }
-        * ]
-        */
         $categories = $collection->unique('name')->pluck('name', 'id')->all();
         $arrayResult = [];
 
         foreach ($categories as $id => $name) {
-            $filtered = $collection->where('id', $id)->where('name', $name);//filtrando as categorias 
+            $filtered = $collection->where('id', $id)->where('name', $name);
             $periods = [];
             $filtered->each(function ($category) use (&$periods) {
                 $periods[] = [
                     'total' => $category->total,
-                    'periods' => $category->period,
+                    'period' => $category->period,
                 ];
             });
             $arrayResult[] = [
@@ -84,30 +107,24 @@ class StatementRepositoryEloquent extends BaseRepository implements StatementRep
 
     protected function formatPeriods($expensesCollection, $revenuesCollection)
     {
-         /*
-        * months_lists: {
-        *   {periods: '2017-02', receives: {total: 10}, expense: {total: 5}}
-        * }
-        */
-
-        $periodExpenseCollection = $expensesCollection->pluck('periods');
-        $periodRevenueCollection = $revenuesCollection->pluck('periods');
-        $periodsCollection = $periodExpenseCollection->merge($periodRevenueCollection)->unique()->sort();//do menor para o maior
+        $periodExpenseCollection = $expensesCollection->pluck('period');
+        $periodRevenueCollection = $revenuesCollection->pluck('period');
+        $periodsCollection = $periodExpenseCollection->merge($periodRevenueCollection)->unique()->sort();
         $periodList = [];
         $periodsCollection->each(function ($period) use (&$periodList) {
             $periodList[$period] = [
-                'periods' => $period,
+                'period' => $period,
                 'revenues' => ['total' => 0],
                 'expenses' => ['total' => 0]
             ];
         });
 
         foreach ($periodRevenueCollection as $period) {
-            $periodList[$period]['revenues']['total'] = $revenuesCollection->where('periods', $period)->sum('total');
+            $periodList[$period]['revenues']['total'] = $revenuesCollection->where('period', $period)->sum('total');
         }
 
         foreach ($periodExpenseCollection as $period) {
-            $periodList[$period]['expenses']['total'] = $expensesCollection->where('periods', $period)->sum('total');
+            $periodList[$period]['expenses']['total'] = $expensesCollection->where('period', $period)->sum('total');
         }
 
         return array_values($periodList);
@@ -120,7 +137,6 @@ class StatementRepositoryEloquent extends BaseRepository implements StatementRep
         $expensesFormatted = $this->formatCategories($expensesCollection);
         $revenuesFormatted = $this->formatCategories($revenuesCollection);
 
-        //banlanço do mes anterior 
         $collectionFormatted = [
             'period_list' => $periodList,
             'balance_before_first_month' => $balancePreviousMonth,
@@ -139,8 +155,8 @@ class StatementRepositoryEloquent extends BaseRepository implements StatementRep
 
     protected function getCategoriesValuesCollection($model, $billTable, Carbon $dateStart, Carbon $dateEnd)
     {
-        $dateStartStr = $dateStart->copy()->day(1)->format('Y-m-d');// dia primeiro do mes 
-        $dateEndStr = $dateEnd->copy()->day($dateEnd->daysInMonth)->format('Y-m-d'); // ultimo dia do mes
+        $dateStartStr = $dateStart->copy()->day(1)->format('Y-m-d');
+        $dateEndStr = $dateEnd->copy()->day($dateEnd->daysInMonth)->format('Y-m-d');
 
         $firstDateStart = $dateStart->copy()->subMonths(1);  // primeiro de janeiro
         $firstDateStartStr = $firstDateStart->format('Y-m-d');
@@ -148,7 +164,7 @@ class StatementRepositoryEloquent extends BaseRepository implements StatementRep
         $firstDateEnd = $firstDateStart->copy()->day($firstDateStart->daysInMonth);  // 31 de janeiro
         $firstDateEndStr = $firstDateEnd->format('Y-m-d');
 
-        $firstCollection = $this->getQueryCategoriesValuesByPeriodAndDone( //coleção das contas que foram pagas
+        $firstCollection = $this->getQueryCategoriesValuesByPeriodAndDone(
             $model,
             $billTable,
             $firstDateEndStr,
@@ -199,48 +215,57 @@ class StatementRepositoryEloquent extends BaseRepository implements StatementRep
         $table = $model->getTable();
         list($lft, $rgt) = [$model->getLftName(), $model->getRgtName()];
 
-        // $subQuery = $this->getQueryWithDepth($model);
-        return $model
-            ->addSelect("$table.id")// select catergory
-            ->addSelect("$table.name")// 
-            ->selectRaw("SUM(value) as total")// select bill
-            ->selectRaw("DATE_FORMAT(date_due, '$dateFormat') as periods")
-            ->selectSub($this->getQueryWithDepth($model), 'depth')
-            ->join("$table as childOrself", function ($join) use ($table, $lft, $rgt) {
-                $join->on("$table.$lft", '<=', "childOrself.$lft")// consulta da arvore
-                    ->whereRaw("$table.$rgt >= childOrself.$rgt");
+        $subQuery = $this->getQueryWithDepth($model);
+        $query = $model
+            ->addSelect("$table.id")
+            ->addSelect("$table.name")
+            ->selectRaw("SUM(value) as total")
+            ->join("$table as childorself", function ($join) use ($table, $lft, $rgt) {
+                $join->on("$table.$lft", '<=', "childorself.$lft")
+                    ->whereRaw("$table.$rgt >= childorself.$rgt");
             })
-            ->join($billTable, "$billTable.category_id", '=', "childOrself.id")
-            ->whereBetween('date_due', [$dateStart, $dateEnd])//valos das datas dos bills where campo between primeiro e segundo
-            //->whereRaw("({$this->getQueryWithDepth($model)->toSql()}) = 0")// HAVING 
-            ->groupBy("$table.id", "$table.name", 'periods')//
-            ->havingRaw("depth = 0")
-            ->orderBy('periods')
+            ->join($billTable, "$billTable.category_id", '=', "childorself.id")
+            ->whereBetween('date_due', [$dateStart, $dateEnd])
+            ->whereRaw("({$this->getQueryWithDepth($model)->toSql()}) = 0")
+            ->groupBy("$table.id", "$table.name", 'period')
+            ->orderBy("period")
             ->orderBy("$table.name");
 
-        // $query->mergeBindings($subQuery);
+        $query->mergeBindings($subQuery);
 
-        // if (DB::connection() instanceof PostgresConnection) {
-        //     $dateFormat = $this->getFormatDateByDatabase($dateFormat);
-        //     $query = $query->selectRaw("TO_CHAR(date_due, '$dateFormat') as period");// bill  2016-02
-        // } elseif (DB::connection() instanceof MySqlConnection) {
-        //     $query = $query->selectRaw("DATE_FORMAT(date_due, '$dateFormat') as period");// qual é o total do mes
-        // }
-        // return $query;
+        if (\DB::connection() instanceof PostgresConnection) {
+            $dateFormat = $this->getFormatDateByDatabase($dateFormat);
+            $query = $query->selectRaw("TO_CHAR(date_due, '$dateFormat') as period");
+        } elseif (\DB::connection() instanceof MySqlConnection) {
+            $query = $query->selectRaw("DATE_FORMAT(date_due, '$dateFormat') as period");
+        }
+        return $query;
+    }
+
+    protected function getFormatDateByDatabase($mySqlDateFormat)
+    {
+        $result = $mySqlDateFormat;
+        if (DB::connection() instanceof PostgresConnection) {
+            $result = str_replace('%', '', $mySqlDateFormat);
+            $result = str_replace('Y', 'YYYY', $result);
+            $result = str_replace('m', 'MM', $result);
+            $result = str_replace('d', 'DD', $result);
+        }
+        return $result;
     }
 
     protected function getQueryWithDepth($model)
     {
         $table = $model->getTable();
 
-        list($lft, $rgt) = [$model->getLftName(), $model->getRgtName()];//
+        list($lft, $rgt) = [$model->getLftName(), $model->getRgtName()];
 
         $alias = '_d';
 
         return $model
             ->newScopedQuery($alias)
             ->toBase()
-            ->selectRaw('count(1) - 1')//calculo depth 
+            ->selectRaw('count(1) - 1')
             ->from("{$table} as {$alias}")
             ->whereRaw("{$table}.{$lft} between {$alias}.{$lft} and {$alias}.{$rgt}");
     }
@@ -251,22 +276,17 @@ class StatementRepositoryEloquent extends BaseRepository implements StatementRep
         $modelClass = $this->model();
 
         $subQuery = (new $modelClass)
-            ->toBase()//converte para baixo novel
-            ->selectRaw("bank_account_id, MAX(statements.id) as maxid") // pegar os ultimos ID
-            ->whereRaw("statements.created_at <= '$dateString'")//não tem form
-            ->groupBy('bank_account_id');// agrupar os dados 
-        //Conta bancaria X 150
-        //Conta bancaria Y 140
-        //Conta bancaria Z 130
+            ->toBase()
+            ->selectRaw("bank_account_id, MAX(statements.id) as maxid")
+            ->whereRaw("statements.created_at <= '$dateString'")
+            ->groupBy('bank_account_id');
+
         $result = (new $modelClass)
             ->selectRaw("SUM(statements.balance) as total")
-            ->join(\DB::raw("({$subQuery->toSql()}) as s"), 'statements.id', '=', 's.maxid')// alias 
-            ->mergeBindings($subQuery)//passa os parametros para query
-            //->toSql() ver a query
+            ->join(\DB::raw("({$subQuery->toSql()}) as s"), 'statements.id', '=', 's.maxid')
+            ->mergeBindings($subQuery)
             ->get();
-            //Todo conjunto de contas bancarias
-            //Query - somar os saldos únicos das contas
-            //Query - selecionar os últimos ids de extrato referente da data
+
         return $result->first()->total === null ? 0 : $result->first()->total;
     }
 
