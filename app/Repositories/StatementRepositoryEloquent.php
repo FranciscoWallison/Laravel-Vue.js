@@ -56,7 +56,7 @@ class StatementRepositoryEloquent extends BaseRepository implements StatementRep
     {
         $resultRevenue = $this->getCountAndTotalByBill(BillReceive::class);
         $resultExpense = $this->getCountAndTotalByBill(BillPay::class);
-
+//lansamentos 
         return [
             'count' => $resultRevenue['count'] + $resultExpense['count'],
             'revenues' => ['total' => $resultRevenue['total']],
