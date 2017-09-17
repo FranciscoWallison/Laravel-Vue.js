@@ -3,7 +3,7 @@
 <script>
     import store from '../../store/store';
     import PageTitleComponent from '../../../../_default/components/PageTitle.vue';
-    //import Papa from 'papaparse';
+    import Papa from 'papaparse';
     export default{
         components: {
             'page-title': PageTitleComponent,
@@ -35,13 +35,16 @@
             monthsListBalanceFinal(){
                 return store.getters['cashFlow/monthsListBalanceFinal'];
             },
+            monthsListBalancePrevious(){
+                return store.getters['cashFlow/monthsListBalancePrevious'];
+            },
             hasCashFlows(){
             return store.getters['cashFlow/hasCashFlows'];
             }
 
         },
         created(){
-            store.commit('cashFlow/setFirstMonthYear', new Date());// pássa a data 
+            store.commit('cashFlow/setFirstMonthYear', new Date());
             store.dispatch('cashFlow/query');
         },
         methods: {
@@ -58,7 +61,7 @@
             downloadCsv(){
                 let anchor = $('<a/>');
                 anchor.css('display','none');
-                anchor.attr('download','fluxo-de-caixa.csv')
+                anchor.attr('download','sisfin-fluxo-de-caixa.csv')
                     .attr('target','_blank')
                     .attr('href',`data:text/csv;charset=UTF-8,${encodeURIComponent(this.getCsv())}`);
                 anchor.html('Download CSV');

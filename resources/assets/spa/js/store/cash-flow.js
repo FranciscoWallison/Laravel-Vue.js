@@ -72,6 +72,10 @@ const getters = {
             let length = state.cashFlows.period_list.length;
             return state.cashFlows.period_list.slice(getters.indexSecondMonth + 1, length);
         },
+        monthsListBalancePrevious(state, getters){
+            let length = state.cashFlows.period_list.length;
+            return state.cashFlows.period_list.slice(getters.indexSecondMonth + 2, length);
+        },
         hasCashFlows(state){
             return state.cashFlows != null && state.cashFlows.period_list.length > 1;
         },
