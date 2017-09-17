@@ -41,7 +41,7 @@ class StatementRepositoryEloquent extends BaseRepository implements StatementRep
             $dateStart,
             $dateEnd
         );
-dd($revenuesCollection);
+
         $expensesCollection = $this->getCategoriesValuesCollection(
             new CategoryExpense(),
             (new BillPay())->getTable(),// despesas com conta apagar
@@ -52,11 +52,42 @@ dd($revenuesCollection);
         return $this->formatCashFlow($expensesCollection, $revenuesCollection, $balancePreviousMonth);//forta
     }
 
+    protected function formatCategories($collection)
+    {   
+        /*
+        * id: 0
+        * name: Category X
+        * months: [
+        * { total: 10, month_year: '2017-02'}, {total: 40, month_year: '2017-04' }
+        * ]
+        */
+        $categories = $collection->unique('name')->pluck('name', 'id')->all();
+        $arrayResult = [];
+
+        foreach ($categories as $id => $name) {
+            $filtered = $collection->where('id', $id)->where('name', $name);//filtrando as categorias 
+            $periods = [];
+            $filtered->each(function ($category) use (&$periods) {
+                $periods[] = [
+                    'total' => $category->total,
+                    'period' => $category->period,
+                ];
+            });
+            $arrayResult[] = [
+                'id' => $id,
+                'name' => $name,
+                'periods' => $periods,
+            ];
+        }
+        return $arrayResult;
+    }
+
+
     protected function formatCashFlow($expensesCollection, $revenuesCollection, $balancePreviousMonth)
     {
         // $periodList = $this->formatPeriods($expensesCollection, $revenuesCollection);
-        // $expensesFormatted = $this->formatCategories($expensesCollection);
-        // $revenuesFormatted = $this->formatCategories($revenuesCollection);
+        $expensesFormatted = $this->formatCategories($expensesCollection);
+        $revenuesFormatted = $this->formatCategories($revenuesCollection);
 
         // $collectionFormatted = [
         //     'period_list' => $periodList,
