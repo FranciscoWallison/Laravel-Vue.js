@@ -31,7 +31,10 @@ Route::group(['middleware' => 'cors' , 'as' => 'api.'], function(){
 		Route::resource('bill_pays', 'Api\BillPaysController', ['except'=> ['create' , 'edit'] ]);
 		Route::resource('bill-receives', 'Api\BillReceivesController', ['except'=> ['create' , 'edit'] ]);
 
-		Route::get('cash_flows', 'Api\CashFlowsController@index');
+		Route::get('statements', 'Api\StatementsController@index');
+        Route::get('cash_flows', 'Api\CashFlowsController@index');
+        Route::get('cash_flows/monthly', 'Api\CashFlowsController@monthly');
+        
 		Route::post('/logout', 'Api\AuthController@logout')->name('logout');
 
 		Route::get('/test_auth', function (Request $request) {

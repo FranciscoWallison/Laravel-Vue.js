@@ -96,4 +96,3 @@ class StatementRepositoryEloquent extends BaseRepository implements StatementRep
         return StatementSerializerPresenter::class;
     }
 }
-}

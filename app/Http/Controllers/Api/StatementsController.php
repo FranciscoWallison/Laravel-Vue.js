@@ -2,12 +2,12 @@
 
 namespace CodeFin\Http\Controllers\Api;
 
+use Illuminate\Http\Request;
 use CodeFin\Http\Controllers\Controller;
 use CodeFin\Http\Controllers\Response;
 use CodeFin\Http\Requests;
 use CodeFin\Repositories\StatementRepository;
-use Carbon\Carbon;
-
+use CodeFin\Criteria\FindBetweenDateBRCriteria;
 
 class StatementsController extends Controller
 {
@@ -28,9 +28,16 @@ class StatementsController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
-        return $this->repository->paginate();
+        $searchParam = config('repository.criterua.params.search');
+        $search = $request->get($searchParam);
+
+        $this->repository
+            ->pushCriteria(new FindBetweenDateBRCriteria($search, 'created_at'));
+        $statements = $this->repository->paginate();
+
+        return $statements;
     }
 
 }
