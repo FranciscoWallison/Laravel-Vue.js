@@ -48,17 +48,17 @@ class StatementRepositoryEloquent extends BaseRepository implements StatementRep
 
         $subQuery = $this->getQueryWithDepth($model);
         $query = $model
-            ->addSelect("$table.id")
-            ->addSelect("$table.name")
-            ->selectRaw("SUM(value) as total")
-            ->join("$table as childorself", function ($join) use ($table, $lft, $rgt) {
-                $join->on("$table.$lft", '<=', "childorself.$lft")
-                    ->whereRaw("$table.$rgt >= childorself.$rgt");
+            ->addSelect("$table.id")// select catergory
+            ->addSelect("$table.name")// 
+            ->selectRaw("SUM(value) as total")// select bill
+            ->join("$table as childOrself", function ($join) use ($table, $lft, $rgt) {
+                $join->on("$table.$lft", '<=', "childOrself.$lft")// consulta da arvore
+                    ->whereRaw("$table.$rgt >= childOrself.$rgt");
             })
-            ->join($billTable, "$billTable.category_id", '=', "childorself.id")
-            ->whereBetween('date_due', [$dateStart, $dateEnd])
-            ->whereRaw("({$this->getQueryWithDepth($model)->toSql()}) = 0")
-            ->groupBy("$table.id", "$table.name", 'period')
+            ->join($billTable, "$billTable.category_id", '=', "childOrself.id")
+            ->whereBetween('date_due', [$dateStart, $dateEnd])//valos das datas dos bills where campo between primeiro e segundo
+            ->whereRaw("({$this->getQueryWithDepth($model)->toSql()}) = 0")// HAVING 
+            ->groupBy("$table.id", "$table.name", 'period')//
             ->orderBy("period")
             ->orderBy("$table.name");
 
@@ -66,12 +66,29 @@ class StatementRepositoryEloquent extends BaseRepository implements StatementRep
 
         if (DB::connection() instanceof PostgresConnection) {
             $dateFormat = $this->getFormatDateByDatabase($dateFormat);
-            $query = $query->selectRaw("TO_CHAR(date_due, '$dateFormat') as period");
+            $query = $query->selectRaw("TO_CHAR(date_due, '$dateFormat') as period");// bill  2016-02
         } elseif (DB::connection() instanceof MySqlConnection) {
             $query = $query->selectRaw("DATE_FORMAT(date_due, '$dateFormat') as period");
         }
         return $query;
     }
+
+    protected function getQueryWithDepth($model)
+    {
+        $table = $model->getTable();
+
+        list($lft, $rgt) = [$model->getLftName(), $model->getRgtName()];//
+
+        $alias = '_d';
+
+        return $model
+            ->newScopedQuery($alias)
+            ->toBase()
+            ->selectRaw('count(1) - 1')//calculo depth 
+            ->from("{$table} as {$alias}")
+            ->whereRaw("{$table}.{$lft} between {$alias}.{$lft} and {$alias}.{$rgt}");
+    }
+
     public function getBalanceByMonth(Carbon $date)
     {
         $dateString = $date->copy()->day($date->daysInMonth)->format('Y-m-d');
@@ -81,7 +98,7 @@ class StatementRepositoryEloquent extends BaseRepository implements StatementRep
             ->toBase()//converte para baixo novel
             ->selectRaw("bank_account_id, MAX(statements.id) as maxid") // pegar os ultimos ID
             ->whereRaw("statements.created_at <= '$dateString'")//não tem form
-            ->groupBy('bank_account_id');
+            ->groupBy('bank_account_id');// agrupar os dados 
         //Conta bancaria X 150
         //Conta bancaria Y 140
         //Conta bancaria Z 130
