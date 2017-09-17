@@ -9,6 +9,13 @@ use CodeFin\Models\Statement;
 use CodeFin\Validators\StatementValidator;
 use Carbon\Carbon;
 
+use CodeFin\Models\CategoryRevenue;
+use CodeFin\Models\BillReceive;
+
+use CodeFin\Models\CategoryExpense;
+use CodeFin\Models\BillPay;
+
+
 /**
  * Class StatementRepositoryEloquent
  * @package namespace CodeFin\Repositories;
@@ -34,7 +41,7 @@ class StatementRepositoryEloquent extends BaseRepository implements StatementRep
             $dateStart,
             $dateEnd
         );
-
+dd($revenuesCollection);
         $expensesCollection = $this->getCategoriesValuesCollection(
             new CategoryExpense(),
             (new BillPay())->getTable(),// despesas com conta apagar
@@ -47,24 +54,24 @@ class StatementRepositoryEloquent extends BaseRepository implements StatementRep
 
     protected function formatCashFlow($expensesCollection, $revenuesCollection, $balancePreviousMonth)
     {
-        $periodList = $this->formatPeriods($expensesCollection, $revenuesCollection);
-        $expensesFormatted = $this->formatCategories($expensesCollection);
-        $revenuesFormatted = $this->formatCategories($revenuesCollection);
+        // $periodList = $this->formatPeriods($expensesCollection, $revenuesCollection);
+        // $expensesFormatted = $this->formatCategories($expensesCollection);
+        // $revenuesFormatted = $this->formatCategories($revenuesCollection);
 
-        $collectionFormatted = [
-            'period_list' => $periodList,
-            'balance_before_first_month' => $balancePreviousMonth,
-            'categories_period' => [
-                'expenses' => [
-                    'data' => $expensesFormatted
-                ],
-                'revenues' => [
-                    'data' => $revenuesFormatted
-                ]
-            ]
-        ];
+        // $collectionFormatted = [
+        //     'period_list' => $periodList,
+        //     'balance_before_first_month' => $balancePreviousMonth,
+        //     'categories_period' => [
+        //         'expenses' => [
+        //             'data' => $expensesFormatted
+        //         ],
+        //         'revenues' => [
+        //             'data' => $revenuesFormatted
+        //         ]
+        //     ]
+        // ];
 
-        return $collectionFormatted;
+        // return $collectionFormatted;
     }
 
     protected function getCategoriesValuesCollection($model, $billTable, Carbon $dateStart, Carbon $dateEnd)
@@ -129,31 +136,34 @@ class StatementRepositoryEloquent extends BaseRepository implements StatementRep
         $table = $model->getTable();
         list($lft, $rgt) = [$model->getLftName(), $model->getRgtName()];
 
-        $subQuery = $this->getQueryWithDepth($model);
-        $query = $model
+        // $subQuery = $this->getQueryWithDepth($model);
+        return $model
             ->addSelect("$table.id")// select catergory
             ->addSelect("$table.name")// 
             ->selectRaw("SUM(value) as total")// select bill
+            ->selectRaw("DATE_FORMAT(date_due, '$dateFormat') as month_year")
+            ->selectSub($this->getQueryWithDepth($model), 'depth')
             ->join("$table as childOrself", function ($join) use ($table, $lft, $rgt) {
                 $join->on("$table.$lft", '<=', "childOrself.$lft")// consulta da arvore
                     ->whereRaw("$table.$rgt >= childOrself.$rgt");
             })
             ->join($billTable, "$billTable.category_id", '=', "childOrself.id")
             ->whereBetween('date_due', [$dateStart, $dateEnd])//valos das datas dos bills where campo between primeiro e segundo
-            ->whereRaw("({$this->getQueryWithDepth($model)->toSql()}) = 0")// HAVING 
-            ->groupBy("$table.id", "$table.name", 'period')//
-            ->orderBy("period")
+            //->whereRaw("({$this->getQueryWithDepth($model)->toSql()}) = 0")// HAVING 
+            ->groupBy("$table.id", "$table.name", 'month_year')//
+            ->havingRaw("depth = 0")
+            ->orderBy("month_year")
             ->orderBy("$table.name");
 
-        $query->mergeBindings($subQuery);
+        // $query->mergeBindings($subQuery);
 
-        if (DB::connection() instanceof PostgresConnection) {
-            $dateFormat = $this->getFormatDateByDatabase($dateFormat);
-            $query = $query->selectRaw("TO_CHAR(date_due, '$dateFormat') as period");// bill  2016-02
-        } elseif (DB::connection() instanceof MySqlConnection) {
-            $query = $query->selectRaw("DATE_FORMAT(date_due, '$dateFormat') as period");// qual é o total do mes
-        }
-        return $query;
+        // if (DB::connection() instanceof PostgresConnection) {
+        //     $dateFormat = $this->getFormatDateByDatabase($dateFormat);
+        //     $query = $query->selectRaw("TO_CHAR(date_due, '$dateFormat') as period");// bill  2016-02
+        // } elseif (DB::connection() instanceof MySqlConnection) {
+        //     $query = $query->selectRaw("DATE_FORMAT(date_due, '$dateFormat') as period");// qual é o total do mes
+        // }
+        // return $query;
     }
 
     protected function getQueryWithDepth($model)
