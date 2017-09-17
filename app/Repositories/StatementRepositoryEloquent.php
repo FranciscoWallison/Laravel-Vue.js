@@ -21,17 +21,62 @@ class StatementRepositoryEloquent extends BaseRepository implements StatementRep
         $statementable = $attributes['statementable'];
         return $statementable->statements()->create(array_except($attributes, 'statementable'));
     }
+
+    /*
+     * Qual é o id e o ultimo extrato
+     * Jan Fev Mar Abr Mai
+     * Saldo Final
+     * Geracao caixa
+     * Saldo do mês anterior
+     * Recebimentos 
+     *      Categoria X 20 | 30 | 40
+     *           Categoria Filha 1 10 
+     *           Categoria Filha 2 10 
+     *      Categoria Y 20 | 30 | 40
+     *      Categoria Z 20 | 30 | 40
+     * Pagamentos 
+     *      Categoria X, Y, Z
+     */
+    
     /*
     * Pegar o saldo do mes
     */
+    protected function getQueryCategoriesValuesByPeriod($model, $billTable, $dateStart, $dateEnd, $dateFormat = '%Y-%m')
+    {
+        $table = $model->getTable();
+        list($lft, $rgt) = [$model->getLftName(), $model->getRgtName()];
+
+        $subQuery = $this->getQueryWithDepth($model);
+        $query = $model
+            ->addSelect("$table.id")
+            ->addSelect("$table.name")
+            ->selectRaw("SUM(value) as total")
+            ->join("$table as childorself", function ($join) use ($table, $lft, $rgt) {
+                $join->on("$table.$lft", '<=', "childorself.$lft")
+                    ->whereRaw("$table.$rgt >= childorself.$rgt");
+            })
+            ->join($billTable, "$billTable.category_id", '=', "childorself.id")
+            ->whereBetween('date_due', [$dateStart, $dateEnd])
+            ->whereRaw("({$this->getQueryWithDepth($model)->toSql()}) = 0")
+            ->groupBy("$table.id", "$table.name", 'period')
+            ->orderBy("period")
+            ->orderBy("$table.name");
+
+        $query->mergeBindings($subQuery);
+
+        if (DB::connection() instanceof PostgresConnection) {
+            $dateFormat = $this->getFormatDateByDatabase($dateFormat);
+            $query = $query->selectRaw("TO_CHAR(date_due, '$dateFormat') as period");
+        } elseif (DB::connection() instanceof MySqlConnection) {
+            $query = $query->selectRaw("DATE_FORMAT(date_due, '$dateFormat') as period");
+        }
+        return $query;
+    }
     public function getBalanceByMonth(Carbon $date)
     {
         $dateString = $date->copy()->day($date->daysInMonth)->format('Y-m-d');
         $modelClass = $this->model();
-        /*
-         * Qual é o id e o ultimo extrato
-         * 
-         */
+
         $subQuery = (new $modelClass)
             ->toBase()//converte para baixo novel
             ->selectRaw("bank_account_id, MAX(statements.id) as maxid") // pegar os ultimos ID
