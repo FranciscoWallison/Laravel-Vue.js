@@ -7,6 +7,7 @@ use Prettus\Repository\Criteria\RequestCriteria;
 use CodeFin\Repositories\StatementRepository;
 use CodeFin\Models\Statement;
 use CodeFin\Validators\StatementValidator;
+use Carbon\Carbon;
 
 /**
  * Class StatementRepositoryEloquent
@@ -20,27 +21,32 @@ class StatementRepositoryEloquent extends BaseRepository implements StatementRep
         $statementable = $attributes['statementable'];
         return $statementable->statements()->create(array_except($attributes, 'statementable'));
     }
-
+    /*
+    * Pegar o saldo do mes
+    */
     public function getBalanceByMonth(Carbon $date)
     {
         $dateString = $date->copy()->day($date->daysInMonth)->format('Y-m-d');
         $modelClass = $this->model();
-
         /*
          * Qual é o id e o ultimo extrato
          * 
          */
         $subQuery = (new $modelClass)
-            ->toBase()
+            ->toBase()//converte para baixo novel
             ->selectRaw("bank_account_id, MAX(statements.id) as maxid") // pegar os ultimos ID
             ->whereRaw("statements.created_at <= '$dateString'")//não tem form
             ->groupBy('bank_account_id');
-
+        //Conta bancaria X 150
+        //Conta bancaria Y 140
+        //Conta bancaria Z 130
         $result = (new $modelClass)
             ->selectRaw("SUM(statements.balance) as total")
-            ->join(\DB::raw("({$subQuery->toSql()}) as s"), 'statements.id', '=', 's.maxid')
-            ->mergeBindings($subQuery)
+            ->join(\DB::raw("({$subQuery->toSql()}) as s"), 'statements.id', '=', 's.maxid')// alias 
+            ->mergeBindings($subQuery)//passa os parametros para query
+            //->toSql() ver a query
             ->get();
+            //Todo conjunto de contas bancarias
             //Query - somar os saldos únicos das contas
             //Query - selecionar os últimos ids de extrato referente da data
         return $result->first()->total === null ? 0 : $result->first()->total;
