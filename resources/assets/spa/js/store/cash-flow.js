@@ -17,7 +17,8 @@ const mutations = {
     setFirstMonthYear(state, date){
         state.firstMonthYear = moment(date)
             .startOf('day')
-            .subtract(1, 'months').format('YYYY-MM');
+            .subtract(1, 'months')
+            .format('YYYY-MM');
     }
 };
 
@@ -46,7 +47,7 @@ const getters = {
             }
             return [];
         },
-        hasFirstMonthYear(state, getters){
+        hasFirstMonthYear(state, getters){ //tem o primeiro m^Se da listagem
             return getters.filterMonthYear(state.firstMonthYear).length > 0;
         },
         firstBalance(state, getters){
