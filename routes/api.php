@@ -31,6 +31,7 @@ Route::group(['middleware' => 'cors' , 'as' => 'api.'], function(){
 		Route::resource('bill_pays', 'Api\BillPaysController', ['except'=> ['create' , 'edit'] ]);
 		Route::resource('bill-receives', 'Api\BillReceivesController', ['except'=> ['create' , 'edit'] ]);
 
+		Route::get('statements/cash_flow', 'Api\StatementsController@listCashFlow');
 		Route::post('/logout', 'Api\AuthController@logout')->name('logout');
 
 		Route::get('/test_auth', function (Request $request) {

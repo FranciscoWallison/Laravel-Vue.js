@@ -58,7 +58,7 @@ class StatementRepositoryEloquent extends BaseRepository implements StatementRep
         * id: 0
         * name: Category X
         * months: [
-        * { total: 10, month_year: '2017-02'}, {total: 40, month_year: '2017-04' }
+        * { total: 10, periods: '2017-02'}, {total: 40, periods: '2017-04' }
         * ]
         */
         $categories = $collection->unique('name')->pluck('name', 'id')->all();
@@ -70,7 +70,7 @@ class StatementRepositoryEloquent extends BaseRepository implements StatementRep
             $filtered->each(function ($category) use (&$periods) {
                 $periods[] = [
                     'total' => $category->total,
-                    'month_year' => $category->period,
+                    'periods' => $category->period,
                 ];
             });
             $arrayResult[] = [
@@ -86,28 +86,28 @@ class StatementRepositoryEloquent extends BaseRepository implements StatementRep
     {
          /*
         * months_lists: {
-        *   {month_year: '2017-02', receives: {total: 10}, expense: {total: 5}}
+        *   {periods: '2017-02', receives: {total: 10}, expense: {total: 5}}
         * }
         */
 
-        $periodExpenseCollection = $expensesCollection->pluck('month_year');
-        $periodRevenueCollection = $revenuesCollection->pluck('month_year');
+        $periodExpenseCollection = $expensesCollection->pluck('periods');
+        $periodRevenueCollection = $revenuesCollection->pluck('periods');
         $periodsCollection = $periodExpenseCollection->merge($periodRevenueCollection)->unique()->sort();//do menor para o maior
         $periodList = [];
         $periodsCollection->each(function ($period) use (&$periodList) {
             $periodList[$period] = [
-                'month_year' => $period,
+                'periods' => $period,
                 'revenues' => ['total' => 0],
                 'expenses' => ['total' => 0]
             ];
         });
 
         foreach ($periodRevenueCollection as $period) {
-            $periodList[$period]['revenues']['total'] = $revenuesCollection->where('month_year', $period)->sum('total');
+            $periodList[$period]['revenues']['total'] = $revenuesCollection->where('periods', $period)->sum('total');
         }
 
         foreach ($periodExpenseCollection as $period) {
-            $periodList[$period]['expenses']['total'] = $expensesCollection->where('month_year', $period)->sum('total');
+            $periodList[$period]['expenses']['total'] = $expensesCollection->where('periods', $period)->sum('total');
         }
 
         return array_values($periodList);
@@ -120,20 +120,21 @@ class StatementRepositoryEloquent extends BaseRepository implements StatementRep
         $expensesFormatted = $this->formatCategories($expensesCollection);
         $revenuesFormatted = $this->formatCategories($revenuesCollection);
 
-        // $collectionFormatted = [
-        //     'period_list' => $periodList,
-        //     'balance_before_first_month' => $balancePreviousMonth,
-        //     'categories_period' => [
-        //         'expenses' => [
-        //             'data' => $expensesFormatted
-        //         ],
-        //         'revenues' => [
-        //             'data' => $revenuesFormatted
-        //         ]
-        //     ]
-        // ];
+        //banlanço do mes anterior 
+        $collectionFormatted = [
+            'period_list' => $periodList,
+            'balance_before_first_month' => $balancePreviousMonth,
+            'categories_period' => [
+                'expenses' => [
+                    'data' => $expensesFormatted
+                ],
+                'revenues' => [
+                    'data' => $revenuesFormatted
+                ]
+            ]
+        ];
 
-        // return $collectionFormatted;
+        return $collectionFormatted;
     }
 
     protected function getCategoriesValuesCollection($model, $billTable, Carbon $dateStart, Carbon $dateEnd)
@@ -203,7 +204,7 @@ class StatementRepositoryEloquent extends BaseRepository implements StatementRep
             ->addSelect("$table.id")// select catergory
             ->addSelect("$table.name")// 
             ->selectRaw("SUM(value) as total")// select bill
-            ->selectRaw("DATE_FORMAT(date_due, '$dateFormat') as month_year")
+            ->selectRaw("DATE_FORMAT(date_due, '$dateFormat') as periods")
             ->selectSub($this->getQueryWithDepth($model), 'depth')
             ->join("$table as childOrself", function ($join) use ($table, $lft, $rgt) {
                 $join->on("$table.$lft", '<=', "childOrself.$lft")// consulta da arvore
@@ -212,9 +213,9 @@ class StatementRepositoryEloquent extends BaseRepository implements StatementRep
             ->join($billTable, "$billTable.category_id", '=', "childOrself.id")
             ->whereBetween('date_due', [$dateStart, $dateEnd])//valos das datas dos bills where campo between primeiro e segundo
             //->whereRaw("({$this->getQueryWithDepth($model)->toSql()}) = 0")// HAVING 
-            ->groupBy("$table.id", "$table.name", 'month_year')//
+            ->groupBy("$table.id", "$table.name", 'periods')//
             ->havingRaw("depth = 0")
-            ->orderBy("month_year")
+            ->orderBy('periods')
             ->orderBy("$table.name");
 
         // $query->mergeBindings($subQuery);
