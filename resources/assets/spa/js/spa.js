@@ -9,6 +9,7 @@ require('vuex');
 
 Vue.http.options.root = appConfig.api_url;
 
+require('./echo');
 require('./filtes');
 require('./validators');
 require('./services/interceptors');

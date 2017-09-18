@@ -30,13 +30,7 @@ class StatementsController extends Controller
      */
     public function index(Request $request)
     {
-        $searchParam = config('repository.criterua.params.search');
-        $search = $request->get($searchParam);
-
-        $this->repository
-            ->pushCriteria(new FindBetweenDateBRCriteria($search, 'created_at'));
         $statements = $this->repository->paginate();
-
         return $statements;
     }
 

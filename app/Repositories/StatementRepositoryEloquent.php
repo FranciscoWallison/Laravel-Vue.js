@@ -2,23 +2,15 @@
 
 namespace CodeFin\Repositories;
 
-use Prettus\Repository\Eloquent\BaseRepository;
-use Prettus\Repository\Criteria\RequestCriteria;
-use CodeFin\Repositories\StatementRepository;
-use CodeFin\Models\Statement;
 use CodeFin\Presenters\StatementSerializerPresenter;
-
-use CodeFin\Models\CategoryRevenue;
-use CodeFin\Models\BillReceive;
-
-use CodeFin\Models\CategoryExpense;
 use CodeFin\Models\BillPay;
-
-use Illuminate\Database\MySqlConnection;
-use Illuminate\Database\PostgresConnection;
-use CodeFin\Serializer\StatementSerializer;
-
+use CodeFin\Models\BillReceive;
+use CodeFin\Models\Statement;
+use CodeFin\Repositories\StatementRepository;
 use CodeFin\Repositories\Traits\CashFlowRepositoryTrait;
+use CodeFin\Serializer\StatementSerializer;
+use Prettus\Repository\Criteria\RequestCriteria;
+use Prettus\Repository\Eloquent\BaseRepository;
 
 
 /**

@@ -50,7 +50,8 @@
                 menus:[
                     {
                         name: 'Dashboard',
-                        routeName: 'dashboard'
+                        routeName: 'dashboard',
+                         url: 'dashboard'
                     },
                     {
                         name: 'Conta bancária', 
@@ -70,6 +71,11 @@
                         name: 'Fluxo de Caixa', 
                         routeName: 'cash-flow.list',
                         url: 'cash-flow.list'
+                    },
+                    {
+                        name: 'Extrato', 
+                        routeName: 'statement.list',
+                        url: 'statement.list'
                     },
                 ],
                 menusDropdown:[

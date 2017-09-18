@@ -3,7 +3,7 @@
 namespace CodeFin\Repositories;
 
 use CodeFin\Criteria\LockTableCriteria;
-// use CodeFin\Events\BankAccountBalanceUpdatedEvent;
+use CodeFin\Events\BankAccountBalanceUpdatedEvent;
 use CodeFin\Models\BankAccount;
 use CodeFin\Presenters\BankAccountPresenter;
 use CodeFin\Repositories\BankAccountRepository;
@@ -39,7 +39,7 @@ class BankAccountRepositoryEloquent extends BaseRepository implements BankAccoun
             $model->balance = $model->balance + $value;
             $model->save();
         \DB::commit();
-        // broadcast(new BankAccountBalanceUpdatedEvent($model));
+        broadcast(new BankAccountBalanceUpdatedEvent($model));
         $this->popCriteria(LockTableCriteria::class); //libera a tabela
 
         $this->skipPresenter = $skipPresenter;

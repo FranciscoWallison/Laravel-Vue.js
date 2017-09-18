@@ -2,8 +2,6 @@
 
 namespace CodeFin\Http\Controllers\Api;
 
-use Illuminate\Http\Request;
-
 use CodeFin\Http\Controllers\Controller;
 use CodeFin\Http\Requests;
 use Prettus\Validator\Contracts\ValidatorInterface;
@@ -13,6 +11,7 @@ use CodeFin\Http\Requests\BankAccountUpdateRequest;
 use CodeFin\Repositories\BankAccountRepository;
 use CodeFin\Criteria\FindByNameCriteria;
 use CodeFin\Criteria\FindByLikeAgencyCriteria;
+use Illuminate\Http\Request;
 
 
 class BankAccountsController extends Controller
@@ -37,11 +36,11 @@ class BankAccountsController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
-        $bankAccounts = $this->repository->paginate();
-
-        return  $bankAccounts;
+        $limit = (int)$request->get('limit', null);
+        $limit = $limit > 0 ? $limit : null;
+        return $this->repository->paginate($limit);
     }
 
     /**
