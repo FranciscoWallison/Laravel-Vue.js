@@ -53,27 +53,25 @@ class BankAccountUpdateBalanceListener
             ]);
         }
     }
-    /*
-    * definir qual o valo esta no extrato
-    */
+
     protected function getValue(BillStoredEvent $event)
     {
         $model = $event->getModel();
         $modelOld = $event->getModelOld();
 
-        $value = $model->value; // valor atual 
-        $valueOld = $modelOld ? $modelOld->value : $model->value; // valor antigo
-        $doneOld = $modelOld ? $modelOld->done : false;//
+        $value = $model->value;
+        $valueOld = $modelOld ? $modelOld->value : $model->value;
+        $doneOld = $modelOld ? $modelOld->done : false;
 
         if ($value != $valueOld) { // valor da conta alterado
             if ($model->done == $modelOld->done && $model->done) {  // conta continua paga
                 return $model instanceof BillPay ? $valueOld - $value : $value - $valueOld;
             }
         }
-        if ($model->done != $doneOld) {// verificando o tipo de conta 
-            if ($model->done) { // antes não estava paga
+        if ($model->done != $doneOld) {
+            if ($model->done) {
                 return $model instanceof BillPay ? -$value : $value;
-            } else { // antes estava paga
+            } else {
                 return $model instanceof BillPay ? $valueOld : -$valueOld;
             }
         }

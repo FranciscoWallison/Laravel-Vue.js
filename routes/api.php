@@ -44,7 +44,6 @@ Route::group(['middleware' => 'cors' , 'as' => 'api.'], function(){
 		});	
 
 		Route::get('/user', function(Request $request){
-			//$user = Auth::guard('api')->user();
 			$user = $request->user('api');
 			return $user;
 		})->name('user');

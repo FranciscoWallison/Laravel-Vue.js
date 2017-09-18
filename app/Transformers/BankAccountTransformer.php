@@ -4,7 +4,6 @@ namespace CodeFin\Transformers;
 
 use League\Fractal\TransformerAbstract;
 use CodeFin\Models\BankAccount;
-use CodeFin\Transformers\BankTransformer;
 
 /**
  * Class BankAccountTransformer
@@ -13,8 +12,7 @@ use CodeFin\Transformers\BankTransformer;
 class BankAccountTransformer extends TransformerAbstract
 {
 
-    protected $defaultIncludes = ['bank'];
-    //protected $availableIncludes = ['bank'];//['bank','outroDados','...']  ?include=bank
+    protected $availableIncludes = ['bank'];
 
     /**
      * Transform the \BankAccount entity
@@ -29,9 +27,9 @@ class BankAccountTransformer extends TransformerAbstract
             'name'       => $model->name,
             'agency'     => $model->agency,
             'account'    => $model->account,
-            'balance'    => $model->balance,
-            'default'    => (bool) $model->default,
-            'bank_id'    => (int) $model->bank_id,
+            'balance'    => (float)$model->balance,
+            'default'    => (bool)$model->default,
+            'bank_id'    => (int)$model->bank_id,
 
             /* place your other model properties here */
 
@@ -40,8 +38,7 @@ class BankAccountTransformer extends TransformerAbstract
         ];
     }
 
-    public function includeBank(BankAccount $model)
-    {
+    public function includeBank(BankAccount $model){
         return $this->item($model->bank, new BankTransformer());
     }
 }

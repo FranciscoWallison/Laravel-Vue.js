@@ -10,42 +10,37 @@ use CodeFin\Repositories\BankAccountRepository;
 use Prettus\Repository\Criteria\RequestCriteria;
 use Prettus\Repository\Eloquent\BaseRepository;
 
-
 /**
  * Class BankAccountRepositoryEloquent
  * @package namespace CodeFin\Repositories;
  */
 class BankAccountRepositoryEloquent extends BaseRepository implements BankAccountRepository
 {
-
     protected $fieldSearchable = [
-        'name'      => 'LIKE',
-        'agency'    => 'LIKE',
-        'account'   => 'LIKE',
-        'bank.name' => 'LIKE'
+        'name' => 'like',
+        'agency' => 'like',
+        'account' => 'like',
+        'bank.name' => 'like'
     ];
 
-    /*
-    * Evidando trançãçoes concorrentes
-    */
     public function addBalance($id, $value)
     {
         $skipPresenter = $this->skipPresenter;
         $this->skipPresenter(true);
 
-        \DB::beginTransaction();//block table
-        $this->pushCriteria(new LockTableCriteria());
+        \DB::beginTransaction();
+            $this->pushCriteria(new LockTableCriteria());
             $model = $this->find($id);
             $model->balance = $model->balance + $value;
             $model->save();
         \DB::commit();
         broadcast(new BankAccountBalanceUpdatedEvent($model));
-        $this->popCriteria(LockTableCriteria::class); //libera a tabela
+        $this->popCriteria(LockTableCriteria::class);
 
         $this->skipPresenter = $skipPresenter;
         return $this->parserResult($model);
-            return $model;
     }
+
     /**
      * Specify Model class name
      *
@@ -55,8 +50,6 @@ class BankAccountRepositoryEloquent extends BaseRepository implements BankAccoun
     {
         return BankAccount::class;
     }
-
-    
 
     /**
      * Boot up the repository, pushing criteria

@@ -2,6 +2,7 @@ import {Jwt} from "./resources";
 import LocalStorage from "./localStorage";
 
 const TOKEN = 'token';
+const PUSH = 'pusherTransportUnencrypted';
 
 export default {
     get token(){
@@ -9,6 +10,9 @@ export default {
     },
     set token(value){
         return value ? LocalStorage.set(TOKEN, value) : LocalStorage.remove(TOKEN);
+    },
+     set tokenPushe(value){
+        return value ? LocalStorage.set(TOKEN, value) : LocalStorage.remove(PUSH);
     },
     _events: {
         'updateToken': []
@@ -30,6 +34,7 @@ export default {
     revokeToken(){
         let afterReveokeToken = (response) => {
             this.token = null;
+            this.tokenPushe = null;
             return response;
         };
 

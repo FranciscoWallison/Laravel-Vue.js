@@ -227,12 +227,13 @@
                 // });
             },
             echo(){
-                User.get().then((response) => {
-                    Echo.private(`client.${response.data.client_id}`)
+  
+                    Echo.private(`client.5`)
                         .listen('.CodeFin.Events.BankAccountBalanceUpdatedEvent', (event)=>{
+console.log(event);
                             this.updateBalance(event.bankAccount);
                         });
-                })
+                
             },
             findIndexBankAccount(id){
                 let index = this.bankAccounts.findIndex(item => {

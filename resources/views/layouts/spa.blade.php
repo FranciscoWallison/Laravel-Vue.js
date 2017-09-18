@@ -9,6 +9,11 @@
 
     <!-- Styles -->
     <link href="{{ asset('css/spa.css') }}" rel="stylesheet">
+    <script>
+        window.Laravel = <?php echo json_encode([
+            'csrfToken' => csrf_token(),
+        ]); ?>
+    </script>
 </head>
 <body>
     <app> </app>	
