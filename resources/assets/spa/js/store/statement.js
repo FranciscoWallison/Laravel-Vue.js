@@ -8,7 +8,7 @@ const state = {
         count: 0,
         revenues: {total: 0}, expenses: {total: 0}
     },
-    searchOptions: new SearchOptions('bankAccount'),
+    searchOptions: new SearchOptions('bankAccount')
 };
 
 const mutations = {

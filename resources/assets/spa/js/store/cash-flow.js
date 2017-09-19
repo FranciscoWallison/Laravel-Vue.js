@@ -25,6 +25,7 @@ const mutations = {
 const actions = {
     query(context){
         return CashFlow.query().then(response => {
+console.log( response.data);
             context.commit('set', response.data);
         })
     },
@@ -40,6 +41,7 @@ const getters = {
             return getters.hasFirstMonthYear ? 1 : 0;
         },
         filterMonthYear: (state) => (monthYear) => {
+//console.log(state.cashFlows)
             if (state.cashFlows.hasOwnProperty('period_list')) {
                 return state.cashFlows.period_list.filter((item) => {
                     return item.period == monthYear;
@@ -51,6 +53,7 @@ const getters = {
             return getters.filterMonthYear(state.firstMonthYear).length > 0;
         },
         firstBalance(state, getters){
+console.log(state.cashFlows);
             let balanceBeforeFirstMonth = state.cashFlows.balance_before_first_month;
             let balanceFirstMonth = 0;// talvez não possa ter o primeiro mês
 

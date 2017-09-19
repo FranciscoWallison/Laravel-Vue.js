@@ -2,12 +2,11 @@
 
 namespace CodeFin\Http\Controllers\Api;
 
-use Illuminate\Http\Request;
 use CodeFin\Http\Controllers\Controller;
 use CodeFin\Http\Controllers\Response;
 use CodeFin\Http\Requests;
 use CodeFin\Repositories\StatementRepository;
-use CodeFin\Criteria\FindBetweenDateBRCriteria;
+
 
 class StatementsController extends Controller
 {
@@ -28,10 +27,9 @@ class StatementsController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index(Request $request)
+    public function index()
     {
-        $statements = $this->repository->paginate();
-        return $statements;
+        return $this->repository->paginate();
     }
 
 }

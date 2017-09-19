@@ -13,7 +13,6 @@ use Illuminate\Support\Facades\DB;
 
 trait CashFlowRepositoryTrait
 {
-   
     public function getCashFlowByPeriod(Carbon $dateStart, Carbon $dateEnd)
     {
         $dateFormat = '%Y-%m-%d';
@@ -64,8 +63,28 @@ trait CashFlowRepositoryTrait
         return $this->formatCashFlow($expensesCollection, $revenuesCollection, $balancePreviousMonth);
     }
 
+    public function getBalanceByMonth(Carbon $date)
+    {
+        $dateString = $date->copy()->day($date->daysInMonth)->format('Y-m-d');
+        $modelClass = $this->model();
+
+        $subQuery = (new $modelClass)
+            ->toBase()
+            ->selectRaw("bank_account_id, MAX(statements.id) as maxid")
+            ->whereRaw("statements.created_at <= '$dateString'")
+            ->groupBy('bank_account_id');
+
+        $result = (new $modelClass)
+            ->selectRaw("SUM(statements.balance) as total")
+            ->join(\DB::raw("({$subQuery->toSql()}) as s"), 'statements.id', '=', 's.maxid')
+            ->mergeBindings($subQuery)
+            ->get();
+
+        return $result->first()->total === null ? 0 : $result->first()->total;
+    }
+
     protected function formatCategories($collection)
-    {   
+    {
         $categories = $collection->unique('name')->pluck('name', 'id')->all();
         $arrayResult = [];
 
@@ -114,7 +133,6 @@ trait CashFlowRepositoryTrait
 
     protected function formatCashFlow($expensesCollection, $revenuesCollection, $balancePreviousMonth)
     {
-       
         $periodList = $this->formatPeriods($expensesCollection, $revenuesCollection);
         $expensesFormatted = $this->formatCategories($expensesCollection);
         $revenuesFormatted = $this->formatCategories($revenuesCollection);
@@ -173,25 +191,6 @@ trait CashFlowRepositoryTrait
             ->whereRaw("done = true");
     }
 
-    /*
-     * Qual é o id e o ultimo extrato
-     * Jan Fev Mar Abr Mai
-     * Saldo Final
-     * Geracao caixa
-     * Saldo do mês anterior
-     * Recebimentos 
-     *      Categoria X 20 | 30 | 40
-     *           Categoria Filha 1 10 
-     *           Categoria Filha 2 10 
-     *      Categoria Y 20 | 30 | 40
-     *      Categoria Z 20 | 30 | 40
-     * Pagamentos 
-     *      Categoria X, Y, Z
-     */
-    
-    /*
-    * Pegar o saldo do mes
-    */
     protected function getQueryCategoriesValuesByPeriod($model, $billTable, $dateStart, $dateEnd, $dateFormat = '%Y-%m')
     {
         $table = $model->getTable();
@@ -215,25 +214,13 @@ trait CashFlowRepositoryTrait
 
         $query->mergeBindings($subQuery);
 
-        if (\DB::connection() instanceof PostgresConnection) {
+        if (DB::connection() instanceof PostgresConnection) {
             $dateFormat = $this->getFormatDateByDatabase($dateFormat);
             $query = $query->selectRaw("TO_CHAR(date_due, '$dateFormat') as period");
-        } elseif (\DB::connection() instanceof MySqlConnection) {
+        } elseif (DB::connection() instanceof MySqlConnection) {
             $query = $query->selectRaw("DATE_FORMAT(date_due, '$dateFormat') as period");
         }
         return $query;
-    }
-
-    protected function getFormatDateByDatabase($mySqlDateFormat)
-    {
-        $result = $mySqlDateFormat;
-        if (DB::connection() instanceof PostgresConnection) {
-            $result = str_replace('%', '', $mySqlDateFormat);
-            $result = str_replace('Y', 'YYYY', $result);
-            $result = str_replace('m', 'MM', $result);
-            $result = str_replace('d', 'DD', $result);
-        }
-        return $result;
     }
 
     protected function getQueryWithDepth($model)
@@ -252,23 +239,15 @@ trait CashFlowRepositoryTrait
             ->whereRaw("{$table}.{$lft} between {$alias}.{$lft} and {$alias}.{$rgt}");
     }
 
-    public function getBalanceByMonth(Carbon $date)
+    protected function getFormatDateByDatabase($mySqlDateFormat)
     {
-        $dateString = $date->copy()->day($date->daysInMonth)->format('Y-m-d');
-        $modelClass = $this->model();
-
-        $subQuery = (new $modelClass)
-            ->toBase()
-            ->selectRaw("bank_account_id, MAX(statements.id) as maxid")
-            ->whereRaw("statements.created_at <= '$dateString'")
-            ->groupBy('bank_account_id');
-
-        $result = (new $modelClass)
-            ->selectRaw("SUM(statements.balance) as total")
-            ->join(\DB::raw("({$subQuery->toSql()}) as s"), 'statements.id', '=', 's.maxid')
-            ->mergeBindings($subQuery)
-            ->get();
-
-        return $result->first()->total === null ? 0 : $result->first()->total;
+        $result = $mySqlDateFormat;
+        if (DB::connection() instanceof PostgresConnection) {
+            $result = str_replace('%', '', $mySqlDateFormat);
+            $result = str_replace('Y', 'YYYY', $result);
+            $result = str_replace('m', 'MM', $result);
+            $result = str_replace('d', 'DD', $result);
+        }
+        return $result;
     }
 }

@@ -12,7 +12,6 @@ use CodeFin\Serializer\StatementSerializer;
 use Prettus\Repository\Criteria\RequestCriteria;
 use Prettus\Repository\Eloquent\BaseRepository;
 
-
 /**
  * Class StatementRepositoryEloquent
  * @package namespace CodeFin\Repositories;
@@ -20,7 +19,6 @@ use Prettus\Repository\Eloquent\BaseRepository;
 class StatementRepositoryEloquent extends BaseRepository implements StatementRepository
 {
     use CashFlowRepositoryTrait;
-
 
     public function paginate($limit = null, $columns = ['*'], $method = "paginate")
     {
@@ -50,7 +48,7 @@ class StatementRepositoryEloquent extends BaseRepository implements StatementRep
     {
         $resultRevenue = $this->getCountAndTotalByBill(BillReceive::class);
         $resultExpense = $this->getCountAndTotalByBill(BillPay::class);
-//lansamentos 
+
         return [
             'count' => $resultRevenue['count'] + $resultExpense['count'],
             'revenues' => ['total' => $resultRevenue['total']],
@@ -73,7 +71,6 @@ class StatementRepositoryEloquent extends BaseRepository implements StatementRep
     {
         return Statement::class;
     }
-    
 
     /**
      * Boot up the repository, pushing criteria
@@ -88,3 +85,4 @@ class StatementRepositoryEloquent extends BaseRepository implements StatementRep
         return StatementSerializerPresenter::class;
     }
 }
+
