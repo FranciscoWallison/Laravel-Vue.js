@@ -10,6 +10,7 @@ class BankAccountBalanceUpdatedEvent implements ShouldBroadcast
 {
     /**
      * @var BankAccount
+     * tem q ser public
      */
     public $bankAccount;
 
@@ -17,7 +18,9 @@ class BankAccountBalanceUpdatedEvent implements ShouldBroadcast
     {
         $this->bankAccount = $bankAccount;
     }
-
+    /*
+    * calnal para ver os client
+    */
     public function broadcastOn()
     {
         return new PrivateChannel("client.{$this->bankAccount->client_id}");
