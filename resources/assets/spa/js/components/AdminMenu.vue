@@ -15,8 +15,7 @@
     <div class="navbar-fixed">
         <nav>
             <div class="nav-wrapper">
-                <div class="col s12">
-                    <a href="#" class="left brand-logo">Code Fin. Admin</a>
+                <div class="col s12">SisFin. Admin</a>
                     <a href="#" data-activates="nav-mobile" class="button-collapse">
                         <i class="material-icons">menu</i>
                     </a>

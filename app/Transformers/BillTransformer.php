@@ -2,8 +2,8 @@
 
 namespace CodeFin\Transformers;
 
-use League\Fractal\TransformerAbstract;
 use CodeFin\Models\AbstractBill;
+use League\Fractal\TransformerAbstract;
 
 /**
  * Class BillTransformer
@@ -12,10 +12,10 @@ use CodeFin\Models\AbstractBill;
 class BillTransformer extends TransformerAbstract
 {
     protected $availableIncludes = ['category', 'bankAccount'];
-    
+
     /**
-     * Transform the \AbstractBill entity
-     * @param \AbstractBill $model
+     * Transform the \Bill entity
+     * @param AbstractBill $model
      *
      * @return array
      */

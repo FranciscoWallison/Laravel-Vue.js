@@ -13,7 +13,7 @@
         <nav>
             <div class="nav-wrapper">
                 <div class="col s12">
-                    <a href="#" class="left brand-logo">Aplicação VUE.JS</a>
+                    <a href="#!/dashboard" class="left brand-logo">SisFin</a>
                     <a href="#" data-activates="nav-mobile" class="button-collapse">
                         <i class="material-icons">menu</i>
                     </a>
@@ -48,11 +48,6 @@
         data(){
             return {
                 menus:[
-                    {
-                        name: 'Dashboard',
-                        routeName: 'dashboard',
-                         url: 'dashboard'
-                    },
                     {
                         name: 'Conta bancária', 
                         routeName: 'bank-account.list',

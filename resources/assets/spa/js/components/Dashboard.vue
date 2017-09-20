@@ -109,7 +109,7 @@
 <script>
     import store from '../store/store';
     import VueCharts from 'vue-charts';
-    // import 'jquery.animate-number';
+    import 'jquery.animate-number';
     import {User} from '../services/resources';
 
     Vue.use(VueCharts);
@@ -196,44 +196,43 @@
                 store.commit('bankAccount/setLimit',5);
                 store.dispatch('bankAccount/query').then(()=>{
                     this.loadingBankAccountList = false;
-                    Materialize.showStaggeredList('#bank-account-list');
+                    Materialize.showStaggeredList('#bank-account-list');//efeito na lista dos banks
                 });
                 store.dispatch('cashFlow/monthly');
 
                 let self = this;
 
-                // store.dispatch('billReceive/totalRestOfMonth');
-                // store.dispatch('billReceive/totalToday').then(()=>{
-                //     this.loadingRevenue = false;
-                //     $("#revenue-number").animateNumber({
-                //         number: self.totalTodayReceive,
-                //         numberStep(now,tween){
-                //             let number = self.$options.filters.numberFormat.read(now, true);
-                //             $(tween.elem).text(number);
-                //         }
-                //     })
-                // });
+                store.dispatch('billReceive/totalRestOfMonth');
+                store.dispatch('billReceive/totalToday').then(()=>{
+                    this.loadingRevenue = false;
+                    $("#revenue-number").animateNumber({
+                        number: self.totalTodayReceive,
+                        numberStep(now,tween){
+                            let number = self.$options.filters.numberFormat.read(now, true);
+                            $(tween.elem).text(number);
+                        }
+                    })
+                });
 
-                // store.dispatch('billPay/totalRestOfMonth');
-                // store.dispatch('billPay/totalToday').then(()=>{
-                //     this.loadingExpense = false;
-                //     $("#expense-number").animateNumber({
-                //         number: self.totalTodayPay,
-                //         numberStep(now,tween){
-                //             let number = self.$options.filters.numberFormat.read(now, true);
-                //             $(tween.elem).text(number);
-                //         }
-                //     })
-                // });
+                store.dispatch('billPay/totalRestOfMonth');
+                store.dispatch('billPay/totalToday').then(()=>{
+                    this.loadingExpense = false;
+                    $("#expense-number").animateNumber({
+                        number: self.totalTodayPay,
+                        numberStep(now,tween){
+                            let number = self.$options.filters.numberFormat.read(now, true);
+                            $(tween.elem).text(number);
+                        }
+                    })
+                });
             },
             echo(){
-  
-                    Echo.private(`client.5`)
+                User.get().then((response) => {
+                    Echo.private(`client.${response.data.client_id}`)
                         .listen('.CodeFin.Events.BankAccountBalanceUpdatedEvent', (event)=>{
-console.log(event);
                             this.updateBalance(event.bankAccount);
                         });
-                
+                })
             },
             findIndexBankAccount(id){
                 let index = this.bankAccounts.findIndex(item => {

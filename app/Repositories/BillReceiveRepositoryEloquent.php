@@ -19,7 +19,10 @@ class BillReceiveRepositoryEloquent extends BaseRepository implements BillReceiv
     use BillRepositoryTrait;
 
     protected $fieldSearchable = [
-        'name' => 'like'
+        'date_due'  => 'LIKE',
+        'name'      => 'LIKE',
+        'value'     => 'LIKE',
+        'done'      => 'LIKE'
     ];
 
     /**

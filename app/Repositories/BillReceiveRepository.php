@@ -12,5 +12,5 @@ use Prettus\Repository\Contracts\RepositoryInterface;
  */
 interface BillReceiveRepository extends RepositoryInterface, RepositoryCriteriaInterface
 {
-    // public function getTotalFromPeriod(Carbon $dateStart, Carbon $dateEnd);
+    public function getTotalFromPeriod(Carbon $dateStart, Carbon $dateEnd);
 }
