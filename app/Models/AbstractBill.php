@@ -36,7 +36,7 @@ abstract class AbstractBill extends Model implements Transformable, BillRepeatTy
 
     public function statements()
     {
-        return $this->morphMany(Statement::class, 'statementable');
+        return $this->morphMany(Statement::class, 'statementable');//relacionamento polimorfico
     }
 
     public function addDate($dateString, $numMonthOrYear, $repeatType)

@@ -38,6 +38,7 @@ const actions = {
     query(context){
         let searchOptions = context.state.searchOptions;
         return Statement.query(searchOptions.createOptions()).then((response) => {
+// console.log(response);
             context.commit('set', response.data.data.statements.data);
             context.commit('setPagination', response.data.data.statements.meta.pagination);
             context.commit('setStatementData', response.data.data.statement_data);

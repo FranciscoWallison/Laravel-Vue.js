@@ -80,7 +80,7 @@ trait BillRepositoryTrait
     protected function getQueryTotal()
     {
         $this->resetModel();
-        $this->popCriteria(RequestCriteria::class);
+        $this->popCriteria(RequestCriteria::class);//
         $this->applyCriteria();
         return $this->model->selectRaw('SUM(value) as total');
     }

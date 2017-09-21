@@ -5,7 +5,7 @@
                 <h5>Minhas contas a receber</h5>
             </page-title>
 
-<!--             <bill-data namespace="billReceive"></bill-data> -->
+           
 
             <div class="card-panel z-depth-5">
                 <search @on-submit="filter" :model.sync="search"></search>
@@ -41,6 +41,10 @@
                                  :per-page="searchOptions.pagination.per_page" 
                                  :total-records="searchOptions.pagination.total"></pagination>
                 </div>
+                
+            </div>
+            <div class=" col s3">
+               <bill-data namespace="billReceive"></bill-data>
             </div>
         </div>
     </div>
@@ -79,7 +83,7 @@
     import BillReceiveCreateComponent from './BillReceiveCreate.vue';
     import BillReceiveUpdateComponent from './BillReceiveUpdate.vue';
     import store from '../../../store/store';
-    //import BillDataComponent from '../BillData.vue';
+    import BillDataComponent from '../BillData.vue';
 
     export default{
         components: {
@@ -89,7 +93,7 @@
             'search': SearchComponent,
             'bill-receive-create': BillReceiveCreateComponent,
             'bill-receive-update': BillReceiveUpdateComponent,
-            //'bill-data': BillDataComponent,
+            'bill-data': BillDataComponent,
         },
         data(){
             return{

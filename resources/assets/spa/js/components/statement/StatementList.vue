@@ -121,7 +121,9 @@
                 return moment(date).format('DD/MM/YYYY');
             },
             dateFilterEnd(){
-                return moment(new Date).endOf('month').format('DD/MM/YYYY');
+                let date = new Date('01/12/2019');
+                console.log(date);
+                return moment(date).endOf('month').format('DD/MM/YYYY');
             }
         },
         events: {
