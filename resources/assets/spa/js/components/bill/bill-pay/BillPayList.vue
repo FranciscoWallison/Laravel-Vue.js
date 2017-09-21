@@ -4,6 +4,7 @@
 			<page-title>
 				<h5>Minhas contas a pagar</h5>
 			</page-title>
+
             <div class="card-panel z-depth-5">
                <search @on-submit="filter" :model.sync="search"></search>
     			<table class="bordered striped highlight responsive-table">
@@ -39,9 +40,12 @@
                             	 :per-page="searchOptions.pagination.per_page" 
                             	 :total-records="searchOptions.pagination.total"></pagination>
                 </div>
-               
+            </div>
+            <div class=" col s3">
+                <bill-data namespace="billPay"></bill-data>
             </div>
 		</div>
+
 	</div>
 
     <div class="fixed-action-btn">
@@ -78,6 +82,7 @@
     import SearchComponent from '../../../../../_default/components/Search.vue';
     import BillPayCreateComponent from './BillPayCreate.vue';
     import BillPayUpdateComponent from './BillPayUpdate.vue';
+    import BillDataComponent from '../BillData.vue';
     import store from '../../../store/store';
    
 
@@ -89,6 +94,7 @@
             'search': SearchComponent,
             'bill-pay-create': BillPayCreateComponent,
             'bill-pay-update': BillPayUpdateComponent,
+            'bill-data': BillDataComponent,
     	},
     	data() {
     		return {               

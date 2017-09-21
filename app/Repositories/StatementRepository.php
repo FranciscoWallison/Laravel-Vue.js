@@ -1,18 +1,17 @@
 <?php
 
-namespace CodeFin\Repositories;
+namespace SisFin\Repositories;
 
-use Prettus\Repository\Contracts\RepositoryInterface;
 use Carbon\Carbon;
+use Prettus\Repository\Contracts\RepositoryInterface;
 
 /**
  * Interface StatementRepository
- * @package namespace CodeFin\Repositories;
+ * @package namespace SisFin\Repositories;
  */
 interface StatementRepository extends RepositoryInterface
 {
-    //
-
     public function getCashFlow(Carbon $dateStart, Carbon $dateEnd);
     public function getBalanceByMonth(Carbon $date);
+    public function getCashFlowByPeriod(Carbon $dateStart, Carbon $dateEnd);
 }

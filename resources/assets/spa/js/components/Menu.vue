@@ -13,8 +13,9 @@
         <nav>
             <div class="nav-wrapper">
                 <div class="col s12">
-                    <a href="#" class="left brand-logo">Aplicação VUE.JS</a>
-                    <a href="#" data-activates="nav-mobile" class="button-collapse">
+                    <a href="#!/dashboard" class="left brand-logo">SisFin</a>
+                    
+                    <a href="#" data-activates="slide-out" class="button-collapse right">
                         <i class="material-icons">menu</i>
                     </a>
                     <ul class="right hide-on-med-and-down">
@@ -39,6 +40,21 @@
             </div>
         </nav>
     </div>
+    <ul id="slide-out" class="side-nav">
+        <ul :id="o.id" class="dropdown-content" v-for="o in menusDropdown">
+            <li v-for="item in o.items">
+                <a v-link="{name: item.routeName}">{{ item.name }}</a>
+            </li>
+        </ul>
+        <li v-for="o in menus">
+            <a v-link="{name: o.url}"> {{ o.name }} </a>
+        </li>
+        <li>
+            <a v-link="{name: 'auth.logout'}">Sair</a>
+        </li>
+    </ul>
+  
+        
 </template>
 
 <script type="text/javascript">
@@ -48,10 +64,6 @@
         data(){
             return {
                 menus:[
-                    {
-                        name: 'Dashboard',
-                        routeName: 'dashboard'
-                    },
                     {
                         name: 'Conta bancária', 
                         routeName: 'bank-account.list',
@@ -70,6 +82,11 @@
                         name: 'Fluxo de Caixa', 
                         routeName: 'cash-flow.list',
                         url: 'cash-flow.list'
+                    },
+                    {
+                        name: 'Extrato', 
+                        routeName: 'statement.list',
+                        url: 'statement.list'
                     },
                 ],
                 menusDropdown:[
@@ -94,4 +111,13 @@
             $('.dropdown-button').dropdown();
         }
     };
+    $('.button-collapse').sideNav({
+      menuWidth: 300, // Default is 300
+      edge: 'left', // Choose the horizontal origin
+      closeOnClick: true, // Closes side-nav on <a> clicks, useful for Angular/Meteor
+      draggable: true, // Choose whether you can drag to open on touch screens,
+      onOpen: function(el) { /* Do Stuff*/ }, // A function to be called when sideNav is opened
+      onClose: function(el) { /* Do Stuff*/ }, // A function to be called when sideNav is closed
+    }
+  );
 </script>

@@ -1,9 +1,11 @@
 <?php
 
-namespace CodeFin\Repositories\Traits;
+namespace SisFin\Repositories\Traits;
 
 use Carbon\Carbon;
-use CodeFin\Events\BillStoredEvent;
+use SisFin\Events\BillStoredEvent;
+use SisFin\Serializer\BillSerializer;
+use Prettus\Repository\Criteria\RequestCriteria;
 
 trait BillRepositoryTrait
 {
@@ -16,10 +18,10 @@ trait BillRepositoryTrait
             $dateDue = $attributes['date_due'];
 
             foreach(range(1,$repeatNumber) as $value){
-                $dateNew = $this->model->addDate($dateDue, $value, $repeatType);
+                $dateNew = $this->model->addDate($dateDue,$value,$repeatType);
                 $attributesNew = array_merge($attributes,['date_due' => $dateNew->format('Y-m-d')]);
                 $model = parent::create($attributesNew);
-                event(new BillStoredEvent($model)); // movimentação de extrato
+                event(new BillStoredEvent($model));
             }
         }
     }
@@ -50,14 +52,64 @@ trait BillRepositoryTrait
         return $this->parserResult($model);
     }
 
-    // public function getTotalFromPeriod(Carbon $dateStart, Carbon $dateEnd)
-    // {
-    //     $result = $this->getQueryTotal()
-    //         ->whereBetween('date_due',[$dateStart->format('Y-m-d'),$dateEnd->format('Y-m-d')])
-    //         ->get();
-    //     return [
-    //         'total' => (float)$result->first()->total
-    //     ];
-    // }
+    public function paginate($limit = null, $columns = ['*'], $method = "paginate")
+    {
+        $skipPresenter = $this->skipPresenter;
+        $this->skipPresenter();
+        $collection = parent::paginate($limit,$columns,$method);
+        $this->skipPresenter($skipPresenter);
+        return $this->parserResult(new BillSerializer($collection,$this->formatBillsData()));
+    }
+
+    public function getTotalFromPeriod(Carbon $dateStart, Carbon $dateEnd)
+    {
+        $result = $this->getQueryTotal()
+            ->whereBetween('date_due',[$dateStart->format('Y-m-d'),$dateEnd->format('Y-m-d')])
+            ->get();
+        return [
+            'total' => (float)$result->first()->total
+        ];
+    }
+
+    protected function getTotalByDone($done)
+    {
+        $result = $this->getQueryTotalByDone($done)->get();
+        return (float)$result->first()->total;
+    }
+
+    protected function getQueryTotal()
+    {
+        $this->resetModel();
+        $this->popCriteria(RequestCriteria::class);//
+        $this->applyCriteria();
+        return $this->model->selectRaw('SUM(value) as total');
+    }
+
+    protected function getQueryTotalByDone($done)
+    {
+        return $this->getQueryTotal()
+            ->where('done','=',$done);
+    }
+
+    protected function getTotalExpired()
+    {
+        $result = $this->getQueryTotalByDone(0)
+            ->where('date_due','<',(new Carbon())->format('Y-m-d'))
+            ->get();
+        return (float)$result->first()->total;
+    }
+
+    protected function formatBillsData()
+    {
+        $totalPaid = $this->getTotalByDone(1);
+        $totalToPay = $this->getTotalByDone(0);
+        $totalExpired = $this->getTotalExpired();
+
+        return [
+            'total_paid' => $totalPaid,
+            'total_to_pay' => $totalToPay,
+            'total_expired' => $totalExpired,
+        ];
+    }
 
 }

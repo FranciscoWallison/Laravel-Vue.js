@@ -1,10 +1,10 @@
 <?php
 
-namespace CodeFin\Providers;
+namespace SisFin\Providers;
 
 use Illuminate\Support\Facades\Gate;
 use Illuminate\Foundation\Support\Providers\AuthServiceProvider as ServiceProvider;
-use CodeFin\Models\User;
+use SisFin\Models\User;
 
 class AuthServiceProvider extends ServiceProvider
 {
@@ -14,7 +14,7 @@ class AuthServiceProvider extends ServiceProvider
      * @var array
      */
     protected $policies = [
-        'CodeFin\Model' => 'CodeFin\Policies\ModelPolicy',
+        'SisFin\Model' => 'SisFin\Policies\ModelPolicy',
     ];
 
     /**

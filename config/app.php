@@ -177,12 +177,12 @@ return [
         /*
          * Application Service Providers...
          */
-        CodeFin\Providers\AppServiceProvider::class,
-        CodeFin\Providers\AuthServiceProvider::class,
-        // CodeFin\Providers\BroadcastServiceProvider::class,
-        CodeFin\Providers\EventServiceProvider::class,
-        CodeFin\Providers\RouteServiceProvider::class,
-        CodeFin\Providers\RepositoryServiceProvider::class,
+        SisFin\Providers\AppServiceProvider::class,
+        SisFin\Providers\AuthServiceProvider::class,
+        SisFin\Providers\BroadcastServiceProvider::class,
+        SisFin\Providers\EventServiceProvider::class,
+        SisFin\Providers\RouteServiceProvider::class,
+        SisFin\Providers\RepositoryServiceProvider::class,
 
     ],
 

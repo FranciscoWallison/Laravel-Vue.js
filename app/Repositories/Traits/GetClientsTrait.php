@@ -1,8 +1,8 @@
 <?php
 
-namespace CodeFin\Repositories\Traits;
+namespace SisFin\Repositories\Traits;
 
-use CodeFin\Repositories\Interfaces\ClientRepository;
+use SisFin\Repositories\Interfaces\ClientRepository;
 
 trait GetClientsTrait
 {

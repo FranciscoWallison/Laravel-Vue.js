@@ -1,6 +1,6 @@
 <?php
 
-namespace CodeFin\Providers;
+namespace SisFin\Providers;
 
 use Illuminate\Support\ServiceProvider;
 
@@ -23,14 +23,14 @@ class RepositoryServiceProvider extends ServiceProvider
      */
     public function register()
     {
-        $this->app->bind(\CodeFin\Repositories\BankRepository::class, \CodeFin\Repositories\BankRepositoryEloquent::class);
-        $this->app->bind(\CodeFin\Repositories\BankAccountRepository::class, \CodeFin\Repositories\BankAccountRepositoryEloquent::class);
-        $this->app->bind(\CodeFin\Repositories\ClientRepository::class, \CodeFin\Repositories\ClientRepositoryEloquent::class);
-        $this->app->bind(\CodeFin\Repositories\CategoryExpenseRepository::class, \CodeFin\Repositories\CategoryExpenseRepositoryEloquent::class);
-        $this->app->bind(\CodeFin\Repositories\CategoryRevenueRepository::class, \CodeFin\Repositories\CategoryRevenueRepositoryEloquent::class);
-        $this->app->bind(\CodeFin\Repositories\BillPayRepository::class, \CodeFin\Repositories\BillPayRepositoryEloquent::class);
-        $this->app->bind(\CodeFin\Repositories\BillReceiveRepository::class, \CodeFin\Repositories\BillReceiveRepositoryEloquent::class);
-        $this->app->bind(\CodeFin\Repositories\StatementRepository::class, \CodeFin\Repositories\StatementRepositoryEloquent::class);
+        $this->app->bind(\SisFin\Repositories\BankRepository::class, \SisFin\Repositories\BankRepositoryEloquent::class);
+        $this->app->bind(\SisFin\Repositories\BankAccountRepository::class, \SisFin\Repositories\BankAccountRepositoryEloquent::class);
+        $this->app->bind(\SisFin\Repositories\ClientRepository::class, \SisFin\Repositories\ClientRepositoryEloquent::class);
+        $this->app->bind(\SisFin\Repositories\CategoryExpenseRepository::class, \SisFin\Repositories\CategoryExpenseRepositoryEloquent::class);
+        $this->app->bind(\SisFin\Repositories\CategoryRevenueRepository::class, \SisFin\Repositories\CategoryRevenueRepositoryEloquent::class);
+        $this->app->bind(\SisFin\Repositories\BillPayRepository::class, \SisFin\Repositories\BillPayRepositoryEloquent::class);
+        $this->app->bind(\SisFin\Repositories\BillReceiveRepository::class, \SisFin\Repositories\BillReceiveRepositoryEloquent::class);
+        $this->app->bind(\SisFin\Repositories\StatementRepository::class, \SisFin\Repositories\StatementRepositoryEloquent::class);
         //:end-bindings:
     }
 }

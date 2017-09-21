@@ -1,13 +1,13 @@
 <?php
 
-namespace CodeFin\Criteria;
+namespace SisFin\Criteria;
 
 use Prettus\Repository\Contracts\CriteriaInterface;
 use Prettus\Repository\Contracts\RepositoryInterface;
 
 /**
  * Class FindSubscriptionByUserClientCriteria
- * @package namespace CodeFin\Criteria;
+ * @package namespace SisFin\Criteria;
  */
 class FindSubscriptionByUserClientCriteria implements CriteriaInterface
 {

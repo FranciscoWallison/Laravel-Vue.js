@@ -1,20 +1,20 @@
 <?php
 
-namespace CodeFin\Repositories;
+namespace SisFin\Repositories;
 
 use Prettus\Repository\Eloquent\BaseRepository;
 use Prettus\Repository\Criteria\RequestCriteria;
-use CodeFin\Repositories\BillPayRepository;
-use CodeFin\Models\BillPay;
-use CodeFin\Validators\BillPayValidator;
-use CodeFin\Presenters\BillPresenter;
-use CodeFin\Repositories\Traits\BillRepositoryTrait;
-use CodeFin\Events\BillStoredEvent;
+use SisFin\Repositories\BillPayRepository;
+use SisFin\Models\BillPay;
+use SisFin\Validators\BillPayValidator;
+use SisFin\Presenters\BillPresenter;
+use SisFin\Repositories\Traits\BillRepositoryTrait;
+use SisFin\Events\BillStoredEvent;
 
 
 /**
  * Class BillPayRepositoryEloquent
- * @package namespace CodeFin\Repositories;
+ * @package namespace SisFin\Repositories;
  */
 class BillPayRepositoryEloquent extends BaseRepository implements BillPayRepository
 {

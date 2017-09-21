@@ -1,18 +1,17 @@
 <?php
 
-namespace CodeFin\Http\Controllers\Api;
+namespace SisFin\Http\Controllers\Api;
 
-use Illuminate\Http\Request;
-
-use CodeFin\Http\Controllers\Controller;
-use CodeFin\Http\Requests;
+use SisFin\Http\Controllers\Controller;
+use SisFin\Http\Requests;
 use Prettus\Validator\Contracts\ValidatorInterface;
 use Prettus\Validator\Exceptions\ValidatorException;
-use CodeFin\Http\Requests\BankAccountCreateRequest;
-use CodeFin\Http\Requests\BankAccountUpdateRequest;
-use CodeFin\Repositories\BankAccountRepository;
-use CodeFin\Criteria\FindByNameCriteria;
-use CodeFin\Criteria\FindByLikeAgencyCriteria;
+use SisFin\Http\Requests\BankAccountCreateRequest;
+use SisFin\Http\Requests\BankAccountUpdateRequest;
+use SisFin\Repositories\BankAccountRepository;
+use SisFin\Criteria\FindByNameCriteria;
+use SisFin\Criteria\FindByLikeAgencyCriteria;
+use Illuminate\Http\Request;
 
 
 class BankAccountsController extends Controller
@@ -37,11 +36,11 @@ class BankAccountsController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
-        $bankAccounts = $this->repository->paginate(3);
-
-        return  $bankAccounts;
+        $limit = (int)$request->get('limit', null);
+        $limit = $limit > 0 ? $limit : null;
+        return $this->repository->paginate($limit);
     }
 
     /**

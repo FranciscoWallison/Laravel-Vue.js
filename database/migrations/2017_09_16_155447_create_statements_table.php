@@ -25,7 +25,7 @@ class CreateStatementsTable extends Migration
 			$table->foreign('client_id')->references('id')->on('clients');
 
 			$table->integer('statementable_id')->unsigned();//polimorfismo
-			$table->string('statementable_type');// tipo do relacionamento polimorfismo 100 
+			$table->string('statementable_type');// tipo do relacionamento polimorfismo 
 
             $table->timestamps();
 		});

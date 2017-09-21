@@ -1,6 +1,6 @@
 <?php
 
-namespace CodeFin\Models;
+namespace SisFin\Models;
 
 interface BillRepeatTypeInterface
 {

@@ -12,6 +12,6 @@ class BanksTableSeeder extends Seeder
     public function run()
     {
         // Definida na migração
-        //factory(CodeFin\Models\Bank::class, 10)->create();
+        //factory(SisFin\Models\Bank::class, 10)->create();
     }
 }

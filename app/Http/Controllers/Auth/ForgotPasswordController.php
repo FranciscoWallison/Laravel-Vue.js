@@ -1,8 +1,8 @@
 <?php
 
-namespace CodeFin\Http\Controllers\Auth;
+namespace SisFin\Http\Controllers\Auth;
 
-use CodeFin\Http\Controllers\Controller;
+use SisFin\Http\Controllers\Controller;
 use Illuminate\Foundation\Auth\SendsPasswordResetEmails;
 
 class ForgotPasswordController extends Controller

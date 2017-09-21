@@ -1,12 +1,12 @@
 <?php
 
-namespace CodeFin\Http\Controllers\Api;
+namespace SisFin\Http\Controllers\Api;
 
 use Carbon\Carbon;
-use CodeFin\Http\Controllers\Controller;
-use CodeFin\Http\Controllers\Response;
-use CodeFin\Http\Requests;
-use CodeFin\Repositories\StatementRepository;
+use SisFin\Http\Controllers\Controller;
+use SisFin\Http\Controllers\Response;
+use SisFin\Http\Requests;
+use SisFin\Repositories\StatementRepository;
 
 
 class CashFlowsController extends Controller
@@ -25,7 +25,7 @@ class CashFlowsController extends Controller
 
     public function index()
     {
-        $dateStart = new Carbon('2017-09-17');// definir a data de criação da conta do cliente ou a data que ele queria 
+        $dateStart = new Carbon('2018-02-01');
         $dateEnd = $dateStart->copy()->addMonths(10);
         return $this->repository->getCashFlow($dateStart, $dateEnd);
     }

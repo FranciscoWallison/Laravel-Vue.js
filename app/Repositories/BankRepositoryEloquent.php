@@ -1,19 +1,19 @@
 <?php
 
-namespace CodeFin\Repositories;
+namespace SisFin\Repositories;
 
 use Prettus\Repository\Eloquent\BaseRepository;
-use CodeFin\Events\BankStoredEvent;
+use SisFin\Events\BankStoredEvent;
 use Prettus\Repository\Criteria\RequestCriteria;
-use CodeFin\Repositories\BankRepository;
-use CodeFin\Models\Bank;
-use CodeFin\Validators\BankValidator;
+use SisFin\Repositories\BankRepository;
+use SisFin\Models\Bank;
+use SisFin\Validators\BankValidator;
 use Illuminate\Http\UploadedFile;
-use CodeFin\Presenters\BankPresenter;
+use SisFin\Presenters\BankPresenter;
 
 /**
  * Class BankRepositoryEloquent
- * @package namespace CodeFin\Repositories;
+ * @package namespace SisFin\Repositories;
  */
 class BankRepositoryEloquent extends BaseRepository implements BankRepository
 {

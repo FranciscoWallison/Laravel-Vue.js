@@ -1,21 +1,21 @@
 <?php
 
-namespace CodeFin\Transformers;
+namespace SisFin\Transformers;
 
+use SisFin\Models\AbstractBill;
 use League\Fractal\TransformerAbstract;
-use CodeFin\Models\AbstractBill;
 
 /**
  * Class BillTransformer
- * @package namespace CodeFin\Transformers;
+ * @package namespace SisFin\Transformers;
  */
 class BillTransformer extends TransformerAbstract
 {
     protected $availableIncludes = ['category', 'bankAccount'];
-    
+
     /**
-     * Transform the \AbstractBill entity
-     * @param \AbstractBill $model
+     * Transform the \Bill entity
+     * @param AbstractBill $model
      *
      * @return array
      */

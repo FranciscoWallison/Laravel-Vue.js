@@ -1,25 +1,28 @@
 <?php
 
-namespace CodeFin\Http\Controllers\Api;
+namespace SisFin\Http\Controllers\Api;
 
+use SisFin\Criteria\FindBetweenDateBRCriteria;
+use SisFin\Presenters\BillSerializerPresenter;
+use SisFin\Criteria\FindByValueBRCriteria;
+use SisFin\Http\Controllers\Controller;
+use SisFin\Http\Controllers\Response;
+use SisFin\Http\Requests;
+use SisFin\Http\Requests\BillPayRequest;
+use SisFin\Http\Requests\BillReceiveRequest;
+use SisFin\Repositories\BillReceiveRepository;
 use Illuminate\Http\Request;
-
-use CodeFin\Criteria\FindBetweenDateBRCriteria;
-use CodeFin\Criteria\FindByValueBRCriteria;
-use CodeFin\Http\Controllers\Controller;
-use CodeFin\Http\Controllers\Response;
-use CodeFin\Http\Requests;
-use CodeFin\Http\Requests\BillReceiveRequest;
-use CodeFin\Repositories\BillReceiveRepository;
 
 
 class BillReceivesController extends Controller
 {
+    use BillControllerTrait;
 
     /**
      * @var BillReceiveRepository
      */
     protected $repository;
+
 
     public function __construct(BillReceiveRepository $repository)
     {
@@ -27,21 +30,23 @@ class BillReceivesController extends Controller
     }
 
 
-     /**
+    /**
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
      */
     public function index(Request $request)
     {
-        $searchParam = config('repository.criteria.params.search');// pegando o parametro
-        $search = $request->get($searchParam);// nome do parametro
+        $searchParam = config('repository.criteria.params.search');
+        $search = $request->get($searchParam);
+        $this->repository->setPresenter(BillSerializerPresenter::class);
         $this->repository
             ->pushCriteria(new FindBetweenDateBRCriteria($search, 'date_due'))
             ->pushCriteria(new FindByValueBRCriteria($search));
-        $billReceives = $this->repository->paginate();
 
-        return $billReceives;
+        $bills = $this->repository->paginate();
+
+        return $bills;
     }
 
     /**
@@ -53,10 +58,8 @@ class BillReceivesController extends Controller
      */
     public function store(BillReceiveRequest $request)
     {
-        $billReceive = $this->repository->skipPresenter()->create($request->all());
-
-        $this->repository->skipPresenter(false);
-        return response()->json($billReceive, 201);
+        $bankAccount = $this->repository->create($request->all());
+        return response()->json($bankAccount, 201);
     }
 
 
@@ -69,41 +72,23 @@ class BillReceivesController extends Controller
      */
     public function show($id)
     {
-        $billReceive = $this->repository->find($id);
-
-        return response()->json($billReceive);
-
-    }
-
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int $id
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function edit($id)
-    {
-
-        $billReceive = $this->repository->find($id);
-
-        return view('BillReceives.edit', compact('BillReceive'));
+        $bankAccount = $this->repository->find($id);
+        return response()->json($bankAccount, 200);
     }
 
 
     /**
      * Update the specified resource in storage.
      *
-     * @param  BillReceiveRequest $request
-     * @param  string            $id
+     * @param  BillPayRequest $request
+     * @param  string $id
      *
      * @return Response
      */
     public function update(BillReceiveRequest $request, $id)
     {
-        $data = $this->repository->update($request->all(), $id);
-        return response()->json($data, 200);
+        $bankAccount = $this->repository->update($request->all(), $id);
+        return response()->json($bankAccount, 200);
     }
 
 
@@ -116,8 +101,7 @@ class BillReceivesController extends Controller
      */
     public function destroy($id)
     {
-        $deleted = $this->repository->delete($id);
-
-        return response()->json([],204);
+        $this->repository->delete($id);
+        return response()->json([], 204);
     }
 }

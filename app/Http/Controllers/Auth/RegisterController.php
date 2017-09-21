@@ -1,9 +1,9 @@
 <?php
 
-namespace CodeFin\Http\Controllers\Auth;
+namespace SisFin\Http\Controllers\Auth;
 
-use CodeFin\Models\User;
-use CodeFin\Http\Controllers\Controller;
+use SisFin\Models\User;
+use SisFin\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Foundation\Auth\RegistersUsers;
 

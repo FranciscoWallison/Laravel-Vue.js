@@ -1,6 +1,6 @@
 <?php
 
-namespace CodeFin\Criteria;
+namespace SisFin\Criteria;
 
 use Illuminate\Support\Facades\Auth;
 use Prettus\Repository\Contracts\CriteriaInterface;
@@ -8,7 +8,7 @@ use Prettus\Repository\Contracts\RepositoryInterface;
 
 /**
  * Class FindByUserCriteria
- * @package namespace CodeFin\Criteria;
+ * @package namespace SisFin\Criteria;
  */
 class FindByUserCriteria implements CriteriaInterface
 {

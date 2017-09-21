@@ -1,13 +1,13 @@
 <?php
 
-namespace CodeFin\Repositories;
+namespace SisFin\Repositories;
 
 use Prettus\Repository\Contracts\RepositoryInterface;
 use Prettus\Repository\Contracts\RepositoryCriteriaInterface;
 
 /**
  * Interface BankAccountRepository
- * @package namespace CodeFin\Repositories;
+ * @package namespace SisFin\Repositories;
  */
 interface BankAccountRepository extends RepositoryInterface, RepositoryCriteriaInterface
 {

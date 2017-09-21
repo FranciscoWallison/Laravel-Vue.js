@@ -1,16 +1,16 @@
 <?php
 
-namespace CodeFin\Repositories;
+namespace SisFin\Repositories;
 
 use Prettus\Repository\Eloquent\BaseRepository;
 use Prettus\Repository\Criteria\RequestCriteria;
-use CodeFin\Repositories\ClientRepository;
-use CodeFin\Models\Client;
-use CodeFin\Validators\ClientValidator;
+use SisFin\Repositories\ClientRepository;
+use SisFin\Models\Client;
+use SisFin\Validators\ClientValidator;
 
 /**
  * Class ClientRepositoryEloquent
- * @package namespace CodeFin\Repositories;
+ * @package namespace SisFin\Repositories;
  */
 class ClientRepositoryEloquent extends BaseRepository implements ClientRepository
 {

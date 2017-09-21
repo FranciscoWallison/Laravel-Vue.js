@@ -28,10 +28,21 @@ Route::group(['middleware' => 'cors' , 'as' => 'api.'], function(){
 
 		Route::resource('category_expenses', 'Api\CategoryExpensesController', ['except'=> ['create' , 'edit'] ]);
 		Route::resource('category_revenues', 'Api\CategoryRevenuesController', ['except'=> ['create' , 'edit'] ]);
-		Route::resource('bill_pays', 'Api\BillPaysController', ['except'=> ['create' , 'edit'] ]);
-		Route::resource('bill-receives', 'Api\BillReceivesController', ['except'=> ['create' , 'edit'] ]);
 
-		Route::get('cash_flows', 'Api\CashFlowsController@index');
+
+		Route::get('bill_pays/total_today', 'Api\BillPaysController@findToPayToToday');
+        Route::get('bill_pays/total_rest_of_month', 'Api\BillPaysController@findToPayRestOfMonth');
+        Route::resource('bill_pays', 'Api\BillPaysController', ['except' => ['create', 'edit']]);
+
+        Route::get('bill_receives/total_today', 'Api\BillReceivesController@findToPayToToday');
+        Route::get('bill_receives/total_rest_of_month', 'Api\BillReceivesController@findToPayRestOfMonth');
+        Route::resource('bill_receives', 'Api\BillReceivesController', ['except' => ['create', 'edit']]);
+
+
+		Route::get('statements', 'Api\StatementsController@index');
+        Route::get('cash_flows', 'Api\CashFlowsController@index');
+        Route::get('cash_flows/monthly', 'Api\CashFlowsController@monthly');
+        
 		Route::post('/logout', 'Api\AuthController@logout')->name('logout');
 
 		Route::get('/test_auth', function (Request $request) {
@@ -41,7 +52,6 @@ Route::group(['middleware' => 'cors' , 'as' => 'api.'], function(){
 		});	
 
 		Route::get('/user', function(Request $request){
-			//$user = Auth::guard('api')->user();
 			$user = $request->user('api');
 			return $user;
 		})->name('user');

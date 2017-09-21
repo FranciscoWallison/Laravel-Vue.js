@@ -15,6 +15,8 @@ import BillReceiveCreateComponent from './components/bill/bill-receive/BillRecei
 import BillReceiveUpdateComponent from './components/bill/bill-receive/BillReceiveUpdate.vue';
 
 import CashFlowComponent from './components/cash-flow/CashFlowList.vue';
+import StatementListComponent from './components/statement/StatementList.vue';
+
 
 export default{
 	'login': {
@@ -100,6 +102,11 @@ export default{
 	'cash-flow': {
         name: 'cash-flow.list',
         component: CashFlowComponent,
+        auth: true
+    },
+    'statement': {
+        name: 'statement.list',
+        component: StatementListComponent,
         auth: true
     },
 }

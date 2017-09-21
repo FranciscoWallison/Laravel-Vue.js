@@ -1,12 +1,12 @@
 <?php
 
 use Illuminate\Database\Seeder;
-use CodeFin\Models\BillReceive;
-use CodeFin\Repositories\BillReceiveRepository;
+use SisFin\Models\BillReceive;
+use SisFin\Repositories\BillReceiveRepository;
 
 class BillReceivesTableSeeder extends Seeder
 {
-    use \CodeFin\Repositories\GetClientsTrait;
+    use \SisFin\Repositories\GetClientsTrait;
 
     /**
      * Run the database seeds.

@@ -1,10 +1,10 @@
 <?php
 
-namespace CodeFin\Repositories;
+namespace SisFin\Repositories;
 
 /**
  * trait CategoryRepositoryTrait
- * @package namespace CodeFin\Repositories;
+ * @package namespace SisFin\Repositories;
  */
 trait CategoryRepositoryTrait
 {

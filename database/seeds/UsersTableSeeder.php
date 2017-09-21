@@ -1,8 +1,8 @@
 <?php
 
 use Illuminate\Database\Seeder;
-use CodeFin\Repositories\ClientRepository;
-use CodeFin\Models\User;
+use SisFin\Repositories\ClientRepository;
+use SisFin\Models\User;
 
 class UsersTableSeeder extends Seeder
 {

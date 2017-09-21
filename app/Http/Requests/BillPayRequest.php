@@ -1,6 +1,6 @@
 <?php
 
-namespace CodeFin\Http\Requests;
+namespace SisFin\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Validation\Rule;

@@ -1,19 +1,12 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: Sony Vaio
- * Date: 26/04/2017
- * Time: 00:51
- */
-
-namespace CodeFin\Repositories\Traits;
+namespace SisFin\Repositories\Traits;
 
 
 use Carbon\Carbon;
-use CodeFin\Models\BillPay;
-use CodeFin\Models\BillReceive;
-use CodeFin\Models\CategoryExpense;
-use CodeFin\Models\CategoryRevenue;
+use SisFin\Models\BillPay;
+use SisFin\Models\BillReceive;
+use SisFin\Models\CategoryExpense;
+use SisFin\Models\CategoryRevenue;
 use Illuminate\Database\MySqlConnection;
 use Illuminate\Database\PostgresConnection;
 use Illuminate\Support\Facades\DB;

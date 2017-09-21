@@ -1,11 +1,11 @@
 <?php
 
-namespace CodeFin\Models;
+namespace SisFin\Models;
 
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Tymon\JWTAuth\Contracts\JWTSubject;
-use CodeFin\Models\Client;
+use SisFin\Models\Client;
 
 class User extends Authenticatable implements JWTSubject
 {

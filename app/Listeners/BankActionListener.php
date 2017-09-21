@@ -1,8 +1,8 @@
 <?php
 
-namespace CodeFin\Listeners;
+namespace SisFin\Listeners;
 
-use CodeFin\Events\BankCreatedEvent;
+use SisFin\Events\BankCreatedEvent;
 use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Contracts\Queue\ShouldQueue;
 

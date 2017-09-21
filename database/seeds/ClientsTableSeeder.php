@@ -12,6 +12,6 @@ class ClientsTableSeeder extends Seeder
     public function run()
     {
         //cirando tenancy
-        factory(\CodeFin\Models\Client::class, 5)->create();
+        factory(\SisFin\Models\Client::class, 5)->create();
     }
 }

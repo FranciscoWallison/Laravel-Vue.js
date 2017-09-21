@@ -1,13 +1,13 @@
 <?php
 
 use Illuminate\Database\Seeder;
-use CodeFin\Models\CategoryExpense;
-use CodeFin\Repositories\CategoryExpenseRepository;
+use SisFin\Models\CategoryExpense;
+use SisFin\Repositories\CategoryExpenseRepository;
 
 class CategoryExpensesTableSeeder extends Seeder
 {
     
-	use \CodeFin\Repositories\GetClientsTrait;
+	use \SisFin\Repositories\GetClientsTrait;
     /**
      * Run the database seeds.
      *
@@ -46,7 +46,7 @@ class CategoryExpensesTableSeeder extends Seeder
 
     private function getCategoriesRoot()
     {
-        /** @var \codeFin\Repositories\CategoryExpenseRepository $repository */
+        /** @var \SisFin\Repositories\CategoryExpenseRepository $repository */
         $repository = app(CategoryExpenseRepository::class);
         $repository->skipPresenter(true);//valores do tipo toArray()
         return $repository->all();
