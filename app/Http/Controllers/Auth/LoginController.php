@@ -1,11 +1,11 @@
 <?php
 
-namespace CodeFin\Http\Controllers\Auth;
+namespace SisFin\Http\Controllers\Auth;
 
-use CodeFin\Http\Controllers\Controller;
+use SisFin\Http\Controllers\Controller;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
 use Illuminate\Http\Request;
-use CodeFin\Models\User;
+use SisFin\Models\User;
 
 class LoginController extends Controller
 {

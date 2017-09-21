@@ -1,6 +1,6 @@
 <?php
 
-namespace CodeFin\Exceptions;
+namespace SisFin\Exceptions;
 
 use Exception;
 use Illuminate\Auth\AuthenticationException;

@@ -1,16 +1,16 @@
 <?php
 
-namespace CodeFin\Presenters;
+namespace SisFin\Presenters;
 
-use CodeFin\Serializer\BillSerializer;
-use CodeFin\Transformers\BillSerializerTransformer;
-use CodeFin\Transformers\BillTransformer;
+use SisFin\Serializer\BillSerializer;
+use SisFin\Transformers\BillSerializerTransformer;
+use SisFin\Transformers\BillTransformer;
 use Prettus\Repository\Presenter\FractalPresenter;
 
 /**
  * Class BillPayPresenter
  *
- * @package namespace CodeFin\Presenters;
+ * @package namespace SisFin\Presenters;
  */
 class BillSerializerPresenter extends FractalPresenter
 {

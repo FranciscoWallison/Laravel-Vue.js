@@ -1,6 +1,6 @@
 <?php
 
-namespace CodeFin\Serializer;
+namespace SisFin\Serializer;
 
 use Illuminate\Contracts\Support\Jsonable;
 

@@ -1,17 +1,17 @@
 <?php
 
-namespace CodeFin\Providers;
+namespace SisFin\Providers;
 
 use Illuminate\Support\Facades\Event;
 use Illuminate\Foundation\Support\Providers\EventServiceProvider as ServiceProvider;
 use Prettus\Repository\Events\RepositoryEntityCreated;
 use Prettus\Repository\Events\RepositoryEntityUpdated;
 
-use CodeFin\Listeners\BankAccountSetDefaultListener;
-use CodeFin\Events\BankStoredEvent;
-use CodeFin\Listeners\BankLogoUploadListener;
-use CodeFin\Events\BillStoredEvent;
-use CodeFin\Listeners\BankAccountUpdateBalanceListener;
+use SisFin\Listeners\BankAccountSetDefaultListener;
+use SisFin\Events\BankStoredEvent;
+use SisFin\Listeners\BankLogoUploadListener;
+use SisFin\Events\BillStoredEvent;
+use SisFin\Listeners\BankAccountUpdateBalanceListener;
 
 class EventServiceProvider extends ServiceProvider
 {

@@ -1,18 +1,18 @@
 <?php
 
-namespace CodeFin\Repositories;
+namespace SisFin\Repositories;
 
-use CodeFin\Criteria\LockTableCriteria;
-use CodeFin\Events\BankAccountBalanceUpdatedEvent;
-use CodeFin\Models\BankAccount;
-use CodeFin\Presenters\BankAccountPresenter;
-use CodeFin\Repositories\BankAccountRepository;
+use SisFin\Criteria\LockTableCriteria;
+use SisFin\Events\BankAccountBalanceUpdatedEvent;
+use SisFin\Models\BankAccount;
+use SisFin\Presenters\BankAccountPresenter;
+use SisFin\Repositories\BankAccountRepository;
 use Prettus\Repository\Criteria\RequestCriteria;
 use Prettus\Repository\Eloquent\BaseRepository;
 
 /**
  * Class BankAccountRepositoryEloquent
- * @package namespace CodeFin\Repositories;
+ * @package namespace SisFin\Repositories;
  */
 class BankAccountRepositoryEloquent extends BaseRepository implements BankAccountRepository
 {

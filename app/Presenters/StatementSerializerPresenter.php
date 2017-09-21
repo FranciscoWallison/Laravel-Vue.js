@@ -1,14 +1,14 @@
 <?php
 
-namespace CodeFin\Presenters;
+namespace SisFin\Presenters;
 
-use CodeFin\Transformers\StatementSerializerTransformer;
+use SisFin\Transformers\StatementSerializerTransformer;
 use Prettus\Repository\Presenter\FractalPresenter;
 
 /**
  * Class StatementSerializerPresenter
  *
- * @package namespace CodeFin\Presenters;
+ * @package namespace SisFin\Presenters;
  */
 class StatementSerializerPresenter extends FractalPresenter
 {

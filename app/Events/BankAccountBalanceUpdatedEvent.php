@@ -1,8 +1,8 @@
 <?php
 
-namespace CodeFin\Events;
+namespace SisFin\Events;
 
-use CodeFin\Models\BankAccount;
+use SisFin\Models\BankAccount;
 use Illuminate\Broadcasting\PrivateChannel;
 use Illuminate\Contracts\Broadcasting\ShouldBroadcast;
 

@@ -1,20 +1,20 @@
 <?php
 
-namespace CodeFin\Repositories;
+namespace SisFin\Repositories;
 
-use CodeFin\Presenters\StatementSerializerPresenter;
-use CodeFin\Models\BillPay;
-use CodeFin\Models\BillReceive;
-use CodeFin\Models\Statement;
-use CodeFin\Repositories\StatementRepository;
-use CodeFin\Repositories\Traits\CashFlowRepositoryTrait;
-use CodeFin\Serializer\StatementSerializer;
+use SisFin\Presenters\StatementSerializerPresenter;
+use SisFin\Models\BillPay;
+use SisFin\Models\BillReceive;
+use SisFin\Models\Statement;
+use SisFin\Repositories\StatementRepository;
+use SisFin\Repositories\Traits\CashFlowRepositoryTrait;
+use SisFin\Serializer\StatementSerializer;
 use Prettus\Repository\Criteria\RequestCriteria;
 use Prettus\Repository\Eloquent\BaseRepository;
 
 /**
  * Class StatementRepositoryEloquent
- * @package namespace CodeFin\Repositories;
+ * @package namespace SisFin\Repositories;
  */
 class StatementRepositoryEloquent extends BaseRepository implements StatementRepository
 {

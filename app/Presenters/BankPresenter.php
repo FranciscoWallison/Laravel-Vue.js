@@ -1,14 +1,14 @@
 <?php
 
-namespace CodeFin\Presenters;
+namespace SisFin\Presenters;
 
-use CodeFin\Transformers\BankTransformer;
+use SisFin\Transformers\BankTransformer;
 use Prettus\Repository\Presenter\FractalPresenter;
 
 /**
  * Class BankPresenter
  *
- * @package namespace CodeFin\Presenters;
+ * @package namespace SisFin\Presenters;
  */
 class BankPresenter extends FractalPresenter
 {

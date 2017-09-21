@@ -1,10 +1,10 @@
 <?php
 
-namespace CodeFin\Repositories\Traits;
+namespace SisFin\Repositories\Traits;
 
 use Carbon\Carbon;
-use CodeFin\Events\BillStoredEvent;
-use CodeFin\Serializer\BillSerializer;
+use SisFin\Events\BillStoredEvent;
+use SisFin\Serializer\BillSerializer;
 use Prettus\Repository\Criteria\RequestCriteria;
 
 trait BillRepositoryTrait

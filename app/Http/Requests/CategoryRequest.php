@@ -1,6 +1,6 @@
 <?php
 
-namespace CodeFin\Http\Requests;
+namespace SisFin\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Support\Facades\Auth;
@@ -40,7 +40,7 @@ class CategoryRequest extends FormRequest
     {
         $currentAction = \Route::currentRouteAction();
         list($controller) = explode('@', $currentAction);
-        return str_is("$controller*", \CodeFin\Http\Controllers\Api\CategoryRevenuesController::class)
+        return str_is("$controller*", \SisFin\Http\Controllers\Api\CategoryRevenuesController::class)
             ? "category_revenues" : "category_expenses";
     }
 }

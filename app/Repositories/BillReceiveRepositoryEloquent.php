@@ -1,18 +1,18 @@
 <?php
 
-namespace CodeFin\Repositories;
+namespace SisFin\Repositories;
 
-use CodeFin\Models\BillReceive;
-use CodeFin\Presenters\BillPresenter;
-use CodeFin\Repositories\BillReceiveRepository;
-use CodeFin\Repositories\Traits\BillRepositoryTrait;
-use CodeFin\Validators\BillReceiveValidator;
+use SisFin\Models\BillReceive;
+use SisFin\Presenters\BillPresenter;
+use SisFin\Repositories\BillReceiveRepository;
+use SisFin\Repositories\Traits\BillRepositoryTrait;
+use SisFin\Validators\BillReceiveValidator;
 use Prettus\Repository\Criteria\RequestCriteria;
 use Prettus\Repository\Eloquent\BaseRepository;
 
 /**
  * Class BillReceiveRepositoryEloquent
- * @package namespace CodeFin\Repositories;
+ * @package namespace SisFin\Repositories;
  */
 class BillReceiveRepositoryEloquent extends BaseRepository implements BillReceiveRepository
 {

@@ -1,6 +1,6 @@
 <?php
 
-namespace CodeFin\Http;
+namespace SisFin\Http;
 
 use Illuminate\Foundation\Http\Kernel as HttpKernel;
 
@@ -16,7 +16,7 @@ class Kernel extends HttpKernel
     protected $middleware = [
         \Illuminate\Foundation\Http\Middleware\CheckForMaintenanceMode::class,
         \Barryvdh\Cors\HandleCors::class,
-        \CodeFin\Http\Middleware\AddCliebtTenantMiddleware::class,//global
+        \SisFin\Http\Middleware\AddCliebtTenantMiddleware::class,//global
     ];
 
     /**
@@ -26,11 +26,11 @@ class Kernel extends HttpKernel
      */
     protected $middlewareGroups = [
         'web' => [
-            \CodeFin\Http\Middleware\EncryptCookies::class,
+            \SisFin\Http\Middleware\EncryptCookies::class,
             \Illuminate\Cookie\Middleware\AddQueuedCookiesToResponse::class,
             \Illuminate\Session\Middleware\StartSession::class,
             \Illuminate\View\Middleware\ShareErrorsFromSession::class,
-            \CodeFin\Http\Middleware\VerifyCsrfToken::class,
+            \SisFin\Http\Middleware\VerifyCsrfToken::class,
             \Illuminate\Routing\Middleware\SubstituteBindings::class,
         ],
 
@@ -53,7 +53,7 @@ class Kernel extends HttpKernel
         'auth.basic' => \Illuminate\Auth\Middleware\AuthenticateWithBasicAuth::class,
         'bindings' => \Illuminate\Routing\Middleware\SubstituteBindings::class,
         'can' => \Illuminate\Auth\Middleware\Authorize::class,
-        'guest' => \CodeFin\Http\Middleware\RedirectIfAuthenticated::class,
+        'guest' => \SisFin\Http\Middleware\RedirectIfAuthenticated::class,
         'throttle' => \Illuminate\Routing\Middleware\ThrottleRequests::class,
         'cors' => \Barryvdh\Cors\HandleCors::class,
     ];

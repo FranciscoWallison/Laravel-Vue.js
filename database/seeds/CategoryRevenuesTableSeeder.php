@@ -1,13 +1,13 @@
 <?php
 
 use Illuminate\Database\Seeder;
-use CodeFin\Models\CategoryRevenue;
-use CodeFin\Repositories\CategoryRevenueRepository;
+use SisFin\Models\CategoryRevenue;
+use SisFin\Repositories\CategoryRevenueRepository;
 
 class CategoryRevenuesTableSeeder extends Seeder
 {
     
-	use \CodeFin\Repositories\GetClientsTrait;
+	use \SisFin\Repositories\GetClientsTrait;
     /**
      * Run the database seeds.
      *
@@ -46,7 +46,7 @@ class CategoryRevenuesTableSeeder extends Seeder
 
     private function getCategoriesRoot()
     {
-        /** @var \codeFin\Repositories\CategoryRevenueRepository $repository */
+        /** @var \SisFin\Repositories\CategoryRevenueRepository $repository */
         $repository = app(CategoryRevenueRepository::class);
         $repository->skipPresenter(true);//valores do tipo toArray()
         return $repository->all();

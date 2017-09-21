@@ -1,11 +1,11 @@
 <?php
 
-namespace CodeFin\Http\Controllers\Api;
+namespace SisFin\Http\Controllers\Api;
 
 use Illuminate\Http\Request;
-use CodeFin\Http\Controllers\Controller;
-use CodeFin\Repositories\BankRepository;
-use CodeFin\Http\Requests;
+use SisFin\Http\Controllers\Controller;
+use SisFin\Repositories\BankRepository;
+use SisFin\Http\Requests;
 
 class BanksController extends Controller
 {

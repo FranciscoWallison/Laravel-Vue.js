@@ -1,6 +1,6 @@
 <?php
 
-namespace CodeFin\Repositories\Traits;
+namespace SisFin\Repositories\Traits;
 
 trait CategoryRepositoryTrait
 {

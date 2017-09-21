@@ -1,9 +1,9 @@
 <?php
 
-namespace CodeFin\Providers;
+namespace SisFin\Providers;
 
 use Illuminate\Support\ServiceProvider;
-use CodeFin\Jwt\Manager;
+use SisFin\Jwt\Manager;
 
 class AppServiceProvider extends ServiceProvider
 {

@@ -1,6 +1,6 @@
 <?php
 
-namespace CodeFin\Providers;
+namespace SisFin\Providers;
 
 use Illuminate\Support\ServiceProvider;
 use Illuminate\Support\Facades\Broadcast;

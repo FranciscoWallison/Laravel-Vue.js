@@ -1,11 +1,11 @@
 <?php
 
-namespace CodeFin\Http\Controllers\Api;
+namespace SisFin\Http\Controllers\Api;
 
-use CodeFin\Criteria\WithDepthCategoriesCriteria;
+use SisFin\Criteria\WithDepthCategoriesCriteria;
 use Illuminate\Http\Request;
-use CodeFin\Http\Controllers\Controller;
-use CodeFin\Repositories\CategoryRevenueRepository;
+use SisFin\Http\Controllers\Controller;
+use SisFin\Repositories\CategoryRevenueRepository;
 
 class CategoryRevenuesController extends Controller
 {

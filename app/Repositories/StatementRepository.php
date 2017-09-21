@@ -1,13 +1,13 @@
 <?php
 
-namespace CodeFin\Repositories;
+namespace SisFin\Repositories;
 
 use Carbon\Carbon;
 use Prettus\Repository\Contracts\RepositoryInterface;
 
 /**
  * Interface StatementRepository
- * @package namespace CodeFin\Repositories;
+ * @package namespace SisFin\Repositories;
  */
 interface StatementRepository extends RepositoryInterface
 {

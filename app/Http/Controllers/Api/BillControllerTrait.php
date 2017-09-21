@@ -1,6 +1,6 @@
 <?php
 
-namespace CodeFin\Http\Controllers\Api;
+namespace SisFin\Http\Controllers\Api;
 
 use Carbon\Carbon;
 
@@ -13,11 +13,11 @@ trait BillControllerTrait
     }
 
     public function findToPayRestOfMonth(){
-        $dateStart = (new Carbon())->addDays(1);
+        $dateStart = (new Carbon())->addDays(1);//31/3 ~ 1/04
         if($dateStart->month != (new Carbon())->month){
             $dateStart->subDays(1);
         }
-        $dateEnd = $dateStart->copy()->day($dateStart->daysInMonth);
+        $dateEnd = $dateStart->copy()->day($dateStart->daysInMonth);//ultimo dia no mês 
         return $this->repository->getTotalFromPeriod($dateStart, $dateEnd);
     }
 }

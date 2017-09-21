@@ -1,5 +1,5 @@
 <?php
-namespace CodeFin\Jwt;
+namespace SisFin\Jwt;
 
 use Tymon\JWTAuth\Manager as JwtManager;
 use Tymon\JWTAuth\Token;

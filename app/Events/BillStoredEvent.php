@@ -1,8 +1,8 @@
 <?php
 
-namespace CodeFin\Events;
+namespace SisFin\Events;
 
-use CodeFin\Models\Bank;
+use SisFin\Models\Bank;
 use Illuminate\Http\UploadedFile;
 
 class BillStoredEvent

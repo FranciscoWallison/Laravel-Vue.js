@@ -1,15 +1,15 @@
 <?php
 
-namespace CodeFin\Http\Controllers\Api;
+namespace SisFin\Http\Controllers\Api;
 
-use CodeFin\Criteria\FindBetweenDateBRCriteria;
-use CodeFin\Presenters\BillSerializerPresenter;
-use CodeFin\Criteria\FindByValueBRCriteria;
-use CodeFin\Http\Controllers\Controller;
-use CodeFin\Http\Controllers\Response;
-use CodeFin\Http\Requests;
-use CodeFin\Http\Requests\BillPayRequest;
-use CodeFin\Repositories\BillPayRepository;
+use SisFin\Criteria\FindBetweenDateBRCriteria;
+use SisFin\Presenters\BillSerializerPresenter;
+use SisFin\Criteria\FindByValueBRCriteria;
+use SisFin\Http\Controllers\Controller;
+use SisFin\Http\Controllers\Response;
+use SisFin\Http\Requests;
+use SisFin\Http\Requests\BillPayRequest;
+use SisFin\Repositories\BillPayRepository;
 use Illuminate\Http\Request;
 
 

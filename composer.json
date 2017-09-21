@@ -31,7 +31,7 @@
             "database"
         ],
         "psr-4": {
-            "CodeFin\\": "app/"
+            "SisFin\\": "app/"
         }
     },
     "autoload-dev": {

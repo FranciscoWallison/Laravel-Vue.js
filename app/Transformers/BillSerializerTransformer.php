@@ -1,15 +1,15 @@
 <?php
 
-namespace CodeFin\Transformers;
+namespace SisFin\Transformers;
 
-use CodeFin\Models\AbstractBill;
-use CodeFin\Serializer\BillSerializer;
+use SisFin\Models\AbstractBill;
+use SisFin\Serializer\BillSerializer;
 use League\Fractal\TransformerAbstract;
 use Prettus\Repository\Contracts\PresenterInterface;
 
 /**
  * Class BillPayTransformer
- * @package namespace CodeFin\Transformers;
+ * @package namespace SisFin\Transformers;
  */
 class BillSerializerTransformer extends TransformerAbstract
 {

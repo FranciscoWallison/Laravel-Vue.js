@@ -1,6 +1,6 @@
 <?php
 
-namespace CodeFin\Models;
+namespace SisFin\Models;
 
 use Illuminate\Database\Eloquent\Model;
 use Prettus\Repository\Contracts\Transformable;

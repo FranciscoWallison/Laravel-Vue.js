@@ -1,13 +1,13 @@
 <?php
 
-namespace CodeFin\Transformers;
+namespace SisFin\Transformers;
 
 use League\Fractal\TransformerAbstract;
-use CodeFin\Models\Bank;
+use SisFin\Models\Bank;
 
 /**
  * Class BankTransformer
- * @package namespace CodeFin\Transformers;
+ * @package namespace SisFin\Transformers;
  */
 class BankTransformer extends TransformerAbstract
 {

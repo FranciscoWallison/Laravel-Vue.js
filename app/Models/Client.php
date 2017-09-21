@@ -1,14 +1,14 @@
 <?php
 
-namespace CodeFin\Models;
+namespace SisFin\Models;
 
 use Illuminate\Database\Eloquent\Model;
 use Prettus\Repository\Contracts\Transformable;
 use Prettus\Repository\Traits\TransformableTrait;
-use CodeFin\Models\User;
-use CodeFin\Models\BankAccount;
-use CodeFin\Models\CategoryExpense;
-use CodeFin\Models\CategoryRevenue;
+use SisFin\Models\User;
+use SisFin\Models\BankAccount;
+use SisFin\Models\CategoryExpense;
+use SisFin\Models\CategoryRevenue;
 
 class Client extends Model implements Transformable
 {

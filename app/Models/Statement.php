@@ -1,6 +1,6 @@
 <?php
 
-namespace CodeFin\Models;
+namespace SisFin\Models;
 
 use HipsterJazzbo\Landlord\BelongsToTenants;
 use Illuminate\Database\Eloquent\Model;

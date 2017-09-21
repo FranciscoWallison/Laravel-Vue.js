@@ -1,11 +1,11 @@
 <?php
 
-namespace CodeFin\Listeners;
+namespace SisFin\Listeners;
 
 use Prettus\Repository\Events\RepositoryEventBase;
 use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Contracts\Queue\ShouldQueue;
-use CodeFin\Repositories\BankAccountRepository;
+use SisFin\Repositories\BankAccountRepository;
 
 class BankAccountSetDefaultListener
 {

@@ -1,17 +1,17 @@
 <?php
 
-namespace CodeFin\Repositories;
+namespace SisFin\Repositories;
 
 use Prettus\Repository\Eloquent\BaseRepository;
 use Prettus\Repository\Criteria\RequestCriteria;
-use CodeFin\Repositories\CategoryExpenseRepository;
-use CodeFin\Models\CategoryExpense;
-use CodeFin\Validators\CategoryExpenseValidator;
-use CodeFin\Presenters\CategoryPresenter;
+use SisFin\Repositories\CategoryExpenseRepository;
+use SisFin\Models\CategoryExpense;
+use SisFin\Validators\CategoryExpenseValidator;
+use SisFin\Presenters\CategoryPresenter;
 
 /**
  * Class CategoryExpenseRepositoryEloquent
- * @package namespace CodeFin\Repositories;
+ * @package namespace SisFin\Repositories;
  */
 class CategoryExpenseRepositoryEloquent extends BaseRepository implements CategoryExpenseRepository
 {

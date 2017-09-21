@@ -1,14 +1,14 @@
 <?php
 
 use Illuminate\Database\Seeder;
-use CodeFin\Models\BankAccount;
-use CodeFin\Repositories\BankRepository;
-use CodeFin\Repositories\ClientRepository;
+use SisFin\Models\BankAccount;
+use SisFin\Repositories\BankRepository;
+use SisFin\Repositories\ClientRepository;
 
 class BankAccountTableSeeder extends Seeder
 {
 
-    use \CodeFin\Repositories\GetClientsTrait;
+    use \SisFin\Repositories\GetClientsTrait;
     /**
      * Run the database seeds.
      *
@@ -45,7 +45,7 @@ class BankAccountTableSeeder extends Seeder
 
     private function getBanks()
     {
-        /** @var \codeFin\Repositories\BankRepository $repository */
+        /** @var \SisFin\Repositories\BankRepository $repository */
         $repository = app(BankRepository::class);
         $repository->skipPresenter(true);//valores do tipo toArray()
         return $repository->all();

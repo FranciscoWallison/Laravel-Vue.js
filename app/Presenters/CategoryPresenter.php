@@ -1,14 +1,14 @@
 <?php
 
-namespace CodeFin\Presenters;
+namespace SisFin\Presenters;
 
-use CodeFin\Transformers\CategoryTransformer;
+use SisFin\Transformers\CategoryTransformer;
 use Prettus\Repository\Presenter\FractalPresenter;
 
 /**
  * Class CategoryPresenter
  *
- * @package namespace CodeFin\Presenters;
+ * @package namespace SisFin\Presenters;
  */
 class CategoryPresenter extends FractalPresenter
 {

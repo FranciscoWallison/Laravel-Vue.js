@@ -1,12 +1,12 @@
 <?php
 
 use Illuminate\Database\Seeder;
-use CodeFin\Models\BillPay;
-use CodeFin\Repositories\BillPayRepository;
+use SisFin\Models\BillPay;
+use SisFin\Repositories\BillPayRepository;
 
 class BillPaysTableSeeder extends Seeder
 {
-	use \CodeFin\Repositories\GetClientsTrait;
+	use \SisFin\Repositories\GetClientsTrait;
     /**
      * Run the database seeds.
      *
@@ -18,7 +18,7 @@ class BillPaysTableSeeder extends Seeder
         $clients = $this->getClients();
 
         $repository = app(BillPayRepository::class);
-        factory(\CodeFin\Models\BillPay::class, 200)
+        factory(\SisFin\Models\BillPay::class, 200)
             ->make()
             ->each(function($billPay) use ($clients, $repository){
                 $client = $clients->random();

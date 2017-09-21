@@ -1,17 +1,17 @@
 <?php
 
-namespace CodeFin\Http\Controllers\Api;
+namespace SisFin\Http\Controllers\Api;
 
 use Illuminate\Http\Request;
 
-use CodeFin\Http\Controllers\Controller;
-use CodeFin\Http\Requests;
-use CodeFin\Http\Requests\CategoryRequest;
-use CodeFin\Repositories\CategoryRepository;
-use CodeFin\Criteria\FindByNameCriteria;
-use CodeFin\Criteria\FindByLikeAgencyCriteria;
-use CodeFin\Criteria\FindRootCategoriesCriteria;
-use CodeFin\Criteria\WithDepthCategoriesCriteria;
+use SisFin\Http\Controllers\Controller;
+use SisFin\Http\Requests;
+use SisFin\Http\Requests\CategoryRequest;
+use SisFin\Repositories\CategoryRepository;
+use SisFin\Criteria\FindByNameCriteria;
+use SisFin\Criteria\FindByLikeAgencyCriteria;
+use SisFin\Criteria\FindRootCategoriesCriteria;
+use SisFin\Criteria\WithDepthCategoriesCriteria;
 
 trait CategoriesControllerTrait
 {
