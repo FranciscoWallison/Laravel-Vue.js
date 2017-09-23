@@ -62,6 +62,6 @@ Route::group(['prefix' => '/', 'as' => 'site.'], function () {
     // Route::post('register','Site\Auth\RegisterController@store')->name('auth.register.store');
 
     // Route::get('login','Site\Auth\LoginController@showLoginForm')->name('login');
-    // Route::post('login','Site\Auth\LoginController@login');
-    // Route::post('logout','Site\Auth\LoginController@logout');
+    Route::post('login','Site\Auth\LoginController@login');
+    Route::post('logout','Site\Auth\LoginController@logout');
 });
