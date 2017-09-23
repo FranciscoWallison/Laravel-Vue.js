@@ -3,7 +3,8 @@ var webpack  = require('webpack');
 module.exports = {		
 	entry:  {
           admin: './resources/assets/admin/js/admin.js',
-		  spa:   './resources/assets/spa/js/spa.js'
+		  spa:   './resources/assets/spa/js/spa.js',
+		  site: './resources/assets/site/js/site.js',
         },
 	output:{
 		path: __dirname + '/public/build',
