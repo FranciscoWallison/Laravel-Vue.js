@@ -13,7 +13,7 @@ return [
     */
    
     'supportsCredentials' => false,
-    'allowedOrigins' => ['http://192.168.5.121:3000','http://192.168.1.9:3000', 'chrome-extension://fhbjgbiflinjbdggehcddcbncdddomop'],//endereçoes permitidos
+    'allowedOrigins' => ['*'],//endereçoes permitidos
     'allowedHeaders' => ['*'],//
     'allowedMethods' => ['*'],
     'exposedHeaders' => [],

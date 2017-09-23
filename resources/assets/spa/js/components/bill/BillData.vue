@@ -1,5 +1,5 @@
 <template>
-    <table class="grey-text text-darken-2 striped card-panel z-depth-5">
+    <table class="grey-text text-darken-2">
         <tbody class="left">
         <tr>
             <td><strong>{{ paidText }}</strong></td>

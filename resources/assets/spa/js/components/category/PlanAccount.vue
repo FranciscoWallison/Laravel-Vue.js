@@ -1,13 +1,17 @@
 <template>
 	<div class="row">
-		<page-title>
-			<h5>Plano de contas</h5>
-		</page-title>
-		<div class="card-panel z-depth-5">
-			<h5>Categories de Receitas</h5>
-			<category-revenue v-ref:revenue></category-revenue>
-			<h5>Categorias de Despesas</h5>
-			<category-expense v-ref:expense></category-expense>	
+		<div class="container">
+			<page-title>
+				<h5 class="center">Plano de contas</h5>
+			</page-title>	
+		</div>
+		<div class="container-sisfin">
+			<div class="card-panel z-depth-5 center">
+				<h5>Categories de Receitas</h5>
+				<category-revenue v-ref:revenue></category-revenue>
+				<h5>Categorias de Despesas</h5>
+				<category-expense v-ref:expense></category-expense>	
+			</div>
 		</div>
 
 		<div class="fixed-action-btn horizontal">

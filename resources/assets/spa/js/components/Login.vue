@@ -1,8 +1,8 @@
 <template> 
 <div class="container">
-    <div class="row">
+    <div class="row">     
         <div class="card-panel col s8 offset-s2 z-depth-2">
-            <h3 class="center">Code Financeiro</h3>
+            <h3 class="center">SisFin</h3>
 
             <div class="row" v-if="error.error">
                 <div class="col s12">
@@ -56,11 +56,11 @@
                 error: {
                     error: false,
                     message: ''
-                }
+                }                
 			}
 		},
 		methods: {
-			login(){
+			login(){               
                 store.dispatch('auth/login', this.user)
                     .then(() => this.$router.go({name: 'dashboard'}))
                     .catch((resposeError) => {

@@ -23,7 +23,8 @@
                },
                 bank: {
                     name:""
-                }
+                },
+                loadingPage: true,
             };
         },
         created() {
@@ -32,15 +33,20 @@
         },
         methods: {
             submit(){
-                let id = this.$route.params.id; // pega o id da query string
-                let bankAccount = this.bankAccount; // pasando os dados para store
-                store.dispatch('bankAccount/update',{id, bankAccount}).then(()=>{  // fa o update com o id da query string guardada na variavel id
-                    Materialize.toast('Conta atualizada com sucesso', 4000);
-                    this.$router.go({name: 'bank-account.list'}); // redireciona para a listagem no fim
+                this.$validator.validateAll().then(success => {
+                    if(success){
+                        let id = this.$route.params.id;
+                        BankAccount.update({id: id},this.bankAccount).then(() => {
+                            Materialize.toast('Conta bancária atualizada com sucesso!',5000);
+                            this.$router.go({name: 'bank-account.list'});
+                        });
+                    }else{
+                        Materialize.toast('Alguns campos são obrigatórios!',5000);
+                    }
                 });
             },
             getBanks(){
-                store.dispatch('bank/query').then((response) => {
+                store.dispatch('bank/query').then((response) => {                    
                     this.initAutocomplete(); // para inicializar o autocomplete e mostrar na caixa de preenchimento
                 });
             },
@@ -52,6 +58,7 @@
                 }).then((response) => {
                     this.bankAccount = response.data.data;
                     this.bank = response.data.data.bank.data; //alimentando o fomulario 
+                    this.loadingPage = false;
                 })
             },
             initAutocomplete(){  // autocomplete configurações

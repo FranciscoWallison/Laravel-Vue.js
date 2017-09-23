@@ -16,47 +16,64 @@
             </page-title>
         </div> -->
         <div class="card-panel z-depth-5">
-            <form name="form" method="GET" @submit.prevent="submit()">
-                <div class="row">
-                    <div class="input-field col s12">
-                        <label class="active">Nome</label>
-                        <input type="text" v-model="bankAccount.name" placerholder="O seu nome" />
+            <div class="center" v-show="loadingPage">
+                <div class="preloader-wrapper big active">
+                    <div class="spinner-layer spinner-blue">
+                        <div class="circle-clipper left">
+                            <div class="circle"></div>
+                        </div>
+                        <div class="gap-patch">
+                            <div class="circle"></div>
+                        </div>
+                        <div class="circle-clipper right">
+                            <div class="circle"></div>
+                        </div>
                     </div>
                 </div>
-                <div class="row">
-                    <div class="input-field col s12">
-                        <label class="active">Banco:</label>
-                        <!-- <select v-model="bankAccount.bank_id" id="bank_id" class="browser-default">
-                            <option value="" disable selected>Escolha um banco</option>
-                            <option v-for="o in banks" :value="o.id">{{ o.name }}</option>
-                        </select> -->
-                        <input type="text" :value="bank.name" placeholder="Procurar banco" id="bank-id"
-                        autocomplete="off" data-activates="bank-id-dropdown" data-beloworigin="true"/>
-                        <ul id="bank-id-dropdown" class="dropdown-content ac-dropdown"></ul>
+            </div>
+            <div v-show="!loadingPage">
+                <form name="form" method="GET" @submit.prevent="submit()">
+                    <div class="row">
+                        <div class="input-field col s12">
+                            <label class="active">Nome</label>
+                            <input type="text" v-model="bankAccount.name" placerholder="O seu nome" />
+                        </div>
                     </div>
-                </div>
-                <div class="row">
-                    <div class="input-field col s6">
-                        <label class="active">Agência</label>
-                        <input type="text" v-model="bankAccount.agency" placeholder="A sua agência">
+                    <div class="row">
+                        <div class="input-field col s12">
+                            <label class="active">Banco:</label>
+                            <!-- <select v-model="bankAccount.bank_id" id="bank_id" class="browser-default">
+                                <option value="" disable selected>Escolha um banco</option>
+                                <option v-for="o in banks" :value="o.id">{{ o.name }}</option>
+                            </select> -->
+                            <input type="text" :value="bank.name" placeholder="Procurar banco" id="bank-id"
+                            autocomplete="off" data-activates="bank-id-dropdown" data-beloworigin="true"/>
+                            <ul id="bank-id-dropdown" class="dropdown-content ac-dropdown"></ul>
+                        </div>
                     </div>
-                    <div class="input-field col s6">
-                        <label class="active">Conta Corrente</label>
-                        <input type="text" v-model="bankAccount.account" placeholder="A sua conta corrente">
+                    <div class="row">
+                        <div class="input-field col s6">
+                            <label class="active">Agência</label>
+                            <input type="text" v-model="bankAccount.agency" placeholder="A sua agência">
+                        </div>
+                        <div class="input-field col s6">
+                            <label class="active">Conta Corrente</label>
+                            <input type="text" v-model="bankAccount.account" placeholder="A sua conta corrente">
+                        </div>
                     </div>
-                </div>
-                <div class="row">
-                    <div class="input-field col s12">
-                        <input type="checkbox" class="filled-in" v-model="bankAccount.default" id="account_default" />
-                        <label for="account_default">Padrão?</label>
+                    <div class="row">
+                        <div class="input-field col s12">
+                            <input type="checkbox" class="filled-in" v-model="bankAccount.default" id="account_default" />
+                            <label for="account_default">Padrão?</label>
+                        </div>
                     </div>
-                </div>
-                <div class="fixed-action-btn">
-                    <button type="submit" class="btn-floating btn-large">
-                        <i class="large material-icons">save</i>
-                    </button>
-                </div>
-            </form>
+                    <div class="fixed-action-btn">
+                        <button type="submit" class="btn-floating btn-large">
+                            <i class="large material-icons">save</i>
+                        </button>
+                    </div>
+                </form>                
+            </div>
         </div>
     </div>
 </div>

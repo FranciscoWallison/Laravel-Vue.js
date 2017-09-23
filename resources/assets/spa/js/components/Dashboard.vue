@@ -96,12 +96,12 @@
                         </div>
                     </div>
                     <ul class="collection" id="bank-account-list" v-show="!loadingBankAccountList">
-                    <li class="collection-item avatar"  v-for="o in bankAccounts">
-                        <img :src="o.bank.data.logo" class="circle">
-                        <span class="title"><strong>{{o.name}}</strong></span>
-                        <p>{{o.balance | numberFormat true}}</p>
-                    </li>
-                </ul>
+                        <li class="collection-item avatar"  v-for="o in bankAccounts">
+                            <img :src="o.bank.data.logo" class="circle">
+                            <span class="title"><strong>{{o.name}}</strong></span>
+                            <p>{{o.balance | numberFormat true}}</p>
+                        </li>
+                    </ul>
                 </div>
             </div>
         </div>
