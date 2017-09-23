@@ -4,13 +4,14 @@ namespace SisFin\Http\Controllers\Site;
 
 use SisFin\Http\Controllers\Controller;
 use SisFin\Http\Requests\SubscriptionCreateRequest;
-use SisFin\Iugu\Exceptions\AbstractIuguException;
-use SisFin\Iugu\Exceptions\IuguCustomerException;
-use SisFin\Iugu\Exceptions\IuguPaymentMethodException;
-use SisFin\Iugu\Exceptions\IuguSubscriptionException;
-use SisFin\Iugu\IuguSubscriptionManager;
-use SisFin\Repositories\Interfaces\PlanRepository;
+use SisFin\Repositories\PlanRepository;
 use Illuminate\Support\Facades\Auth;
+
+// use SisFin\Iugu\Exceptions\AbstractIuguException;
+// use SisFin\Iugu\Exceptions\IuguCustomerException;
+// use SisFin\Iugu\Exceptions\IuguPaymentMethodException;
+// use SisFin\Iugu\Exceptions\IuguSubscriptionException;
+// use SisFin\Iugu\IuguSubscriptionManager;
 
 class SubscriptionsController extends Controller
 {
@@ -23,10 +24,10 @@ class SubscriptionsController extends Controller
      */
     private $iuguSubscriptionManager;
 
-    public function __construct(PlanRepository $planRepository, IuguSubscriptionManager $iuguSubscriptionManager)
+    public function __construct(PlanRepository $planRepository/*, IuguSubscriptionManager $iuguSubscriptionManager*/)
     {
         $this->planRepository = $planRepository;
-        $this->iuguSubscriptionManager = $iuguSubscriptionManager;
+        /*$this->iuguSubscriptionManager = $iuguSubscriptionManager;*/
     }
 
     public function create()

@@ -6,7 +6,7 @@
         data(){
             return{
                 token_payment: null,
-                payment_type: 'credit_card',
+                payment_type: 'credit_card',///boleto - bank_slip
                 credit_card: {
                     number: '4111111111111111',
                     cvv: '123',

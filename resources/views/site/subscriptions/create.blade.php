@@ -13,7 +13,7 @@
         @endif
         <div class="row">
             <subscription-create
-                :plan="{{json_encode($plan->toArray())}}"
+                :plan=""
                 csrf_token="{{csrf_token()}}"
                 action="{{route('site.subscriptions.store')}}">
             </subscription-create>
