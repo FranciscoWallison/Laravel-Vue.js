@@ -23,6 +23,7 @@
                 bank: {
                     name: ""
                 },
+                loadingPage: true,
             };
         },
         computed:{
@@ -42,6 +43,7 @@
             },
             getBanks(){ // bancos para inserir no formulario menu pendente
                 store.dispatch('bank/query').then((response) => {
+                    this.loadingPage = false;
                     this.initAutocomplete(); // para inicializar o autocomplete e mostrar na caixa de preenchimento
                 });
             },

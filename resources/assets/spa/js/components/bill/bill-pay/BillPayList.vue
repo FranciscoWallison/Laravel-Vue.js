@@ -4,46 +4,62 @@
 			<page-title>
 				<h5>Minhas contas a pagar</h5>
 			</page-title>
-
+            
             <div class="card-panel z-depth-5">
-               <search @on-submit="filter" :model.sync="search"></search>
-    			<table class="bordered striped highlight responsive-table">
-    				<thead>
-    					<tr>
-    						<th v-for="(key, o ) in table.headers" >
-                                <a href="#" @click.prevent="sortBy(key)">
-                                    {{ o.label }}
-                                   <!--  <i class="material-icons" v-if="searchOptions.order.key == key">
-                                        {{ searchOptions.order.sort == 'asc' ? 'arrow_drop_up' : 'arrow_drop_down' }}
-                                    </i> -->
-                                </a>                 
-                            </th>                            
-                            <th>Ações</th>
-    					</tr>
-    				</thead>
-    				<tbody>
-    					<tr v-for="(index,o) in bills">
-                            <td>{{ o.id }}</td>
-                            <td>{{ o.date_due | dateFormat }}</td>
-                            <td>{{ o.name }}</td>
-                            <td>{{ o.value | numberFormat true }}</td>
-                            <td>
-                                <a href="!#" @click.prevent="openModalEdit(index)">Editar</a>
-                                |
-                                <a href="!#" @click.prevent="openModalDelete(o)">Excluir</a>
-                            </td>
-                        </tr>
-    				</tbody>			 	
-    			</table>
-                <div class="row center">
-                     <pagination :current-page.sync="searchOptions.pagination.current_page"
-                            	 :per-page="searchOptions.pagination.per_page" 
-                            	 :total-records="searchOptions.pagination.total"></pagination>
+                <div class="center" v-show="loadingPage">
+                    <div class="preloader-wrapper big active">
+                        <div class="spinner-layer spinner-blue">
+                            <div class="circle-clipper left">
+                                <div class="circle"></div>
+                            </div>
+                            <div class="gap-patch">
+                                <div class="circle"></div>
+                            </div>
+                            <div class="circle-clipper right">
+                                <div class="circle"></div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
-            </div>
-            <div class=" col s3">
-                <bill-data namespace="billPay"></bill-data>
-            </div>
+                <div v-show="!loadingPage">
+                    <search @on-submit="filter" :model.sync="search"></search>
+        			<table class="bordered striped highlight responsive-table">
+        				<thead>
+        					<tr>
+        						<th v-for="(key, o ) in table.headers" >
+                                    <a href="#" @click.prevent="sortBy(key)">
+                                        {{ o.label }}
+                                       <!--  <i class="material-icons" v-if="searchOptions.order.key == key">
+                                            {{ searchOptions.order.sort == 'asc' ? 'arrow_drop_up' : 'arrow_drop_down' }}
+                                        </i> -->
+                                    </a>                 
+                                </th>                            
+                                <th>Ações</th>
+        					</tr>
+        				</thead>
+        				<tbody>
+        					<tr v-for="(index,o) in bills">
+                                <td>{{ o.id }}</td>
+                                <td>{{ o.date_due | dateFormat }}</td>
+                                <td>{{ o.name }}</td>
+                                <td>{{ o.value | numberFormat true }}</td>
+                                <td>
+                                    <a href="!#" @click.prevent="openModalEdit(index)">Editar</a>
+                                    |
+                                    <a href="!#" @click.prevent="openModalDelete(o)">Excluir</a>
+                                </td>
+                            </tr>
+        				</tbody>			 	
+        			</table>
+                    <div class="row center">
+                         <pagination :current-page.sync="searchOptions.pagination.current_page"
+                                	 :per-page="searchOptions.pagination.per_page" 
+                                	 :total-records="searchOptions.pagination.total"></pagination>
+                    </div>
+                    
+                    <bill-data namespace="billPay"></bill-data>
+                </div>
+            </div>                
 		</div>
 
 	</div>
@@ -127,7 +143,8 @@
                             width: '15%'
                         }
                     }
-                }
+                },
+                loadingPage: true
     		};
     	},
         computed:{
@@ -150,7 +167,9 @@
             }
         },
     	created(){
-        	store.dispatch('billPay/query');
+        	store.dispatch('billPay/query').then((response) => {
+                this.loadingPage = false;
+            });
             store.dispatch('bankAccount/lists');
             store.dispatch('categoryExpense/query');
         },

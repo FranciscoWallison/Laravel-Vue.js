@@ -76,7 +76,7 @@ import store from '../store/store';
             window.Vue.http.interceptors.unshift((request, next) => {
                 this.loading = true;// se houver um requesição torna o loading true
                 next(() => {                    
-                    this.loading = false
+                    this.loading = false;
                 }); // depois de haver uam requesição seta o loadin a false
             });
         },
@@ -88,10 +88,12 @@ import store from '../store/store';
        },
         computed: {
             isAuth(){
+
               return store.state.auth.check;
             },
             showMenu(){
-                return this.isAuth && this.$router.name != 'auth.login';
+              this.loading = false;
+              return this.isAuth && this.$router.name != 'auth.login';
             }
         }
     };

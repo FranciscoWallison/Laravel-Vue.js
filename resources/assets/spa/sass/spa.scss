@@ -91,6 +91,12 @@ body{
   box-shadow: 0 1px 0 0 $input-error-color;
 }
 
+.container-sisfin{
+    @extend .container;
+    width: 95%;
+    max-width: 1365px;
+}
+
 .ac-appender{
   display: none;
 }

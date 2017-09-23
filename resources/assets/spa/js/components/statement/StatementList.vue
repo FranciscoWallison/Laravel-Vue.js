@@ -1,54 +1,60 @@
 <template>
         <div class="row">
+            <div class="container">
                 <page-title>
-                    <h5>Extrato</h5>
+                    <h5 class="center">Extrato</h5>
                 </page-title>
-            <div class="card-panel z-depth-5">
-                <search @on-submit="filter" :model.sync="search"></search>
-                <table class="bordered striped hightlight responsive-table">
-                    <thead>
-                    <tr>
-                        <th v-for="(key,o) in table.headers">
-                            <a href="#" @click.prevent="sortBy(key)">
-                                {{o.label}}
-                                <!-- <i class="material-icons left" v-if="searchOptions.order.key == key">
-                                    {{searchOptions.order.sort == 'asc' ? 'arrow_drop_up' : 'arrow_drop_down'}}
-                                </i> -->
-                            </a>
-                        </th>
-                    </tr>
-                    </thead>
-                    <tbody>
-                    <tr v-for="o in statements">
-                        <td>{{o.date | dateFormat}}</td>
-                        <td>{{o.bankAccount.data.name}}</td>
-                        <td>{{o.value | numberFormat true}}</td>
-                        <td>{{o.balance | numberFormat true}}</td>
-                    </tr>
-                    </tbody>
-                </table>
-                <pagination :current-page.sync="searchOptions.pagination.current_page" :per-page="searchOptions.pagination.per_page"
-                            :total-records="searchOptions.pagination.total"></pagination>
-                <table class="grey-text text-darken-2">
-                    <tbody class="left">
+            </div>
+            <div class="container-sisfin">
+                <div class="card-panel z-depth-5">
+                    <search @on-submit="filter" :model.sync="search"></search>
+                    <table class="bordered striped hightlight responsive-table">
+                        <thead>
                         <tr>
-                            <td><strong>Total de Recebimentos</strong></td>
-                            <td><strong>{{statementData.revenues.total | numberFormat true}}</strong></td>
+                            <th v-for="(key,o) in table.headers">
+                                <a href="#" @click.prevent="sortBy(key)">
+                                    {{o.label}}
+                                    <!-- <i class="material-icons left" v-if="searchOptions.order.key == key">
+                                        {{searchOptions.order.sort == 'asc' ? 'arrow_drop_up' : 'arrow_drop_down'}}
+                                    </i> -->
+                                </a>
+                            </th>
                         </tr>
-                        <tr>
-                            <td><strong>Total de Pagamentos</strong></td>
-                            <td><strong>{{statementData.expenses.total | numberFormat true}}</strong></td>
+                        </thead>
+                        <tbody>
+                        <tr v-for="o in statements">
+                            <td>{{o.date | dateFormat}}</td>
+                            <td>{{o.bankAccount.data.name}}</td>
+                            <td>{{o.value | numberFormat true}}</td>
+                            <td>{{o.balance | numberFormat true}}</td>
                         </tr>
-                        <tr>
-                            <td><strong>Quantidade de lançamentos</strong></td>
-                            <td><strong>{{statementData.count}}</strong></td>
-                        </tr>
-                        <tr>
-                            <td><strong>Total do Período</strong></td>
-                            <td><strong>{{statementData.revenues.total + statementData.expenses.total | numberFormat true}}</strong></td>
-                        </tr>
-                    </tbody>
-                </table>
+                        </tbody>
+                    </table>
+                    <div class="row center">
+                        <pagination :current-page.sync="searchOptions.pagination.current_page" :per-page="searchOptions.pagination.per_page"
+                                :total-records="searchOptions.pagination.total"></pagination>
+                    </div>
+                    <table class="grey-text text-darken-2">
+                        <tbody class="left">
+                            <tr>
+                                <td><strong>Total de Recebimentos</strong></td>
+                                <td><strong>{{statementData.revenues.total | numberFormat true}}</strong></td>
+                            </tr>
+                            <tr>
+                                <td><strong>Total de Pagamentos</strong></td>
+                                <td><strong>{{statementData.expenses.total | numberFormat true}}</strong></td>
+                            </tr>
+                            <tr>
+                                <td><strong>Quantidade de lançamentos</strong></td>
+                                <td><strong>{{statementData.count}}</strong></td>
+                            </tr>
+                            <tr>
+                                <td><strong>Total do Período</strong></td>
+                                <td><strong>{{statementData.revenues.total + statementData.expenses.total | numberFormat true}}</strong></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
             </div>
         </div>
 </template>
