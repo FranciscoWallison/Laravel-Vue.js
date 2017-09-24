@@ -4,8 +4,8 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "c324dfb8c54325874306daa61c767d82",
-    "content-hash": "3eeb4f0dd3a99aa66dfaa815556fa142",
+    "hash": "438f45af0d19474ffe89daee0e3c6290",
+    "content-hash": "1038a4239c75b1276e2bb2ce63a146e7",
     "packages": [
         {
             "name": "barryvdh/laravel-cors",
@@ -271,6 +271,54 @@
                 "tenant"
             ],
             "time": "2016-11-29 23:37:17"
+        },
+        {
+            "name": "iugu/iugu",
+            "version": "1.0.6",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/iugu/iugu-php.git",
+                "reference": "e22635ca112d2a5b003372d966261314135257ed"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/iugu/iugu-php/zipball/e22635ca112d2a5b003372d966261314135257ed",
+                "reference": "e22635ca112d2a5b003372d966261314135257ed",
+                "shasum": ""
+            },
+            "require": {
+                "ext-curl": "*",
+                "ext-json": "*",
+                "ext-mbstring": "*",
+                "php": ">=5.2"
+            },
+            "require-dev": {
+                "simpletest/simpletest": "1.1.5"
+            },
+            "type": "library",
+            "autoload": {
+                "classmap": [
+                    "lib/Iugu/"
+                ]
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Iugu team and contributors",
+                    "homepage": "https://github.com/iugu/iugu-php/contributors"
+                }
+            ],
+            "description": "iugu PHP Library",
+            "homepage": "https://iugu.com",
+            "keywords": [
+                "api",
+                "iugu",
+                "pagamentos"
+            ],
+            "time": "2015-11-25 10:36:10"
         },
         {
             "name": "jakub-onderka/php-console-color",

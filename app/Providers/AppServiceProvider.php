@@ -39,5 +39,6 @@ class AppServiceProvider extends ServiceProvider
             return $instance->setBlacklistEnabled((bool) config('jwt.blacklist_enabled'))
                             ->setPersistentClaims(config('jwt.persistent_claims'));
         });
+        \Iugu::setApiKey(env('IUGU_API_KEY'));//psr-0 integrando com a iugu
     }
 }
