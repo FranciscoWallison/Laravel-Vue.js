@@ -7,11 +7,13 @@ use Illuminate\Foundation\Support\Providers\EventServiceProvider as ServiceProvi
 use Prettus\Repository\Events\RepositoryEntityCreated;
 use Prettus\Repository\Events\RepositoryEntityUpdated;
 
-use SisFin\Listeners\BankAccountSetDefaultListener;
 use SisFin\Events\BankStoredEvent;
+use SisFin\Listeners\BankAccountSetDefaultListener;
 use SisFin\Listeners\BankLogoUploadListener;
 use SisFin\Events\BillStoredEvent;
 use SisFin\Listeners\BankAccountUpdateBalanceListener;
+use SisFin\Events\IuguSubscriptionCreatedEvent;
+use SisFin\Listeners\SubscriptionCreateListener;
 
 class EventServiceProvider extends ServiceProvider
 {
@@ -32,6 +34,9 @@ class EventServiceProvider extends ServiceProvider
         ],
         RepositoryEntityUpdated::class => [
             BankAccountSetDefaultListener::class
+        ],
+        IuguSubscriptionCreatedEvent::class => [
+            SubscriptionCreateListener::class
         ],
     ];
 

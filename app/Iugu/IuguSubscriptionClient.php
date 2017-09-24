@@ -32,7 +32,10 @@ class IuguSubscriptionClient
         if(isset($result['errors'])){
             throw new IuguSubscriptionException($result['errors']);
         }
-        event(new IuguSubscriptionCreatedEvent($result,$attributes['user_id'],$attributes['plan_id']));
+        //quando a assinatura for criada
+        event(new IuguSubscriptionCreatedEvent(
+                $result,$attributes['user_id'],$attributes['plan_id']
+            ));
         return $result;
     }
 
