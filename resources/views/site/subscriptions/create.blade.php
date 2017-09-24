@@ -20,7 +20,8 @@
         </div>
     </div>
 @endsection
-
+{{-- formação de pilha de js --}}
 @push('scripts')
+    {{-- init iugu.js --}}
     <script type="text/javascript" src="https://js.iugu.com/v2"></script>
 @endpush
