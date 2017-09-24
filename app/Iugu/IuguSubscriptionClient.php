@@ -19,8 +19,10 @@ class IuguSubscriptionClient
     public function create(array $attributes)
     {
         $paymentType = $attributes['payment_type'];
-        $attributes['payable_with'] = $paymentType;
+        $attributes['payable_with'] = $paymentType;//tipo de pagamanto
+        //caso seja cartão de credito
         $attributes['only_on_charge_success'] = $paymentType == 'credit_card' ? true : false;
+        //
         $result = \Iugu_Subscription::create(array_only($attributes, [
             'customer_id',
             'payable_with',

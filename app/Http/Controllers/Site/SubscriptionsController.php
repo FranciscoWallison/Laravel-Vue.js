@@ -24,10 +24,10 @@ class SubscriptionsController extends Controller
      */
     private $iuguSubscriptionManager;
 
-    public function __construct(PlanRepository $planRepository/*, IuguSubscriptionManager $iuguSubscriptionManager*/)
+    public function __construct(PlanRepository $planRepository, IuguSubscriptionManager $iuguSubscriptionManager)
     {
         $this->planRepository = $planRepository;
-        /*$this->iuguSubscriptionManager = $iuguSubscriptionManager;*/
+        $this->iuguSubscriptionManager = $iuguSubscriptionManager;
     }
 
     public function create()

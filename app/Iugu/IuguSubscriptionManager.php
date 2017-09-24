@@ -1,4 +1,8 @@
 <?php
+/*
+* Gerencia as assinaturas com os planos 
+*
+*/
 
 namespace SisFin\Iugu;
 
@@ -45,10 +49,10 @@ class IuguSubscriptionManager
     public function create(User $user, Plan $plan, array $data)
     {
         $client = $user->client;
-        $customer = $this->makeCustomer($client);
-        $customerId = $customer == null ? $client->code : $customer['id'];
-        $this->makePaymentMethod($customerId, $data['payment_type'], $data['token_payment']);
-
+        $customer = $this->makeCustomer($client);// quarda o codigo do client
+        $customerId = $customer == null ? $client->code : $customer['id']; // se tem cadastro na iugu
+        $this->makePaymentMethod($customerId, $data['payment_type'], $data['token_payment']);//
+        //cruando a assinatura na iugu
         return $this->iuguSubscriptionClient->create([
             'user_id' => $user->id,
             'plan_id' => $plan->id,
@@ -58,14 +62,20 @@ class IuguSubscriptionManager
         ]);
     }
 
+    /*
+    * cria o cliente na iugu
+    */
     protected function makeCustomer(Client $client)
     {
-        if($client->code == null){
+        if($client->code == null){// verificar se tem cadastro na iugu
             return $this->iuguCustomerClient->create($client->toArray());
         }
         return null;
     }
 
+    /*
+    * Gerar cadastro da forma de pagamento 
+    */
     protected function makePaymentMethod($customerId, $paymentType, $tokenPayment)
     {
         if($paymentType == 'credit_card'){

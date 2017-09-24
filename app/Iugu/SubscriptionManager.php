@@ -29,7 +29,8 @@ class SubscriptionManager
     {
         $iuguSubscription = $this->iuguSubscriptionClient->find($data['id']);
         $subscription = $this->subscriptionRepository->findByField('code', $iuguSubscription->id)->first();
-        $result = $subscription;
+        $result = $subscription; 
+
         if ($subscription && $subscription->expires_at != $iuguSubscription->expires_at) {
             $result = $this->subscriptionRepository->update([
                 'expires_at' => $iuguSubscription->expires_at,
