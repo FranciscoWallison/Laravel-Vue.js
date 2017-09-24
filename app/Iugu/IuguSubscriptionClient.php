@@ -29,6 +29,7 @@ class IuguSubscriptionClient
             'only_on_charge_success',
             'plan_identifier'
         ]));
+//dd($result); #_attributes: array 28 ~ VERIFICAR SE ESTA EM MODO TEST
         if(isset($result['errors'])){
             throw new IuguSubscriptionException($result['errors']);
         }

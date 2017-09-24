@@ -52,7 +52,7 @@ class IuguSubscriptionManager
         $customer = $this->makeCustomer($client);// quarda o codigo do client
         $customerId = $customer == null ? $client->code : $customer['id']; // se tem cadastro na iugu
         $this->makePaymentMethod($customerId, $data['payment_type'], $data['token_payment']);//
-        //cruando a assinatura na iugu
+        //criando a assinatura na iugu
         return $this->iuguSubscriptionClient->create([
             'user_id' => $user->id,
             'plan_id' => $plan->id,

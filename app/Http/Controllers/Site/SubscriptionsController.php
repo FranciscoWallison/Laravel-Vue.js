@@ -7,11 +7,11 @@ use SisFin\Http\Requests\SubscriptionCreateRequest;
 use SisFin\Repositories\PlanRepository;
 use Illuminate\Support\Facades\Auth;
 
-// use SisFin\Iugu\Exceptions\AbstractIuguException;
-// use SisFin\Iugu\Exceptions\IuguCustomerException;
-// use SisFin\Iugu\Exceptions\IuguPaymentMethodException;
-// use SisFin\Iugu\Exceptions\IuguSubscriptionException;
-// use SisFin\Iugu\IuguSubscriptionManager;
+use SisFin\Iugu\Exceptions\AbstractIuguException;
+use SisFin\Iugu\Exceptions\IuguCustomerException;
+use SisFin\Iugu\Exceptions\IuguPaymentMethodException;
+use SisFin\Iugu\Exceptions\IuguSubscriptionException;
+use SisFin\Iugu\IuguSubscriptionManager;
 
 class SubscriptionsController extends Controller
 {
@@ -44,6 +44,7 @@ class SubscriptionsController extends Controller
             $this->iuguSubscriptionManager->create(
                 Auth::user(), $plan, $request->all()
             );
+            //TO:DO mandar o codigo de barra do boleto pelo E-mail
         } catch (AbstractIuguException $e) {
             $request->session()->flash('error',$this->getMessageException($e));
             return redirect()->route('site.subscriptions.create');
