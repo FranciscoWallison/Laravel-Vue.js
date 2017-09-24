@@ -3,8 +3,8 @@
 @section('content')
     <div class="container">
         <div class="row">
-            <div class="col s8 offset-s2 z-depth-2">
-                <h3 class="center">Login</h3>
+            <div class="col s8 offset-s2 card-panel z-depth-2">
+                <h3 class="blue-grey-text center">Login</h3>
 
                 <form method="POST" action="{{ env('URL_SITE_LOGIN') }}">
                     {{ csrf_field() }}

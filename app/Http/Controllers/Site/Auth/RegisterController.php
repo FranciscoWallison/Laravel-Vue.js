@@ -4,8 +4,8 @@ namespace SisFin\Http\Controllers\Site\Auth;
 
 use SisFin\Http\Controllers\Controller;
 use SisFin\Http\Requests\UserRegisterRequest;
-use SisFin\Repositories\Interfaces\ClientRepository;
-use SisFin\Repositories\Interfaces\UserRepository;
+use SisFin\Repositories\ClientRepository;
+use SisFin\Repositories\UserRepository;
 use Illuminate\Support\Facades\Auth;
 
 class RegisterController extends Controller
@@ -37,7 +37,7 @@ class RegisterController extends Controller
 
     public function store(UserRegisterRequest $request)
     {
-        $clientData = $request->get('client');
+        $clientData = $request->get('client');//crirar primeiro o cliente tenacy
         $client = $this->clientRepository->create($clientData);
 
         $data = $request->except('client');

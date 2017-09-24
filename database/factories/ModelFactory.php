@@ -54,6 +54,7 @@ $factory->define(SisFin\Models\Client::class, function (Faker\Generator $faker){
 
     return [
         'name' => $faker->name,
+        'email' => $faker->companyEmail
     ];
 });
 
