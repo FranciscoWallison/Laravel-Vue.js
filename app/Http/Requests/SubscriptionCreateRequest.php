@@ -24,7 +24,7 @@ class SubscriptionCreateRequest extends FormRequest
     public function rules()
     {
         return [
-            'payment_type' => 'required|in:bank_slip,credit_card',
+            'payment_type' => 'required|in:bank_slip,credit_card',//tipo do pagamento boleto ou cartão
             'token_payment' => 'required_if:payment_type,credit_card',
         ];
     }

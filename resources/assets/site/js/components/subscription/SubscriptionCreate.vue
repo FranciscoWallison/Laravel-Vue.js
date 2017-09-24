@@ -51,13 +51,13 @@
                         }else{
 //console.log(response.id);//retun token
                             self.token_payment = response.id;
-                            setTimeout(()=>{
-                                $('#subscription-form')[0].submit();
+                            setTimeout(()=>{//tempo para ver o ciclo do vue.js carregar
+                                $('#subscription-form')[0].submit();//pegando o elemento e dando submit nativo
                             })
                         }
                     });
                 }else{
-                    $('#subscription-form')[0].submit();
+                    $('#subscription-form')[0].submit();//pegando o elemento e dando submit nativo
                 }
             }
         }

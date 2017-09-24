@@ -8,8 +8,10 @@
 </div>
 <div class="card-panel">
     <form id="subscription-form" method="post" :action="action">
+    
         <input type="hidden" name="_token" :value="csrf_token">
         <input type="hidden" name="token_payment" :value="token_payment">
+
         <div class="row center">
             <h5>Forma de pagamento</h5>
             <div class="input-field col s6">
