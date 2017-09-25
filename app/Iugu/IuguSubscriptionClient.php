@@ -43,6 +43,7 @@ class IuguSubscriptionClient
 
     public function suspend($id)
     {
+        /** \Iugu Subscription $result */
         $result = \Iugu_Subscription::fetch($id);
         if(isset($result['errors'])){
             throw new IuguSubscriptionException($result['errors']);

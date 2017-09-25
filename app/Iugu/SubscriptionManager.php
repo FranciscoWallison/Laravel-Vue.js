@@ -45,7 +45,9 @@ class SubscriptionManager
     {
         $this->subscriptionRepository->pushCriteria(new FindByUserCriteria());
         $subscription = $this->subscriptionRepository->find($subscriptionId);
+        //suspendendo assinatura na iugu
         $this->iuguSubscriptionClient->suspend($subscription->code);
+        //cancelando na aplicação
         $this->subscriptionRepository->update([
             'status' => Subscription::STATUS_INATIVE,
             'canceled_at' => (new Carbon())->format('Y-m-d')
