@@ -17,7 +17,6 @@ Vue.http.interceptors.push((request, next) =>{
 Vue.http.interceptors.push((request, next) => {
 	next((request) => {
 		if(request.status === 401){ // token expirado
-console.log(request.status, 'aqui');
 			return JwtToken.refreshToken()
 			.then(() => {
 				return Vue.http(request);

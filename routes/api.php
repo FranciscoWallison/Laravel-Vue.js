@@ -13,6 +13,9 @@ use Illuminate\Http\Request;
 |
 */
 
+//CUIDADO
+Route::post('hooks/iugu', 'Api\IuguController@hooks');
+
 Route::group(['middleware' => 'cors' , 'as' => 'api.'], function(){
 
 

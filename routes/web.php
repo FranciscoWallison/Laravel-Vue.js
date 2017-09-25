@@ -13,9 +13,14 @@
 
 use Illuminate\Support\Facades\Gate;
 
-Route::get('/test', function (){
-	//Illuminate\Support\Facades\Auth::loginUsingId(1);
-	dd('test');
+use SisFin\Mail\FirstSubscriptionPaid;
+use Illuminate\Support\Facades\Mail;
+
+Route::get('/testasdasdasdasdasdas', function (){
+
+    $user =  'example@example.com';
+
+	Mail::to($user)->send(new FirstSubscriptionPaid()); //foi feito o pagamento
 });
 
 Route::get('/home', function(){
@@ -60,9 +65,9 @@ Route::group(['prefix' => '/', 'as' => 'site.'], function () {
     Route::post('logout','Site\Auth\LoginController@logout');
 
 
-    // Route::group(['prefix'=>'my-financial','as'=>'my_financial','middleware'=>'auth.from_token'],function(){
-    //    Route::get('/', function(){
-    //        echo 'teste';
-    //    });
-    // });
+    Route::group(['prefix'=>'my-financial','as'=>'my_financial','middleware'=>'auth.from_token'],function(){
+       Route::get('/', function(){
+           echo 'teste'; //to:do:: implementar as informações do contrato do cliente
+       });
+    });
 });

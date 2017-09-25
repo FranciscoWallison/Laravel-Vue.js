@@ -1,5 +1,6 @@
 module.exports = {
-	api_url: 'http://127.0.0.1:8000/api',
+	api_url: 'http://192.168.1.9:8000/api',
 	app_path: '/app',
-	login_path: '#!/login'
+	login_path: '#!/login',
+	my_financial_path: '/my-financial'
 };

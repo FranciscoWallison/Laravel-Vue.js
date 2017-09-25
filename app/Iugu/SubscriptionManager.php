@@ -31,6 +31,7 @@ class SubscriptionManager
         $subscription = $this->subscriptionRepository->findByField('code', $iuguSubscription->id)->first();
         $result = $subscription; 
 
+        //verificar se assinatura local é diferente da nova assinatura
         if ($subscription && $subscription->expires_at != $iuguSubscription->expires_at) {
             $result = $this->subscriptionRepository->update([
                 'expires_at' => $iuguSubscription->expires_at,

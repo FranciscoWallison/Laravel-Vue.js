@@ -9,6 +9,7 @@ use SisFin\Iugu\Exceptions\IuguSubscriptionException;
 class IuguSubscriptionClient
 {
     public function find($id){
+        //trabalhando com gatinho
         $result = \Iugu_Subscription::fetch($id);
         if(isset($result['errors'])){
             throw new IuguSubscriptionException($result['errors']);

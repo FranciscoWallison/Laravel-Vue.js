@@ -1,4 +1,8 @@
 <?php
+/*
+* Criando gatinho
+* Administração > gatilho
+*/
 
 namespace SisFin\Iugu;
 
@@ -49,8 +53,9 @@ class OrderManager
         $iuguSubscription = $this->iuguSubscriptionClient->find($data['subscription_id']);
         $subscription = $this->subscriptionRepository->findByField('code', $iuguSubscription->id)->first();
         if ($subscription) {
-            $invoice = $iuguSubscription->recent_invoices[0];
-            $total = $this->getValue($invoice->total);
+            $invoice = $iuguSubscription->recent_invoices[0];//pegar a ultima order
+            $total = $this->getTotal($invoice->total);//pegar o valor q foi pago
+
             return $this->orderRepository->create([
                 'date_due' => $invoice->due_date,
                 'code' => $invoice->id,
@@ -63,19 +68,24 @@ class OrderManager
         }
     }
 
+    /*
+    * 
+    */
     public function paid(array $data)
     {
         $invoice = $this->iuguInvoiceClient->find($data['id']);
+        //pegando o primeiro resultado
         $order = $this->orderRepository->findByField('code',$invoice->id)->first();
+        //verificar se esta pagou ou pendente
         if($order && $order->status != Order::STATUS_PAID){
             $this->orderRepository->update([
                 'status' => Order::STATUS_PAID,
-                'payment_date' => (new Carbon())->format('Y-m-d')
+                'payment_date' => (new Carbon())->format('Y-m-d')//gerando a data de pagamento
             ], $order->id);
         }
     }
 
-    protected function getValue($value)
+    protected function getTotal($value)
     {
         $value = str_replace(' ', '', $value);
         $curr = "R$";
