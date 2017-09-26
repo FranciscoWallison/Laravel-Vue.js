@@ -13,18 +13,30 @@ Vue.http.interceptors.push((request, next) =>{
 	next();
 });
 
+let logout = ()=>{
+    store.dispatch('clearAuth');
+    window.location.href = appConfig.login_url;
+};
+
 
 Vue.http.interceptors.push((request, next) => {
 	next((request) => {
-		if(request.status === 401){ // token expirado
-			return JwtToken.refreshToken()
-			.then(() => {
-				return Vue.http(request);
-			})
-			.catch(() => {
-				store.dispatch('auth/clearAuth');
-				window.location.href = appConfig.login_url
-			});
-		}
+		switch(response.status) {
+            case 401:    // token expirado
+                return JwtToken.refreshToken()
+                    .then(() => {
+                        return Vue.http(request);
+                    })
+                    .catch(() => {
+                        logout();
+                    });
+                break;
+            default:
+                if(response.data &&
+                    response.data.hasOwnProperty('error') &&
+                    response.data.error.includes('subscription')){
+                    logout();
+                }
+        }
 	});
 })
