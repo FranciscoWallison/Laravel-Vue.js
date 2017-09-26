@@ -54,6 +54,7 @@ $factory->define(SisFin\Models\Client::class, function (Faker\Generator $faker){
 
     return [
         'name' => $faker->name,
+        'email' => $faker->companyEmail
     ];
 });
 
@@ -89,3 +90,12 @@ $factory->define(\SisFin\Models\BillReceive::class, function (Faker\Generator $f
         'done' => rand(0,1)
     ];
 });
+
+$factory->define(\SisFin\Models\Plan::class, function (Faker\Generator $faker) {
+    return [
+        'name' => $faker->word,
+        'description' => $faker->word,
+        'value' => $faker->numberBetween(10,100)
+    ];
+});
+

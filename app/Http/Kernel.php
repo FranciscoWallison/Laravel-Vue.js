@@ -56,5 +56,6 @@ class Kernel extends HttpKernel
         'guest' => \SisFin\Http\Middleware\RedirectIfAuthenticated::class,
         'throttle' => \Illuminate\Routing\Middleware\ThrottleRequests::class,
         'cors' => \Barryvdh\Cors\HandleCors::class,
+        'auth.from_token'   => \SisFin\Http\Middleware\AuthenticateFromToken::class,
     ];
 }

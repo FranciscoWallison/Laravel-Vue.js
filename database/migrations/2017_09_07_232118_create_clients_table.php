@@ -16,6 +16,8 @@ class CreateClientsTable extends Migration
         Schema::create('clients', function (Blueprint $table) {
             $table->increments('id');
             $table->string('name');
+            $table->string('email');
+            $table->string('code')->nullable(); // referencia ao cliente da iugu para fazer assinatura
             $table->timestamps();
         });
     }

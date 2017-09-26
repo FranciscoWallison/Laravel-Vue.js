@@ -59,6 +59,12 @@
                 }                
 			}
 		},
+        created(){
+           let statusUser = store.state.auth.check;
+           if(statusUser){
+                this.$router.go({name: 'dashboard'});
+           }
+        },
 		methods: {
 			login(){               
                 store.dispatch('auth/login', this.user)

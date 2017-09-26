@@ -4,7 +4,7 @@
 <div class="container">
     <div class="row">
         <div class="col s8 offset-s2 z-depth-2">
-            <h3 class="center">Code Financeiro ADMIN</h3>
+            <h3 class="center">SisFin ADMIN</h3>
             <form method="POST" action="{{ env('URL_ADMIN_LOGIN') }}">
                 {{ csrf_field() }}
                 <div class="row">

@@ -13,14 +13,14 @@
 
 use Illuminate\Support\Facades\Gate;
 
-Route::get('/test', function (){
-	//Illuminate\Support\Facades\Auth::loginUsingId(1);
+use SisFin\Mail\FirstSubscriptionPaid;
+use Illuminate\Support\Facades\Mail;
 
-	dd('test');
-});
+Route::get('/testasdasdasdasdasdas', function (){
 
-Route::get('/', function () {
-    return view('welcome');
+    $user =  'example@example.com';
+
+	Mail::to($user)->send(new FirstSubscriptionPaid()); //foi feito o pagamento
 });
 
 Route::get('/home', function(){
@@ -43,4 +43,31 @@ Route::group([
 		Route::get('home', 'HomeController@index')->name('home');
 		Route::resource('banks', 'Admin\BanksController', ['except' => 'show']);
 	});
+});
+
+
+Route::group(['prefix' => '/', 'as' => 'site.'], function () {
+    Route::get('/', function(){
+        return view('site.home');
+    })->name('home');
+
+    Route::group(['prefix' => 'subscriptions','as' => 'subscriptions.','middleware'=>'auth'], function(){
+        Route::get('create','Site\SubscriptionsController@create')->name('create');
+        Route::post('store','Site\SubscriptionsController@store')->name('store');
+        Route::get('successfully','Site\SubscriptionsController@successfully')->name('successfully');
+    });
+
+    Route::get('register','Site\Auth\RegisterController@create')->name('auth.register.create');
+    Route::post('register','Site\Auth\RegisterController@store')->name('auth.register.store');
+
+    Route::get('login','Site\Auth\LoginController@showLoginForm')->name('login');
+    Route::post('login','Site\Auth\LoginController@login');
+    Route::post('logout','Site\Auth\LoginController@logout');
+
+
+    Route::group(['prefix'=>'my-financial','as'=>'my_financial','middleware'=>'auth.from_token'],function(){
+       Route::get('/', function(){
+           echo 'teste'; //to:do:: implementar as informações do contrato do cliente
+       });
+    });
 });

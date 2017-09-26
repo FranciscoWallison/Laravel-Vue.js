@@ -38,6 +38,6 @@ class FindSubscriptionByUserClientCriteria implements CriteriaInterface
         return $model
             ->join('users','users.id','=','subscriptions.user_id')
             ->join('clients','users.client_id','=','clients.id')
-            ->where('clients.id','=',$this->clientId);
+            ->where('clients.id', '=', $this->clientId);
     }
 }

@@ -15,7 +15,9 @@ class Client extends Model implements Transformable
     use TransformableTrait;
 
     protected $fillable = [
-    	'name'
+    	'name',
+        'email',
+        'code'
     ];
 
     public function users()
