@@ -8,6 +8,8 @@ const mergeWebpack = require('webpack-merge');
 const env = require('gulp-env');
 const stringifyObject = require('stringify-object');
 const file = require('gulp-file');
+const argv = require('yargs').argv;//pegar argumentos
+
 
 const HOST = "localhost"; // constante alterar host de forma global
 
@@ -35,10 +37,13 @@ Elixir.webpack.mergeConfig(webpackDevConfig);
 
 
 gulp.task('spa-config', () => {
-	env({
-		file: '.env',
-		type: 'ini'
-	});
+	
+	if(argv._.includes('watch')){
+        env({
+            file: '.env',
+            type: 'ini'
+        });
+    }
 
 	let spaConfig = require('./spa.config');
 	let string = stringifyObject(spaConfig);
@@ -89,10 +94,18 @@ elixir((mix) => {
        //.webpack('app.js');
 
     //ficar onhado os aquivos blade e publica
-    gulp.start('spa-config','webpack-dev-server');
+    if(argv._.includes('watch')){
+        gulp.start('spa-config','webpack-dev-server');
 
-    mix.browserSync({
-    	host: HOST,
-    	proxy: `http://${HOST}:8080`
-    });
+        mix.browserSync({
+            host: HOST,
+            proxy: `http://${HOST}:8080`
+        });
+    }else{
+        //deploy
+        gulp.start('spa-config');
+        webpack(require('./webpack.config'),()=>{
+            console.log("Bundling project..");
+        });
+    }
 });
