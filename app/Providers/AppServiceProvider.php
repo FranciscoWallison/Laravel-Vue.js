@@ -4,6 +4,7 @@ namespace SisFin\Providers;
 
 use Illuminate\Support\ServiceProvider;
 use SisFin\Jwt\Manager;
+use Illuminate\Support\Facades\URL;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -19,6 +20,10 @@ class AppServiceProvider extends ServiceProvider
         //     //dd($query->sql);
         //     echo $query->sql;
         // });
+
+        if(app()->environment('prod')){
+            URL::forceSchema('https');
+        }
     }
 
     /**
