@@ -42,9 +42,10 @@
 
 
 ## libs 
+```
 1 hyn/multi-tenant (trabalhas com subdominhos)
-2 orchestral/tenanti (trabalhas com vaias instancias de bancos )
-
+2 orchestral/tenanti (trabalhas com varias instancias de bancos )
+```
 ## [Nested set model](https://en.wikipedia.org/wiki/Nested_set_model)
 
 
