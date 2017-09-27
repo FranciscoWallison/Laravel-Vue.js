@@ -3,7 +3,7 @@
   "scripts": {
     "prod": "gulp --production",
     "dev": "gulp watch",
-    "heroku-postbuild": "gulp"
+    "heroku-postbuild": "gulp" 
   },
   "devDependencies": {
     "gulp": "^3.9.1",
