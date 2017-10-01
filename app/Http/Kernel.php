@@ -57,5 +57,6 @@ class Kernel extends HttpKernel
         'throttle' => \Illuminate\Routing\Middleware\ThrottleRequests::class,
         'cors' => \Barryvdh\Cors\HandleCors::class,
         'auth.from_token'   => \SisFin\Http\Middleware\AuthenticateFromToken::class,
+        'check-subscription'   => \SisFin\Http\Middleware\CheckSubscription::class
     ];
 }
