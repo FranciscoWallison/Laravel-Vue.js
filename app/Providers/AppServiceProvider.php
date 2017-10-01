@@ -33,7 +33,7 @@ class AppServiceProvider extends ServiceProvider
      */
     public function register()
     {
-        //
+        //não precisa
         $this->app->singleton('tymon.jwt.manager', function ($app) {
             $instance = new Manager(
                 $app['tymon.jwt.provider.jwt'],

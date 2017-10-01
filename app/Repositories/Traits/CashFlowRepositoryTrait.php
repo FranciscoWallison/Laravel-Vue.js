@@ -188,7 +188,7 @@ trait CashFlowRepositoryTrait
     protected function getQueryCategoriesValuesByPeriodAndDone($model, $billTable, $dateStart, $dateEnd)
     {
         return $this->getQueryCategoriesValuesByPeriod($model, $billTable, $dateStart, $dateEnd)
-            ->whereRaw("done = true");
+            ->whereRaw("done = true");//estrutura do postgre ->where("done" , 1)
     }
 
     protected function getQueryCategoriesValuesByPeriod($model, $billTable, $dateStart, $dateEnd, $dateFormat = '%Y-%m')
@@ -197,6 +197,7 @@ trait CashFlowRepositoryTrait
         list($lft, $rgt) = [$model->getLftName(), $model->getRgtName()];
 
         $subQuery = $this->getQueryWithDepth($model);
+
         $query = $model
             ->addSelect("$table.id")
             ->addSelect("$table.name")
@@ -214,12 +215,14 @@ trait CashFlowRepositoryTrait
 
         $query->mergeBindings($subQuery);
 
+        //ver qual o tipo da conexão do banco
         if (DB::connection() instanceof PostgresConnection) {
             $dateFormat = $this->getFormatDateByDatabase($dateFormat);
             $query = $query->selectRaw("TO_CHAR(date_due, '$dateFormat') as period");
         } elseif (DB::connection() instanceof MySqlConnection) {
             $query = $query->selectRaw("DATE_FORMAT(date_due, '$dateFormat') as period");
         }
+        
         return $query;
     }
 
@@ -242,7 +245,8 @@ trait CashFlowRepositoryTrait
     protected function getFormatDateByDatabase($mySqlDateFormat)
     {
         $result = $mySqlDateFormat;
-        if (DB::connection() instanceof PostgresConnection) {
+        if (DB::connection() instanceof PostgresConnection)
+        {
             $result = str_replace('%', '', $mySqlDateFormat);
             $result = str_replace('Y', 'YYYY', $result);
             $result = str_replace('m', 'MM', $result);
