@@ -6,7 +6,7 @@ namespace SisFin\Iugu;
 use Carbon\Carbon;
 use SisFin\Criteria\FindByUserCriteria;
 use SisFin\Models\Subscription;
-use SisFin\Repositories\Interfaces\SubscriptionRepository;
+use SisFin\Repositories\SubscriptionRepository;
 
 class SubscriptionManager
 {

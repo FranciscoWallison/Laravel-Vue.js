@@ -70,7 +70,7 @@
                 store.dispatch('auth/login', this.user)
                     .then(() => this.$router.go({name: 'dashboard'}))
                     .catch((resposeError) => {
-
+console.log(resposeError, 'aqui');
                         switch ( resposeError.status ){
                             case 401:
                                 this.error.message = resposeError.data.message;
@@ -82,8 +82,7 @@
                         this.error.error = true;
                         
                     });
-                //Auth.login(this.user.email, this.user.password)
-                    
+                //Auth.login(this.user.email, this.user.password) 
 			}
 		}
 	}

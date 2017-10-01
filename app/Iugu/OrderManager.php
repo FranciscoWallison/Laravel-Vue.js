@@ -9,8 +9,8 @@ namespace SisFin\Iugu;
 
 use Carbon\Carbon;
 use SisFin\Models\Order;
-use SisFin\Repositories\Interfaces\OrderRepository;
-use SisFin\Repositories\Interfaces\SubscriptionRepository;
+use SisFin\Repositories\OrderRepository;
+use SisFin\Repositories\SubscriptionRepository;
 
 class OrderManager
 {

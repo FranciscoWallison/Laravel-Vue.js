@@ -31,8 +31,16 @@
                         [
                             'name' => 'Home',
                             'url' => route('site.home'),
-                            'active' => isRouteActive('site.home')
+                            'active' => isRouteActive('site.home'),
+                            'auth' => false,
+                            'show' => true
                         ],
+                        [
+                            'name' => 'Administração',
+                            'url' => route('site.my_financial.invite'),
+                            'active' => isRouteActive('site.my_financial.invite'),
+                            'auth' => true
+                        ]           
                 ],
                 'menusDropdown' => [],
                 'urlLogout' => env('URL_SITE_LOGOUT'),

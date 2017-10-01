@@ -65,9 +65,11 @@ Route::group(['prefix' => '/', 'as' => 'site.'], function () {
     Route::post('logout','Site\Auth\LoginController@logout');
 
 
-    Route::group(['prefix'=>'my-financial','as'=>'my_financial','middleware'=>'auth.from_token'],function(){
-       Route::get('/', function(){
-           echo 'teste'; //to:do:: implementar as informações do contrato do cliente
-       });
+    Route::group(['prefix'=>'my-financial','as'=>'my_financial.','middleware'=>'auth.from_token'],function(){
+        Route::get('/', function(){
+            return 'oi';
+        })->name('home');
+       Route::get('invite','Site\SubscriptionsController@invite')->name('invite');
+       Route::post('invite','Site\SubscriptionsController@inviteCreat')->name('invite_creat');
     });
 });

@@ -68,4 +68,23 @@ class SubscriptionsController extends Controller
             return 'Erro ao processar assinatura. Contacte o atendimento para mais detalhes.';
         }
     }
+
+    public function invite()
+    {
+        return view('site.invite');
+    }
+
+    public function inviteCreat(UserRegisterRequest $request)
+    {
+        $clientData = $request->get('client');//crirar primeiro o cliente tenacy
+        $client = $this->clientRepository->create($clientData);
+
+        $data = $request->except('client');
+        $data['client_id'] = $client->id;
+        $user = $this->userRepository->create($data);
+
+        Auth::loginUsingId($user->id);
+        return redirect()->route('site.subscriptions.create');
+    }
+
 }
