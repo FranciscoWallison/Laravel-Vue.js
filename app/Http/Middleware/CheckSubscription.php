@@ -5,7 +5,6 @@ namespace SisFin\Http\Middleware;
 use Closure;
 
 use Carbon\Carbon;
-use Closure;
 use SisFin\Criteria\FindSubscriptionByUserClientCriteria;
 use SisFin\Models\Subscription;
 use SisFin\Repositories\SubscriptionRepository;
