@@ -25,7 +25,7 @@ const mutations = {
 const actions = {
     query(context){
         return CashFlow.query().then(response => {
-console.log( response.data);
+//console.log( response.data);
             context.commit('set', response.data);
         })
     },

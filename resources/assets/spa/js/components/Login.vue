@@ -70,19 +70,20 @@
                 store.dispatch('auth/login', this.user)
                     .then(() => this.$router.go({name: 'dashboard'}))
                     .catch((resposeError) => {
-console.log(resposeError, 'aqui');
+
                         switch ( resposeError.status ){
                             case 401:
                                 this.error.message = resposeError.data.message;
                                 break;
                             default:
-                               this.error.message = "Login failed"; 
+                               this.error.message = "Login ou senha está incorreto"; 
                         }
 
                         this.error.error = true;
                         
                     });
-                //Auth.login(this.user.email, this.user.password) 
+                //Auth.login(this.user.email, this.user.password)
+                    
 			}
 		}
 	}
