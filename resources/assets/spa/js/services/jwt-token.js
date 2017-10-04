@@ -19,15 +19,16 @@ export default {
     },
     accessToken(email,password){
         return Jwt.accessToken(email, password).then((response)=>{
+console.log(response);
             this.token = response.data.token;
-            this._callEventUpdateToken(this.token);
+           // this._callEventUpdateToken(this.token);
             return response;
         });
     },
     refreshToken(){
         return Jwt.refreshToken().then((response) => {
             this.token = response.data.token;
-            this._callEventUpdateToken(this.token);
+            //this._callEventUpdateToken(this.token);
             return response;
         });
     },

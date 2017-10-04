@@ -1,0 +1,23 @@
+{
+  "name": "SisFin",
+  "start_url": "./app#!/login/",
+  "display": "standalone",
+  "icons": [
+    {
+      "src": "storage/pwa/ceep-logo-256.png",
+      "sizes": "256x256",
+      "type": "image/png"
+    },
+    {
+      "src": "storage/pwa/apple-touch-icon.png",
+      "sizes": "180x180",
+      "type": "image/png"
+    },
+    {
+      "src": "storage/pwa/favicon-32x32.png",
+      "sizes": "32x32",
+      "type": "image/png"
+    }
+
+  ]
+}

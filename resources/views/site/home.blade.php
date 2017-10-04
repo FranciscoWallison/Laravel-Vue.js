@@ -1,42 +1,69 @@
 @extends('layouts.site')
 
 @section('content')
-    <div class="container">
-        <div class="row">
-            <div class="col s12 center-align">
-                <h1>
-                    <strong>SisFin</strong>
-                    <span> é uma sistema para controle financeiro</span>
-                </h1>
-            </div>
+  <div id="index-banner" class="parallax-container">
+    <div class="section no-pad-bot">
+      <div class="container">
+        <br><br>
+        <h1 class="header center teal-text text-lighten-2">SisFin</h1>
+        <div class="row center">
+          <h5 class="header col s12 light">Controle a sua empresa em poucos cliks</h5>
         </div>
-        <div class="row">
-            <div class="col s12">
-                <div class="row card">
-                    <div class="card-content white-text center-align blue-grey">
-                        <span class="card-title">Empresarial</span>
-                    </div>
-                    <div class="card-content main-content white center-align">
-                        <p>
-                            <strong>R$ 40,00/mês</strong>
-                        </p>
-                        <ul class="collection" id="plan-business">
-                            <li class="collection-item">Contas a pagar</li>
-                            <li class="collection-item">Contas a receber</li>
-                            <li class="collection-item">Contas bancárias</li>
-                            <li class="collection-item">Extrato</li>
-                            <li class="collection-item">Fluxo de Caixa Anual</li>
-                            <li class="collection-item">Gráfico Fluxo de Caixa Mensal</li>
-                            <li class="collection-item">Notificação do saldo em tempo real</li>
-                        </ul>
-                    </div>
-                    <div class="card-action white center-align">
-                        <a href="{{route('site.subscriptions.create')}}" class="btn btn-large waves-effect waves-light blue-grey darken-2">
-                            Contratar
-                        </a>
-                    </div>
-                </div>
-            </div>
+        <div class="row center">
+          <a href="{{route('site.auth.register.create')}}" id="download-button" class="btn-large waves-effect waves-light teal lighten-1">Cadastre-se</a>
         </div>
+        <br><br>
+
+      </div>
     </div>
+
+    <div class="parallax parallax-sisfin">
+      <img src="{{asset("storage/site/imagens/businessman-2606502_1920.jpg")}}" alt="Unsplashed background img 1">
+    </div>
+  </div>
+
+
+  <div class="container">
+    <div class="section">
+
+      <!--   Icon Section   -->
+      <div class="row">
+        <div class="col s12 m3">
+          <div class="icon-block">
+          </div>
+        </div>
+
+        <div class="col s12 m6">
+          <div class="icon-block">
+            <h2 class="center brown-text"><i class="material-icons">attach_money</i></h2>
+            <h5 class="center">Plano Empresarial</h5>
+
+           <div class=" main-content white center-align">                         
+                <ul class="collection" id="plan-business"> 
+                    <li class="collection-item">Contas a pagar</li> 
+                    <li class="collection-item">Contas a receber</li> 
+                    <li class="collection-item">Contas bancárias</li> 
+                    <li class="collection-item">Extrato</li> 
+                    <li class="collection-item">Fluxo de Caixa Anual</li> 
+                    <li class="collection-item">Gráfico Fluxo de Caixa Mensal</li> 
+                    <li class="collection-item">Notificação do saldo em tempo real</li> 
+                </ul>
+                <div class="card-action white center-align"> 
+                        <a href="{{route('site.subscriptions.create')}}" class="btn btn-large waves-effect waves-light blue-grey darken-2"> 
+                            Contratar 
+                        </a> 
+                    </div> 
+            </div> 
+          </div>
+        </div>
+
+        <div class="col s12 m2">
+          <div class="icon-block">
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
 @endsection

@@ -21,7 +21,8 @@ let logout = ()=>{
 
 Vue.http.interceptors.push((request, next) => {
 	next((request) => {
-		switch(response.status) {
+
+		switch(request.status) {
             case 401:    // token expirado
                 return JwtToken.refreshToken()
                     .then(() => {
@@ -32,9 +33,9 @@ Vue.http.interceptors.push((request, next) => {
                     });
                 break;
             default:
-                if(response.data &&
-                    response.data.hasOwnProperty('error') &&
-                    response.data.error.includes('subscription')){
+                if(request.data &&
+                    request.data.hasOwnProperty('error') &&
+                    request.data.error.includes('subscription')){
                     logout();
                 }
         }

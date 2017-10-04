@@ -42,3 +42,12 @@ Vue.filter('monthYear', (value) => {
 Vue.filter('dayMonth', (value) => {
    return moment(value).format('DD/MM');
 });
+
+(function($){
+  $(function(){
+
+    $('.button-collapse').sideNav();
+    $('.parallax').parallax();
+
+  }); // end of document ready
+})(jQuery); // end of jQuery name space
