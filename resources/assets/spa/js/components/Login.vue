@@ -76,7 +76,7 @@
                                 this.error.message = resposeError.data.message;
                                 break;
                             default:
-                               this.error.message = "Login failed"; 
+                               this.error.message = "Login ou senha está incorreto"; 
                         }
 
                         this.error.error = true;

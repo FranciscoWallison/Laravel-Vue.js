@@ -4,7 +4,7 @@ namespace SisFin\Listeners;
 
 use SisFin\Events\IuguSubscriptionCreatedEvent;
 use SisFin\Models\Subscription;
-use SisFin\Repositories\Interfaces\SubscriptionRepository;
+use SisFin\Repositories\SubscriptionRepository;
 
 class SubscriptionCreateListener
 {
