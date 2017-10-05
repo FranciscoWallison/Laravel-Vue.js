@@ -1,6 +1,6 @@
 {
   "name": "SisFin",
-  "start_url": ".",
+  "start_url": "https://intense-dawn-46739.herokuapp.com/app#!/login",
   "display": "standalone",
   "related_applications": [{
     "platform": "web"
