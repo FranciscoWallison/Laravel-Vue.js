@@ -18,7 +18,7 @@
     </div>
 
     <div class="parallax parallax-sisfin">
-      <img src="{{asset("storage/site/imagens/businessman-2606502_1920.jpg")}}" alt="Unsplashed background img 1">
+      <img src="{{asset("img/site/imagens/businessman-2606502_1920.jpg")}}" alt="Unsplashed background img 1">
     </div>
   </div>
 
