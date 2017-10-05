@@ -1,7 +1,10 @@
 {
   "name": "SisFin",
-  "start_url": "./app#!/login/",
+  "start_url": ".",
   "display": "standalone",
+  "related_applications": [{
+    "platform": "web"
+  }],
   "icons": [
     {
       "src": "img/pwa/ceep-logo-256.png",
