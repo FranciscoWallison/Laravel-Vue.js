@@ -6,7 +6,7 @@
 5 Precisa de arquitetura multe-tenancy.
 6 Ideal em cloud server
 
-## O Qque é multi-tenancy?
+## O que é multi-tenancy?
 1 Tenancy Significada: Locação Arrendamento
 2 Em ti: Inquilino
 3 Vários Clientes Por Aplicação
