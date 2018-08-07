@@ -73,3 +73,9 @@ Este conceito de fonte única da verdade é muito utilizado em bancos de dados r
  ```
 
 https://intense-dawn-46739.herokuapp.com/app#!/login
+Login
+ cliente5@user.com
+ cliente15@user.com
+ cliente16@user.com
+Senha 
+ secret
