@@ -1,4 +1,4 @@
-## Oques é SaaS?
+## O que é SaaS?
 1 Significa Software como serviço
 2 Ambiente ComPatilhado.
 3 Customizações por Cliente
