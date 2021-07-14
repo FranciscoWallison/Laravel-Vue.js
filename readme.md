@@ -65,7 +65,7 @@ Este conceito de fonte única da verdade é muito utilizado em bancos de dados r
 
 ```
 
- ## Push notificantion
+ ## Push Notificantion
  ```
  http://vineeshnp.com/push-notification-on-progressive-web-apps-with-firebase-cloud-messaging/
  
