@@ -49,7 +49,6 @@
 ```
 ## [Nested set model](https://en.wikipedia.org/wiki/Nested_set_model)
 
-
 ## Vuex  Single Source of Truth (SSOT). 
 ```
 [Flux](https://facebook.github.io/flux/docs/in-depth-overview.html#content) 
