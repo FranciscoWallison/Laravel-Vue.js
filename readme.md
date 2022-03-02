@@ -1,6 +1,7 @@
 # DESATIVADO 
 ```
-Este projeto teve como objetivo de criar um sistem financeiro utilizando PWA, para o TCC do curso Sistema de informação.
+Este projeto teve como objetivo de criar um sistem financeiro utilizando PWA,
+para o TCC do curso Sistema de informação.
 ```
 
 ## Oques é SaaS?
