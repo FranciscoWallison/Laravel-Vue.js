@@ -1,3 +1,7 @@
+# DESATIVADO 
+```
+Este projeto teve como objetivo de criar um sistem financeiro utilizando PWA, para o TCC do curso Sistema de informação.
+```
 
 ## Oques é SaaS?
 - Significa Software como serviço
@@ -71,7 +75,7 @@ Este conceito de fonte única da verdade é muito utilizado em bancos de dados r
  
  https://console.firebase.google.com/project/sisfin-2bb72/settings/cloudmessaging/
  ```
-# ESTÁ DESATIVADO 
+
 ## Link para Projeto
 https://intense-dawn-46739.herokuapp.com/app#!/login
 
