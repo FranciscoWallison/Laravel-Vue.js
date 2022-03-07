@@ -6,6 +6,11 @@ Algumas tecnologias utilizadas: Laravel, Vue.js, jquery, heroku, forebase
 com push notification, php, javascript ...
 ```
 
+## Dashboard
+``` Na página principal, temos um pequeno resumo da situação financeira.```
+![image4](https://user-images.githubusercontent.com/19413241/157049090-722c0033-fdb2-4d26-b532-bcd4d9b600ed.png)
+
+
 ## Oques é SaaS?
 - Significa Software como serviço
 - Ambiente ComPatilhado.
