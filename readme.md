@@ -14,6 +14,8 @@ com push notification, php, javascript ...
 ``` Cadastro da conta bancária no sistema, para o levantamento do salto total do cliente. ```
 ![image7](https://user-images.githubusercontent.com/19413241/157230843-1787402e-3814-47f7-9ce9-397ade27267b.png)
 
+``` Na funcionalidade, fluxo de caixa, há uma tabela que tem os seguintes dados: o saldo final, saldo do mês anterior, geração de caixa, recebimentos, outras receitas, receitas de vendas, pagamento e despesas financeiras. Pode-se baixar o relatório da tabela no formato .csv.  ```
+![image6](https://user-images.githubusercontent.com/19413241/157492849-b3659e99-ee60-4105-8fbc-edc82280cc2d.png)
 
 ## Oques é SaaS?
 - Significa Software como serviço
