@@ -17,6 +17,9 @@ com push notification, php, javascript ...
 ``` Na funcionalidade, fluxo de caixa, há uma tabela que tem os seguintes dados: o saldo final, saldo do mês anterior, geração de caixa, recebimentos, outras receitas, receitas de vendas, pagamento e despesas financeiras. Pode-se baixar o relatório da tabela no formato .csv.  ```
 ![image6](https://user-images.githubusercontent.com/19413241/157492849-b3659e99-ee60-4105-8fbc-edc82280cc2d.png)
 
+```Na funcionalidade de contas a receber há uma tabela que tem os seguintes dados: valor da conta, descrição e data do vencimento da conta. No rodapé da página, há a soma das contas pagas, a pagar, vencidas e o total.```
+![image10](https://user-images.githubusercontent.com/19413241/157668935-2e97f25d-c5ab-47bc-8ec9-700c955ef1a1.png)
+
 ## Oques é SaaS?
 - Significa Software como serviço
 - Ambiente ComPatilhado.
