@@ -8,7 +8,13 @@ com push notification, php, javascript ...
 
 ## Dashboard
 ``` Na página principal, temos um pequeno resumo da situação financeira.```
+
+<details><summary><b>Dashboard  IMG</b></summary>
+<p>
+
 ![image4](https://user-images.githubusercontent.com/19413241/157049090-722c0033-fdb2-4d26-b532-bcd4d9b600ed.png)
+ 
+</p></details>
 
 ``` Cadastro da conta bancária no sistema, para o levantamento do salto total do cliente. ```
 ![image7](https://user-images.githubusercontent.com/19413241/157230843-1787402e-3814-47f7-9ce9-397ade27267b.png)
