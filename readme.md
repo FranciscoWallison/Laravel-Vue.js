@@ -25,7 +25,12 @@ com push notification, php, javascript ...
 </p></details>
 
 ``` Na funcionalidade, fluxo de caixa, há uma tabela que tem os seguintes dados: o saldo final, saldo do mês anterior, geração de caixa, recebimentos, outras receitas, receitas de vendas, pagamento e despesas financeiras. Pode-se baixar o relatório da tabela no formato .csv.  ```
+<details><summary><b>Fluxo de caixa  IMG</b></summary>
+<p>
+
 ![image6](https://user-images.githubusercontent.com/19413241/157492849-b3659e99-ee60-4105-8fbc-edc82280cc2d.png)
+ 
+</p></details>
 
 ```Na funcionalidade de contas a receber há uma tabela que tem os seguintes dados: valor da conta, descrição e data do vencimento da conta. No rodapé da página, há a soma das contas pagas, a pagar, vencidas e o total.```
 ![image8](https://user-images.githubusercontent.com/19413241/158430797-7e471e31-3e90-4a94-92ea-1fa8121a0469.png)
