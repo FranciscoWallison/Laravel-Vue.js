@@ -33,8 +33,12 @@ com push notification, php, javascript ...
 </p></details>
 
 ```Na funcionalidade de contas a receber há uma tabela que tem os seguintes dados: valor da conta, descrição e data do vencimento da conta. No rodapé da página, há a soma das contas pagas, a pagar, vencidas e o total.```
+<details><summary><b>Contas a receber  IMG</b></summary>
+<p>
+
 ![image8](https://user-images.githubusercontent.com/19413241/158430797-7e471e31-3e90-4a94-92ea-1fa8121a0469.png)
 
+</p></details>
 
 ```Na funcionalidade de contas a pagar, há uma tabela que tem os seguintes dados: valor da conta, descrição e data do vencimento da conta. No rodapé da página, há a soma das contas pagas, a pagar, vencidas e o total de pagamentos feitos. ```
 ![image10](https://user-images.githubusercontent.com/19413241/157668935-2e97f25d-c5ab-47bc-8ec9-700c955ef1a1.png)
