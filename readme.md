@@ -41,8 +41,13 @@ com push notification, php, javascript ...
 </p></details>
 
 ```Na funcionalidade de contas a pagar, há uma tabela que tem os seguintes dados: valor da conta, descrição e data do vencimento da conta. No rodapé da página, há a soma das contas pagas, a pagar, vencidas e o total de pagamentos feitos. ```
+<details><summary><b>Contas a pagar IMG</b></summary>
+<p>
+
 ![image10](https://user-images.githubusercontent.com/19413241/157668935-2e97f25d-c5ab-47bc-8ec9-700c955ef1a1.png)
 
+ </p></details>
+ 
 ## Oques é SaaS?
 - Significa Software como serviço
 - Ambiente ComPatilhado.
