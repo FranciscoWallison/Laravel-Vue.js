@@ -32,6 +32,14 @@ com push notification, php, javascript ...
  
 </p></details>
 
+```Na funcionalidade extratos a receber, há uma tabela que tem os seguintes dados: valor, saldo, lançamento e data. No rodapé da página, há a soma do total recebido, total de pagamentos, número de lançamentos e total do período.```
+<details><summary><b>Extratos a receber IMG</b></summary>
+<p>
+
+ ![image9](https://user-images.githubusercontent.com/19413241/159173964-a9bddc91-421b-4765-884d-b414a0264c64.png)
+ 
+</p></details>
+
 ```Na funcionalidade de contas a receber há uma tabela que tem os seguintes dados: valor da conta, descrição e data do vencimento da conta. No rodapé da página, há a soma das contas pagas, a pagar, vencidas e o total.```
 <details><summary><b>Contas a receber  IMG</b></summary>
 <p>
