@@ -2,7 +2,7 @@
 ```
 Este projeto teve como objetivo de criar um sistem financeiro utilizando PWA,
 para o TCC do curso Sistema de informação.
-Algumas tecnologias utilizadas: Laravel, Vue.js, jquery, heroku, forebase
+Algumas tecnologias utilizadas: Laravel, Vue.js, jquery, heroku, firebase
 com push notification, php, javascript ...
 ```
 
