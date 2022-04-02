@@ -67,7 +67,7 @@ push notification, php, javascript ...
  ----------------------------------------------------------------------------------------------
 ## Oques é SaaS?
 - Significa Software como serviço
-- Ambiente ComPatilhado.
+- Ambiente Compartilhado.
 - Customizações por Cliente
 - Atentimento a vários clientes
 - Precisa de arquitetura multe-tenancy.
