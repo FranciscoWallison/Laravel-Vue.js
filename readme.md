@@ -70,7 +70,7 @@ push notification, php, javascript ...
 - Ambiente Compartilhado.
 - Customizações por Cliente
 - Atentimento a vários clientes
-- Precisa de arquitetura multe-tenancy.
+- Utiliza arquitetura multe-tenancy.
 - Ideal em cloud server
 
 ## O que é multi-tenancy?
