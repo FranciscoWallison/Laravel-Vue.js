@@ -13,6 +13,7 @@ para o TCC do curso Sistema de informação.
 Algumas tecnologias utilizadas: Laravel, Vue.js, jquery, heroku, firebase,
 push notification, php, javascript ...
 ```
+#Telas
 
 ## Dashboard
 ``` Na página principal, temos um pequeno resumo da situação financeira.```
