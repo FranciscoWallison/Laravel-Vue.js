@@ -1,5 +1,3 @@
-# DESATIVADO POR CONTA QUE O HEROKU NÃO É MAIS GRÁTIS 
-
 ####  Proposta do Trabalho
 <details><summary><b>Texto</b></summary>
 <p>
