@@ -1,4 +1,5 @@
 ####  Proposta do Trabalho
+
 <details><summary><b>Texto</b></summary>
 <p>
  Este trabalho tem como objetivo desenvolver um Sistema de Gestão Administrativo / Financeiro, oferecendo serviços de otimização de atividades no setor financeiro, com as funcionalidades de contas a pagar e receber, gerenciamento de contas bancárias e fluxo de caixa. Além de oferecer informações que ajudam os setores estratégicos, dando apoio à tomada de decisão, oferecendo uma boa interação e acessibilidade dos serviços. Serão utilizados modelos como multi-tenancy, modelo na qual nasceu com a computação em nuvem, e PWA (Progressive Web Apps) dando uma melhor interação dos seus serviços.
@@ -11,6 +12,7 @@ para o TCC do curso Sistema de informação.
 Algumas tecnologias utilizadas: Laravel, Vue.js, jquery, heroku, firebase,
 push notification, php, javascript ...
 ```
+
 # Telas
 
 ## Dashboard
