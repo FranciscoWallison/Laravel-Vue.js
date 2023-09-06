@@ -129,7 +129,6 @@ Se eu modificar alguma coisa no armazém, todos que buscarem informações nele,
 Imaginem que exista uma biblioteca que todos componentes precisem consultar, para ter qualquer informação, porque todas as informações importantes, estão nela e somente nela.
 
 Este conceito de fonte única da verdade é muito utilizado em bancos de dados relacionais. Quando criamos uma tabela de pedidos e temos um cliente relacionado, nós apenas criamos um apontamento deste cliente, para a tabela de clientes, não estamos duplicando as informações. Deste modo, temos o id do cliente, relacionado ao pedido. Quando consultarmos, sempre teremos as fontes atualizadas, caso algué...
-
 ```
 
  ## Push Notificantion
