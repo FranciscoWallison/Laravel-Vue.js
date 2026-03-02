@@ -16,7 +16,7 @@
     "gulp": "^3.9.1",
     "gulp-env": "^0.4.0",
     "gulp-file": "^0.3.0",
-    "jquery": "2.2.4",
+    "jquery": "3.5.0",
     "jquery.animate-number": "0.0.14",
     "laravel-echo": "^1.2.3",
     "laravel-elixir": "^6.0.0-9",
